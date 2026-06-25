@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Пункт 4. Алгоритм Евклида — Интерактивный учебник</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§1. Основные понятия</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 4</span></div></div>
+<div class="container">
+<h1>Пункт 4. Алгоритм Евклида</h1>
+<p class="subtitle">§1. Основные понятия и теоремы — Теория чисел</p>
+
+<div class="section">
+<h2>📖 Теория</h2>
+
+<p>Алгоритм Евклида — способ нахождения НОД двух чисел, основанный на свойстве 3 пункта 2: если a = bq + c, то (a, b) = (b, c).</p>
+
+<div class="alg">
+<strong>Алгоритм:</strong><br>
+1. Ввести a, b (a ≥ b ≥ 0).<br>
+2. Если b = 0, то Ответ: a. Конец.<br>
+3. r := остаток от деления a на b; a := b; b := r.<br>
+4. Перейти на шаг 2.
+</div>
+
+<p>В виде цепочки равенств:</p>
+<div class="ex">
+a = b·q<sub>1</sub> + r<sub>1</sub>, 0 ≤ r<sub>1</sub> < b<br>
+b = r<sub>1</sub>·q<sub>2</sub> + r<sub>2</sub>, 0 ≤ r<sub>2</sub> < r<sub>1</sub><br>
+r<sub>1</sub> = r<sub>2</sub>·q<sub>3</sub> + r<sub>3</sub>, 0 ≤ r<sub>3</sub> < r<sub>2</sub><br>
+…<br>
+r<sub>n−2</sub> = r<sub>n−1</sub>·q<sub>n</sub> + r<sub>n</sub>, 0 ≤ r<sub>n</sub> < r<sub>n−1</sub><br>
+r<sub>n−1</sub> = r<sub>n</sub>·q<sub>n+1</sub> → (a,b) = r<sub>n</sub>
+</div>
+
+<div class="thm">
+<strong>Линейное представление НОД.</strong> Из цепочки равенств алгоритма, поднимаясь снизу вверх, можно выразить (a, b) = a·u + b·v для некоторых целых u, v.
+</div>
+
+<div class="ex">
+<strong>Пример.</strong> Найдём (525, 231):<br>
+525 = 231·2 + 63<br>
+231 = 63·3 + 42<br>
+63 = 42·1 + 21<br>
+42 = 21·2 + 0 → (525, 231) = 21<br><br>
+Линейное представление:<br>
+21 = 63 − 42·1 = 63 − (231 − 63·3) = 525·4 − 231·9 → u = 4, v = −9.
+</div>
+</div>
+
+<div class="section">
+<h2>✏️ Задания</h2>
+<p style="margin-bottom:12px; color:#555;">Примените алгоритм Евклида и найдите НОД.</p>
+
+<div id="tasks"></div>
+<div class="progress" id="progress">Решено: <span id="score">0</span> / <span id="total">0</span></div>
+<button class="reset-btn" onclick="resetAll()">🔄 Сбросить всё</button>
+</div>
+
+</div>
+
+<script>
+const tasksData = [
+  { text: 'Найдите d = (317811, 196418) — 28-е и 27-е числа Фибоначчи. Подсказка: последовательные числа Фибоначчи взаимно просты.', answer: '1', hasUV: false },
+  { text: 'Найдите d = (81719, 52003, 33649, 30107)', answer: '23', hasUV: false },
+];
+
+function renderTasks() {
+  const container = document.getElementById('tasks');
+  container.innerHTML = '';
+  tasksData.forEach((t, idx) => {
+    const div = document.createElement('div');
+    div.className = 'task';
+    let fields = '';
+    if (t.hasUV) {
+      fields = `
+        <div class="fields">
+          <span>НОД =</span>
+          <input type="text" id="ans-${idx}" placeholder="НОД">
+          <span>u =</span>
+          <input type="text" id="u-${idx}" placeholder="u">
+          <span>v =</span>
+          <input type="text" id="v-${idx}" placeholder="v">
+          <button onclick="check(${idx})">Проверить</button>
+        </div>`;
+    } else {
+      fields = `
+        <div class="fields">
+          <span>НОД =</span>
+          <input type="text" id="ans-${idx}" placeholder="ответ">
+          <button onclick="check(${idx})">Проверить</button>
+        </div>`;
+    }
+    div.innerHTML = `<p>${idx + 1}. ${t.text}</p>${fields}<div class="result" id="result-${idx}"></div>`;
+    container.appendChild(div);
+  });
+  document.getElementById('total').textContent = tasksData.length;
+  updateProgress();
+}
+
+function check(idx) {
+  const t = tasksData[idx];
+  const res = document.getElementById('result-' + idx);
+
+  if (t.hasUV) {
+    const inp = document.getElementById('ans-' + idx);
+    const uInp = document.getElementById('u-' + idx);
+    const vInp = document.getElementById('v-' + idx);
+    const v = inp.value.trim();
+    const vu = uInp.value.trim();
+    const vv = vInp.value.trim();
+    if (!v || !vu || !vv) {
+      res.innerHTML = '<span class="no">Заполните все поля.</span>';
+      return;
+    }
+    const ok = v === t.answer && vu === t.u && vv === t.v;
+    inp.className = ok ? 'correct' : 'wrong';
+    uInp.className = ok ? 'correct' : 'wrong';
+    vInp.className = ok ? 'correct' : 'wrong';
+    res.innerHTML = ok
+      ? '<span class="ok">Верно!</span>'
+      : '<span class="no">Неверно. Попробуйте ещё раз.</span>';
+  } else {
+    const inp = document.getElementById('ans-' + idx);
+    const v = inp.value.trim();
+    if (!v) {
+      res.innerHTML = '<span class="no">Введите ответ.</span>';
+      return;
+    }
+    const ok = v === t.answer;
+    inp.className = ok ? 'correct' : 'wrong';
+    res.innerHTML = ok
+      ? '<span class="ok">Верно!</span>'
+      : '<span class="no">Неверно. Попробуйте ещё раз.</span>';
+  }
+  updateProgress();
+}
+
+function updateProgress() {
+  let count = 0;
+  tasksData.forEach((_, idx) => {
+    const inp = document.getElementById('ans-' + idx);
+    if (inp && inp.className === 'correct') count++;
+  });
+  document.getElementById('score').textContent = count;
+}
+
+function resetAll() {
+  tasksData.forEach((_, idx) => {
+    const inp = document.getElementById('ans-' + idx);
+    const uInp = document.getElementById('u-' + idx);
+    const vInp = document.getElementById('v-' + idx);
+    const res = document.getElementById('result-' + idx);
+    if (inp) { inp.value = ''; inp.className = ''; }
+    if (uInp) { uInp.value = ''; uInp.className = ''; }
+    if (vInp) { vInp.value = ''; vInp.className = ''; }
+    if (res) res.innerHTML = '';
+  });
+  updateProgress();
+}
+
+renderTasks();
+</script>
+</body>
+</html>

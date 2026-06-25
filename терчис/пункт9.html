@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Пункт 9. Свойства подходящих дробей — Интерактивный учебник</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§2. Цепные дроби</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 9</span></div></div>
+<div class="container">
+
+<h1>Пункт 9. Свойства подходящих дробей</h1>
+<p class="subtitle">§2. Цепные дроби — Теория чисел</p>
+
+<div class="section">
+<h2>📖 Теория</h2>
+
+<div class="prop"><strong>Свойство 1.</strong> P<sub>s</sub>·Q<sub>s−1</sub> − Q<sub>s</sub>·P<sub>s−1</sub> = (−1)<sup>s</sup>, s &gt; 0.</div>
+
+<div class="prop"><strong>Свойство 2.</strong> δ<sub>s</sub> − δ<sub>s−1</sub> = (−1)<sup>s</sup> / (Q<sub>s</sub>·Q<sub>s−1</sub>), s &gt; 1.</div>
+
+<div class="prop"><strong>Свойство 3.</strong> Дробь P<sub>s</sub>/Q<sub>s</sub> — несократима.</div>
+
+<div class="prop"><strong>Свойство 4.</strong> Q<sub>s</sub> ≥ F<sub>s+1</sub> (число Фибоначчи), рост не медленнее Фибоначчи.</div>
+
+<div class="prop"><strong>Свойство 5.</strong> Для бесконечной цепной дроби последовательность подходящих дробей сходится.</div>
+
+<div class="prop"><strong>Свойство 6.</strong> Число α лежит между δ<sub>s−1</sub> и δ<sub>s</sub>, причём ближе к δ<sub>s</sub>.</div>
+
+<div class="prop"><strong>Свойство 7.</strong> Разложение в цепную дробь единственно.</div>
+</div>
+
+<div class="section">
+<h2>✏️ Задания</h2>
+<p style="margin-bottom:12px;color:#86868b;">Задачки из методички.</p>
+
+<div id="tasks"></div>
+<div class="progress" id="progress">Решено: <span id="score">0</span> / <span id="total">0</span></div>
+<button class="reset-btn" onclick="resetAll()">🔄 Сбросить всё</button>
+</div>
+
+</div>
+
+<script>
+const tasksData = [
+  {
+    type: 'text',
+    text: 'Вычислите разность δ<sub>2</sub> − δ<sub>1</sub> для √2 = [1; 2, 2, 2, …]',
+    answer: '-1/2',
+    hint: 'δ₁ = 1/1, δ₂ = 3/2, используйте свойство 2.'
+  },
+  {
+    type: 'text',
+    text: 'Вычислите разность δ<sub>3</sub> − δ<sub>2</sub> для √2',
+    answer: '1/10',
+    hint: 'δ₂ = 3/2, δ₃ = 7/5, используйте свойство 2.'
+  },
+  {
+    type: 'text',
+    text: 'Используя свойство 1, найдите определитель: P<sub>3</sub>·Q<sub>2</sub> − Q<sub>3</sub>·P<sub>2</sub> для √2',
+    answer: '-1',
+    hint: 'P₂ = 3, Q₂ = 2, P₃ = 7, Q₃ = 5.'
+  },
+  {
+    type: 'text',
+    text: 'Проверьте свойство 3: найдите НОД(P<sub>4</sub>, Q<sub>4</sub>) для √2',
+    answer: '1',
+    hint: 'P₄ = 17, Q₄ = 12, они взаимно просты.'
+  },
+  {
+    type: 'text',
+    text: 'Последовательность задана рекуррентно: aₙ = aₙ₋₁ + 2aₙ₋₂, a₁ = 0, a₂ = 6. Найдите a₅.',
+    answer: '30'
+  },
+  {
+    type: 'text',
+    text: 'Найдите a₆ для той же последовательности.',
+    answer: '66'
+  },
+  {
+    type: 'select',
+    text: 'Верно ли, что aₙ = (11+10√10)ⁿ + (11−10√10)ⁿ является целым числом при любом n = 0, 1, 2, …?',
+    answer: 'да'
+  },
+  {
+    type: 'xy',
+    text: 'Решите диофантово уравнение 215x − 157y = 1. Найдите одно целое решение (x₀, y₀).',
+    a: 215,
+    b: -157,
+    c: 1
+  }
+];
+
+function renderTasks() {
+  const container = document.getElementById('tasks');
+  container.innerHTML = '';
+  tasksData.forEach((t, idx) => {
+    const div = document.createElement('div');
+    div.className = 'task';
+    let html = `<p>${idx + 1}. ${t.text}</p><div class="fields">`;
+    if (t.type === 'select') {
+      html += `
+        <select id="sel-${idx}">
+          <option value="">--</option>
+          <option value="да">да</option>
+          <option value="нет">нет</option>
+        </select>
+        <button onclick="check(${idx})">Проверить</button>
+      `;
+    } else if (t.type === 'xy') {
+      html += `
+        <span>x₀ =</span>
+        <input type="text" id="x-${idx}" placeholder="x">
+        <span>y₀ =</span>
+        <input type="text" id="y-${idx}" placeholder="y">
+        <button onclick="check(${idx})">Проверить</button>
+      `;
+    } else {
+      html += `
+        <input type="text" id="ans-${idx}" placeholder="ответ" style="width:120px;">
+        <button onclick="check(${idx})">Проверить</button>
+      `;
+    }
+    html += `</div><div class="result" id="result-${idx}"></div>`;
+    div.innerHTML = html;
+    container.appendChild(div);
+  });
+  document.getElementById('total').textContent = tasksData.length;
+  updateProgress();
+}
+
+function check(idx) {
+  const t = tasksData[idx];
+  const res = document.getElementById('result-' + idx);
+
+  if (t.type === 'select') {
+    const sel = document.getElementById('sel-' + idx);
+    const val = sel.value;
+    if (val === t.answer) {
+      sel.className = 'correct';
+      res.innerHTML = '<span class="ok">Верно!</span>';
+    } else {
+      sel.className = 'wrong';
+      res.innerHTML = '<span class="no">Неверно. Попробуйте ещё раз.</span>';
+    }
+    updateProgress();
+    return;
+  }
+
+  if (t.type === 'xy') {
+    const xInp = document.getElementById('x-' + idx);
+    const yInp = document.getElementById('y-' + idx);
+    const xv = xInp.value.trim();
+    const yv = yInp.value.trim();
+    if (!xv || !yv) {
+      res.innerHTML = '<span class="no">Заполните оба поля.</span>';
+      return;
+    }
+    const xVal = parseInt(xv, 10);
+    const yVal = parseInt(yv, 10);
+    if (isNaN(xVal) || isNaN(yVal)) {
+      res.innerHTML = '<span class="no">Введите целые числа.</span>';
+      return;
+    }
+    if (t.a * xVal + t.b * yVal === t.c) {
+      xInp.className = 'correct';
+      yInp.className = 'correct';
+      res.innerHTML = '<span class="ok">Верно!</span>';
+    } else {
+      xInp.className = 'wrong';
+      yInp.className = 'wrong';
+      res.innerHTML = '<span class="no">Неверно. Попробуйте ещё раз.</span>';
+    }
+    updateProgress();
+    return;
+  }
+
+  const inp = document.getElementById('ans-' + idx);
+  const v = inp.value.trim();
+  if (!v) {
+    res.innerHTML = '<span class="no">Введите ответ.</span>';
+    return;
+  }
+  const ok = v === t.answer;
+  inp.className = ok ? 'correct' : 'wrong';
+  res.innerHTML = ok
+    ? '<span class="ok">Верно!</span>'
+    : '<span class="no">Неверно. Попробуйте ещё раз. ' + (t.hint || '') + '</span>';
+  updateProgress();
+}
+
+function updateProgress() {
+  let count = 0;
+  tasksData.forEach((t, idx) => {
+    if (t.type === 'select') {
+      const sel = document.getElementById('sel-' + idx);
+      if (sel && sel.className === 'correct') count++;
+    } else if (t.type === 'xy') {
+      const xInp = document.getElementById('x-' + idx);
+      if (xInp && xInp.className === 'correct') count++;
+    } else {
+      const inp = document.getElementById('ans-' + idx);
+      if (inp && inp.className === 'correct') count++;
+    }
+  });
+  document.getElementById('score').textContent = count;
+}
+
+function resetAll() {
+  tasksData.forEach((t, idx) => {
+    const res = document.getElementById('result-' + idx);
+    if (t.type === 'select') {
+      const sel = document.getElementById('sel-' + idx);
+      if (sel) { sel.value = ''; sel.className = ''; }
+    } else if (t.type === 'xy') {
+      const xInp = document.getElementById('x-' + idx);
+      const yInp = document.getElementById('y-' + idx);
+      if (xInp) { xInp.value = ''; xInp.className = ''; }
+      if (yInp) { yInp.value = ''; yInp.className = ''; }
+    } else {
+      const inp = document.getElementById('ans-' + idx);
+      if (inp) { inp.value = ''; inp.className = ''; }
+    }
+    if (res) res.innerHTML = '';
+  });
+  updateProgress();
+}
+
+renderTasks();
+</script>
+</body>
+</html>

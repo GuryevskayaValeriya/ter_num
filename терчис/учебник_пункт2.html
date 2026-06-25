@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Пункт 2. Наибольший общий делитель — Интерактивный учебник</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§1. Основные понятия</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 2</span></div></div>
+<div class="container">
+<h1>Пункт 2. Наибольший общий делитель</h1>
+<p class="subtitle">§1. Основные понятия и теоремы — Теория чисел</p>
+
+<div class="section">
+<h2>📖 Теория</h2>
+
+<div class="def">
+<strong>Определение.</strong> Число <em>d</em> ∈ ℤ, делящее одновременно числа <em>a, b, c, …, k</em> ∈ ℤ, называется <strong>общим делителем</strong> этих чисел. Наибольшее <em>d</em> с таким свойством называется <strong>наибольшим общим делителем</strong>.<br>
+Обозначение: <em>d</em> = (a, b, c, …, k).
+</div>
+
+<div class="theorem">
+<strong>Теорема (Свойство 1).</strong> Если (a, b) = d, то найдутся такие целые числа u и v, что d = a·u + b·v.
+</div>
+
+<p>Это представление НОД называется <strong>линейным представлением</strong> или соотношением Безу.</p>
+
+<div class="prop">
+<strong>Свойство 2.</strong> Для любых целых a и k: (a, ka) = a; (1, a) = 1.
+</div>
+
+<div class="prop">
+<strong>Свойство 3.</strong> Если a = bq + c, то совокупность общих делителей a и b совпадает с совокупностью общих делителей b и c. В частности, (a, b) = (b, c).
+</div>
+
+<div class="prop">
+<strong>Свойство 4.</strong> (am, bm) = m·(a, b).
+</div>
+
+<div class="prop">
+<strong>Свойство 5.</strong> Пусть s — делитель a и b. Тогда (a/s, b/s) = (a, b)/s.
+</div>
+
+<div class="prop">
+<strong>Свойство 6.</strong> (a/(a,b), b/(a,b)) = 1.
+</div>
+
+<div class="prop">
+<strong>Свойство 7.</strong> Если (a, b) = 1, то (ac, b) = (c, b).
+</div>
+
+<div class="euclid">
+<strong>Алгоритм Евклида.</strong> Последовательно применяя свойство 3, можно эффективно находить НОД:<br>
+<em>a</em> = <em>b</em>·q<sub>1</sub> + r<sub>1</sub>, 0 ≤ r<sub>1</sub> < |b|<br>
+<em>b</em> = r<sub>1</sub>·q<sub>2</sub> + r<sub>2</sub>, 0 ≤ r<sub>2</sub> < r<sub>1</sub><br>
+r<sub>1</sub> = r<sub>2</sub>·q<sub>3</sub> + r<sub>3</sub>, 0 ≤ r<sub>3</sub> < r<sub>2</sub><br>
+…<br>
+r<sub>k−1</sub> = r<sub>k</sub>·q<sub>k+1</sub> + 0 → (a, b) = r<sub>k</sub>.
+</div>
+
+<div class="example-box">
+<strong>Пример.</strong> Найдём (84, 30) алгоритмом Евклида:<br>
+84 = 30·2 + 24<br>
+30 = 24·1 + 6<br>
+24 = 6·4 + 0 → (84, 30) = 6.<br><br>
+<strong>Проверка:</strong> 6 = 30 − 24·1 = 30 − (84 − 30·2) = 30·3 + 84·(−1) → u = −1, v = 3.
+</div>
+</div>
+
+<div class="section">
+<h2>✏️ Задания</h2>
+<p style="margin-bottom:12px; color:#555;">Задачи из методички.</p>
+
+<div id="tasks"></div>
+<div class="progress" id="progress">Решено: <span id="score">0</span> / <span id="total">0</span></div>
+<button class="reset-btn" onclick="resetAll()">🔄 Сбросить всё</button>
+</div>
+
+</div>
+
+<script>
+const tasksData = [
+  { text: 'Верно ли, что если d = (a₁, a₂, …, aₙ) — наибольший общий делитель чисел a₁, a₂, …, aₙ, то найдутся целые числа v₁, v₂, …, vₙ такие, что d = a₁v₁ + a₂v₂ + … + aₙvₙ?', type: 'select', answer: 'да' },
+  { text: 'Вася любит Машу. Маша тоже любит Васю, но согласна выйти за него замуж только если наибольшие общие делители пар A = (2⁵·3·5·13·453, 5·11·21⁶) и B = (6·35·10, 17·15·55⁴) совпадают. Есть ли у Васи шанс? Совпадают ли НОД?', type: 'select', answer: 'нет' },
+];
+
+function renderTasks() {
+  const container = document.getElementById('tasks');
+  container.innerHTML = '';
+  tasksData.forEach((t, idx) => {
+    const div = document.createElement('div');
+    div.className = 'task';
+    div.id = 'task-' + idx;
+    let fieldHtml;
+    if (t.type === 'select') {
+      fieldHtml = `
+        <select id="sel-${idx}">
+          <option value="">— выберите —</option>
+          <option value="да">да</option>
+          <option value="нет">нет</option>
+        </select>`;
+    } else {
+      fieldHtml = `<span>НОД =</span> <input type="text" id="ans-${idx}" placeholder="ответ">`;
+    }
+    div.innerHTML = `
+      <p>${idx + 1}. ${t.text}</p>
+      <div class="fields">
+        ${fieldHtml}
+        <button onclick="check(${idx})">Проверить</button>
+      </div>
+      <div class="result" id="result-${idx}"></div>
+    `;
+    container.appendChild(div);
+  });
+  document.getElementById('total').textContent = tasksData.length;
+  updateProgress();
+}
+
+function check(idx) {
+  const t = tasksData[idx];
+  const res = document.getElementById('result-' + idx);
+  const el = document.getElementById('sel-' + idx) || document.getElementById('ans-' + idx);
+
+  if (t.type === 'select') {
+    if (!el.value) {
+      res.innerHTML = '<span class="no">Выберите ответ.</span>';
+      return;
+    }
+    if (el.value === t.answer) {
+      el.className = 'correct';
+      res.innerHTML = '<span class="ok">Верно!</span>';
+    } else {
+      el.className = 'wrong';
+      res.innerHTML = '<span class="no">Неверно. Попробуйте ещё раз.</span>';
+    }
+  } else {
+    const val = parseInt(el.value, 10);
+    if (isNaN(val)) {
+      res.innerHTML = '<span class="no">Введите число.</span>';
+      return;
+    }
+    if (val === t.answer) {
+      el.className = 'correct';
+      res.innerHTML = '<span class="ok">Верно!</span>';
+    } else {
+      el.className = 'wrong';
+      res.innerHTML = '<span class="no">Неверно. Попробуйте ещё раз.</span>';
+    }
+  }
+  updateProgress();
+}
+
+function updateProgress() {
+  let count = 0;
+  tasksData.forEach((_, idx) => {
+    const el = document.getElementById('sel-' + idx) || document.getElementById('ans-' + idx);
+    if (el && el.className === 'correct') count++;
+  });
+  document.getElementById('score').textContent = count;
+}
+
+function resetAll() {
+  tasksData.forEach((_, idx) => {
+    const el = document.getElementById('sel-' + idx) || document.getElementById('ans-' + idx);
+    const res = document.getElementById('result-' + idx);
+    if (el) { el.value = ''; el.className = ''; }
+    if (res) res.innerHTML = '';
+  });
+  updateProgress();
+}
+
+renderTasks();
+</script>
+</body>
+</html>

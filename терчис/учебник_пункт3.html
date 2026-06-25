@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Пункт 3. Взаимно простые числа — Интерактивный учебник</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§1. Основные понятия</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 3</span></div></div>
+<div class="container">
+<h1>Пункт 3. Взаимно простые числа</h1>
+<p class="subtitle">§1. Основные понятия и теоремы — Теория чисел</p>
+
+<div class="section">
+<h2>📖 Теория</h2>
+
+<div class="def">
+<strong>Определение.</strong> Целые числа <em>a</em> и <em>b</em> называются <strong>взаимно простыми</strong>, если (a, b) = 1.
+</div>
+
+<p>Из свойства 1 пункта 2 следует:</p>
+<div class="thm">
+<strong>Критерий.</strong> Два числа <em>a</em> и <em>b</em> взаимно просты <strong>тогда и только тогда</strong>, когда найдутся целые числа <em>u</em> и <em>v</em> такие, что <em>au + bv = 1</em>.
+</div>
+
+<p>В пункте также вводится понятие <strong>плотности</strong> последовательности — вероятности наугад выбрать число из заданного множества.</p>
+
+<div class="def">
+<strong>Определение.</strong> Пусть X = {x<sub>1</sub>, x<sub>2</sub>, …} — строго возрастающая последовательность натуральных чисел. Число<br>
+<div class="formula">ρ = lim<sub>N→∞</sub> ξ(N; X) / N</div>
+называется <strong>(верхней асимптотической) плотностью</strong> последовательности X в ℕ, где ξ(N; X) — число членов X, не превосходящих N.
+</div>
+
+<div class="ex">
+<strong>Пример 1.</strong> Чётные числа: {2, 4, 6, …}. Плотность = 1/2.<br>
+<strong>Пример 2.</strong> Степени двойки: {2, 4, 8, 16, …}. Плотность = 0.
+</div>
+
+<p>Ответ на вопрос о частоте появления пары взаимно простых чисел даёт удивительная теорема, открытая в 1881 году итальянцем Э. Чезаро.</p>
+
+<div class="thm">
+<strong>Теорема (Чезаро).</strong> Вероятность выбрать из ℕ² пару взаимно простых чисел равна 6/π². Точнее, плотность множества X = {(u, v) ∈ ℕ² : (u, v) = 1} существует и равна<br>
+<div class="formula">lim<sub>N→∞</sub> ξ(N; X) / N² = 6/π² ≈ 0,6079.</div>
+Таким образом, примерно в 60% случаев наугад выбранная пара натуральных чисел оказывается взаимно простой. Поразительно, что в ответе возникло число π — загадочное и вездесущее!
+</div>
+
+</div>
+
+<div class="section">
+<h2>✏️ Задания</h2>
+<p style="margin-bottom:12px; color:#555;">Задачи из методички.</p>
+<div id="tasks"></div>
+<div class="progress" id="progress">Решено: <span id="score">0</span> / <span id="total">0</span></div>
+<button class="reset-btn" onclick="resetAll()">🔄 Сбросить всё</button>
+</div>
+
+</div>
+
+<script>
+const tasksData = [
+  // Задачки 1-3 (да/нет)
+  { text: 'Из любых пяти последовательных целых чисел всегда можно выбрать одно, взаимно простое со всеми остальными', answer: 'да' },
+  { text: 'Из любых 16 последовательных целых чисел всегда можно выбрать одно, взаимно простое со всеми остальными', answer: 'да' },
+  { text: 'Каждые два числа последовательности 2¹+1, 2²+1, 2⁴+1, 2⁸+1, …, 2^{2ⁿ}+1, … являются взаимно простыми', answer: 'да' },
+  // Задачка 5 (плотность, текст)
+  { text: 'Найдите плотность последовательности xₙ = 5n + 2', answer: '1/5', type: 'text' },
+  { text: 'Найдите плотность последовательности xₙ = n²', answer: '0', type: 'text' },
+  { text: 'Найдите плотность последовательности xₙ = n + 1000', answer: '1', type: 'text' },
+  // Задачка 6 (плотность, текст)
+  { text: 'Найдите плотность множества всех простых чисел', answer: '0', type: 'text' },
+  // Задачка 8 (плотность пар, текст)
+  { text: 'Найдите плотность множества пар (3n+1, 4k+3), где n,k ∈ ℕ', answer: '1/12', type: 'text' },
+  { text: 'Найдите плотность множества пар (2n, 4k+3), где n,k ∈ ℕ', answer: '1/8', type: 'text' },
+  { text: 'Найдите плотность множества пар (2n, 3k), где n,k ∈ ℕ', answer: '1/6', type: 'text' },
+];
+
+function renderTasks() {
+  const container = document.getElementById('tasks');
+  container.innerHTML = '';
+  tasksData.forEach((t, idx) => {
+    const div = document.createElement('div');
+    div.className = 'task';
+    const fieldHtml = t.type === 'text'
+      ? `<input type="text" id="inp-${idx}" placeholder="Введите ответ">`
+      : `<select id="sel-${idx}">
+          <option value="">— выберите —</option>
+          <option value="да">да</option>
+          <option value="нет">нет</option>
+        </select>`;
+    div.innerHTML = `
+      <p>${idx + 1}. ${t.text}</p>
+      <div class="fields">
+        ${fieldHtml}
+        <button onclick="check(${idx})">Проверить</button>
+      </div>
+      <div class="result" id="result-${idx}"></div>
+    `;
+    container.appendChild(div);
+  });
+  document.getElementById('total').textContent = tasksData.length;
+  updateProgress();
+}
+
+function check(idx) {
+  const t = tasksData[idx];
+  const sel = document.getElementById('sel-' + idx);
+  const inp = document.getElementById('inp-' + idx);
+  const element = sel || inp;
+  const res = document.getElementById('result-' + idx);
+
+  let value;
+  if (element.tagName === 'SELECT') {
+    value = element.value;
+    if (!value) {
+      res.innerHTML = '<span class="no">Выберите ответ.</span>';
+      return;
+    }
+  } else {
+    value = element.value.trim();
+    if (!value) {
+      res.innerHTML = '<span class="no">Введите ответ.</span>';
+      return;
+    }
+  }
+
+  if (value === t.answer) {
+    element.className = 'correct';
+    res.innerHTML = '<span class="ok">Верно!</span>';
+  } else {
+    element.className = 'wrong';
+    res.innerHTML = '<span class="no">Неверно. Попробуйте ещё раз.</span>';
+  }
+  updateProgress();
+}
+
+function updateProgress() {
+  let count = 0;
+  tasksData.forEach((_, idx) => {
+    const sel = document.getElementById('sel-' + idx);
+    const inp = document.getElementById('inp-' + idx);
+    const element = sel || inp;
+    if (element && element.className === 'correct') count++;
+  });
+  document.getElementById('score').textContent = count;
+}
+
+function resetAll() {
+  tasksData.forEach((_, idx) => {
+    const sel = document.getElementById('sel-' + idx);
+    const inp = document.getElementById('inp-' + idx);
+    const res = document.getElementById('result-' + idx);
+    if (sel) { sel.value = ''; sel.className = ''; }
+    if (inp) { inp.value = ''; inp.className = ''; }
+    if (res) res.innerHTML = '';
+  });
+  updateProgress();
+}
+
+renderTasks();
+</script>
+</body>
+</html>

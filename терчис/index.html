@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Теория чисел — Интерактивный учебник</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.theme {
+  background: #fff;
+  border-radius: 14px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  overflow: hidden;
+  border: 1px solid #e8e8ed;
+}
+.theme-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+}
+.theme-header:hover { background: #f8f8fa; }
+.theme-header h2 {
+  margin: 0;
+  border: none;
+  padding: 0;
+  font-size: 1.05em;
+  font-weight: 700;
+  color: #1d1d1f;
+}
+.theme-header .arrow {
+  font-size: 0.85em;
+  color: #c7c7cc;
+  transition: transform 0.3s;
+}
+.theme-header .arrow.open { transform: rotate(180deg); color: #1d1d1f; }
+.theme-body { padding: 0 24px 16px; display: none; }
+.theme-body.open { display: block; }
+
+.badge {
+  display: inline-block;
+  font-size: 0.65em;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 20px;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+.badge.ready { background: #16a34a; color: #fff; }
+.badge.soon { background: #f0f0f0; color: #aaa; }
+
+.punkt-list { display: grid; gap: 6px; margin-top: 4px; }
+.punkt-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #1d1d1f;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+.punkt-link:hover {
+  background: #f8f8fa;
+  border-color: #e8e8ed;
+}
+.punkt-link .num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #1d1d1f;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.82em;
+  flex-shrink: 0;
+}
+.punkt-link .num.placeholder {
+  background: #e8e8ed;
+  color: #aaa;
+}
+.punkt-link .name { flex: 1; font-size: 0.92em; }
+.punkt-link .status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.punkt-link .status-dot.ready { background: #16a34a; }
+.punkt-link .status-dot.soon { background: #d1d1d6; }
+.punkt-link:hover .num.placeholder { background: #d1d1d6; }
+</style>
+</head>
+<body>
+
+<div class="top-nav"><div class="top-nav-inner"><span class="brand">Теория чисел</span><span class="sep">/</span><span style="color:rgba(255,255,255,0.4);font-size:0.85em;">Содержание</span></div></div>
+
+<div class="container">
+
+<h1>Теория чисел</h1>
+<p class="subtitle">Интерактивный учебник по материалам учебного пособия «Теория чисел» Сизый С.В.</p>
+
+<div id="themes"></div>
+
+<div style="text-align:center;margin-top:36px;">
+  <a href="https://elar.urfu.ru/bitstream/10995/1652/4/1334940_schoolbook.pdf" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:10px;border:1.5px solid #e8e8ed;text-decoration:none;color:#555;font-size:0.85em;font-weight:500;transition:all 0.2s;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+    Открыть оригинал PDF
+  </a>
+</div>
+</div>
+
+<script>
+const SECTIONS = [
+  {
+    title: '§1. Основные понятия и теоремы',
+    subtitle: 'Пункты 1–6',
+    items: [
+      { num: 1, name: 'Деление с остатком', file: 'учебник_пункт1.html', ready: true },
+      { num: 2, name: 'Наибольший общий делитель', file: 'учебник_пункт2.html', ready: true },
+      { num: 3, name: 'Взаимно простые числа', file: 'учебник_пункт3.html', ready: true },
+      { num: 4, name: 'Алгоритм Евклида', file: 'учебник_пункт4.html', ready: true },
+      { num: 5, name: 'Линейные диофантовы уравнения с двумя неизвестными', file: 'учебник_пункт5.html', ready: true },
+      { num: 6, name: 'Простые числа и «основная» теорема арифметики', file: 'учебник_пункт6.html', ready: true },
+    ]
+  },
+  {
+    title: '§2. Цепные дроби',
+    subtitle: 'Пункты 7–11',
+    items: [
+      { num: 7, name: 'Разложение чисел в цепные дроби', file: 'пункт7.html', ready: true },
+      { num: 8, name: 'Вычисление подходящих дробей', file: 'пункт8.html', ready: true },
+      { num: 9, name: 'Свойства подходящих дробей', file: 'пункт9.html', ready: true },
+      { num: 10, name: 'Континуанты', file: 'пункт10.html', ready: true },
+      { num: 11, name: 'Ещё кое-что о цепных дробях', file: 'пункт11.html', ready: true },
+    ]
+  },
+  {
+    title: '§3. Важнейшие функции в теории чисел',
+    subtitle: 'Пункты 12–15',
+    items: [
+      { num: 12, name: 'Целая и дробная часть', ready: false },
+      { num: 13, name: 'Мультипликативные функции', ready: false },
+      { num: 14, name: 'Примеры мультипликативных функций', ready: false },
+      { num: 15, name: 'ζ-функция Римана', ready: false },
+    ]
+  },
+  {
+    title: '§4. Теория сравнений',
+    subtitle: 'Пункты 16–23',
+    items: [
+      { num: 16, name: 'Определения и простейшие свойства', ready: false },
+      { num: 17, name: 'Полная и приведенная системы вычетов', ready: false },
+      { num: 18, name: 'Теорема Эйлера и теорема Ферма', ready: false },
+      { num: 19, name: 'Сравнения первой степени', ready: false },
+      { num: 20, name: 'Сравнения любой степени по простому модулю', ready: false },
+      { num: 21, name: 'Сравнения любой степени по составному модулю', ready: false },
+      { num: 22, name: 'Сравнения второй степени', ready: false },
+      { num: 23, name: 'Дальнейшие свойства символа Лежандра', ready: false },
+    ]
+  },
+  {
+    title: '§5. Трансцендентные числа',
+    subtitle: 'Пункты 24–28',
+    items: [
+      { num: 24, name: 'Мера и категория на прямой', ready: false },
+      { num: 25, name: 'Числа Лиувилля', ready: false },
+      { num: 26, name: 'Число e ≈ 2,718281828459045…', ready: false },
+      { num: 27, name: 'Число π ≈ 3,141592653589793…', ready: false },
+      { num: 28, name: 'Трансцендентность значений функции e<sup>z</sup>', ready: false },
+    ]
+  }
+];
+
+function render() {
+  const container = document.getElementById('themes');
+  const savedIdx = parseInt(localStorage.getItem('openSection')) || 0;
+
+  SECTIONS.forEach((section, si) => {
+    const themeDiv = document.createElement('div');
+    themeDiv.className = 'theme';
+
+    const readyCount = section.items.filter(i => i.ready).length;
+    const header = document.createElement('div');
+    header.className = 'theme-header';
+    header.innerHTML = `
+      <h2>${section.title} <span class="badge ${readyCount > 0 ? 'ready' : 'soon'}">${readyCount}/${section.items.length}</span></h2>
+      <span class="arrow">▼</span>
+    `;
+    const body = document.createElement('div');
+    body.className = 'theme-body' + (si === savedIdx ? ' open' : '');
+    if (si === savedIdx) header.querySelector('.arrow').classList.add('open');
+
+    header.addEventListener('click', () => {
+      body.classList.toggle('open');
+      header.querySelector('.arrow').classList.toggle('open');
+      localStorage.setItem('openSection', si);
+    });
+
+    const list = document.createElement('div');
+    list.className = 'punkt-list';
+
+    section.items.forEach(item => {
+      const a = document.createElement('a');
+      if (item.ready && item.file) {
+        a.href = item.file;
+      } else {
+        a.href = 'пункт' + item.num + '.html';
+      }
+      a.className = 'punkt-link';
+      a.innerHTML = `
+        <span class="num ${item.ready ? '' : 'placeholder'}">${item.num}</span>
+        <span class="name">${item.name}</span>
+        <span class="status-dot ${item.ready ? 'ready' : 'soon'}"></span>
+      `;
+      list.appendChild(a);
+    });
+
+    body.appendChild(list);
+    themeDiv.appendChild(header);
+    themeDiv.appendChild(body);
+    container.appendChild(themeDiv);
+  });
+}
+
+render();
+</script>
+</body>
+</html>

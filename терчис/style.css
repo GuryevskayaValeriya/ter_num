@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: #f7f7f9;
+  color: #1d1d1f;
+  padding: 0;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+/* ===== TOP NAV ===== */
+.top-nav {
+  background: #1d1d1f;
+  padding: 14px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.top-nav-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.top-nav a {
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  font-size: 0.85em;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+.top-nav a:hover { color: #fff; }
+.top-nav .brand {
+  font-weight: 700;
+  font-size: 0.95em;
+  color: #fff;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.top-nav .sep { color: rgba(255,255,255,0.25); font-size: 0.85em; }
+
+/* ===== HEADINGS ===== */
+h1 {
+  font-size: 2.2em;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 6px;
+  color: #1d1d1f;
+}
+h1 + .subtitle { margin-top: 0; }
+.subtitle {
+  font-size: 1em;
+  color: #86868b;
+  font-weight: 400;
+  margin-bottom: 40px;
+}
+h1 a { color: inherit; text-decoration: none; }
+h1 a:hover { text-decoration: underline; }
+
+/* ===== SECTIONS ===== */
+.section {
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+}
+.section h2 {
+  font-size: 1.15em;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #1d1d1f;
+  letter-spacing: -0.01em;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* ===== BLOCKS ===== */
+.def, .thm, .theorem, .note, .ex, .example-box, .cor, .prop, .alg, .euclid {
+  padding: 16px 20px;
+  margin: 14px 0;
+  border-radius: 12px;
+  line-height: 1.65;
+}
+.def { background: #f0f5ff; }
+.def strong { color: #2563eb; }
+.thm, .theorem { background: #f0fdf4; }
+.thm strong, .theorem strong { color: #16a34a; }
+.note { background: #fffbe6; }
+.note strong { color: #d97706; }
+.ex, .example-box { background: #faf5ff; }
+.ex strong, .example-box strong { color: #7c3aed; }
+.example-box code, .ex code { background: #ede9fe; padding: 2px 8px; border-radius: 4px; font-size: 0.92em; }
+.cor, .prop { background: #fefce8; }
+.cor strong, .prop strong { color: #a16207; }
+.alg { background: #fff7ed; font-family: 'Courier New', monospace; line-height: 1.6; }
+.alg strong { color: #ea580c; }
+.euclid { background: #fff7ed; }
+.euclid strong { color: #ea580c; }
+.formula {
+  text-align: center;
+  font-size: 1.15em;
+  margin: 14px 0;
+  padding: 12px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-weight: 500;
+  color: #1d1d1f;
+}
+
+/* ===== TASKS ===== */
+.task {
+  background: #fff;
+  border: 1px solid #e8e8ed;
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin: 14px 0;
+  transition: box-shadow 0.2s;
+}
+.task:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+.task p { margin-bottom: 12px; font-weight: 600; font-size: 0.95em; color: #1d1d1f; }
+.task .fields { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.task .fields span { font-size: 0.92em; color: #555; font-weight: 500; }
+.task input[type="text"] {
+  padding: 8px 12px;
+  border: 1.5px solid #d1d1d6;
+  border-radius: 8px;
+  font-size: 0.95em;
+  font-family: inherit;
+  text-align: center;
+  width: 90px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: #fff;
+}
+.task input[type="text"]:focus {
+  border-color: #1d1d1f;
+  box-shadow: 0 0 0 3px rgba(29,29,31,0.06);
+}
+.task input[type="text"].correct {
+  border-color: #16a34a;
+  background: #f0fdf4;
+  box-shadow: 0 0 0 3px rgba(22,163,74,0.1);
+}
+.task input[type="text"].wrong {
+  border-color: #dc2626;
+  background: #fef2f2;
+  box-shadow: 0 0 0 3px rgba(220,38,38,0.08);
+}
+.task select {
+  padding: 8px 12px;
+  border: 1.5px solid #d1d1d6;
+  border-radius: 8px;
+  font-size: 0.95em;
+  font-family: inherit;
+  outline: none;
+  background: #fff;
+  cursor: pointer;
+}
+.task select.correct { border-color: #16a34a; background: #f0fdf4; }
+.task select.wrong { border-color: #dc2626; background: #fef2f2; }
+.task button {
+  padding: 8px 22px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.88em;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  background: #1d1d1f;
+  color: #fff;
+  transition: all 0.2s;
+}
+.task button:hover { background: #333; transform: translateY(-1px); }
+.task button:active { transform: translateY(0); }
+.task .result { margin-top: 10px; font-size: 0.92em; min-height: 1.5em; }
+.task .result .ok { color: #16a34a; font-weight: 600; }
+.task .result .no { color: #dc2626; font-weight: 500; }
+
+/* ===== PROGRESS ===== */
+.progress {
+  text-align: center;
+  margin: 24px 0;
+  font-size: 0.88em;
+  color: #86868b;
+  font-weight: 500;
+}
+.progress span { font-weight: 700; color: #1d1d1f; }
+.reset-btn {
+  display: block;
+  margin: 24px auto 8px;
+  padding: 10px 36px;
+  border: 1.5px solid #d1d1d6;
+  border-radius: 10px;
+  font-size: 0.88em;
+  font-weight: 500;
+  font-family: inherit;
+  background: #fff;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.reset-btn:hover {
+  border-color: #1d1d1f;
+  color: #1d1d1f;
+  background: #f8f8f8;
+}
+
+/* ===== TABLES ===== */
+table { border-collapse: collapse; margin: 12px 0; width: auto; }
+td, th { border: 1px solid #e5e7eb; padding: 8px 16px; text-align: center; }
+th { background: #1d1d1f; color: #fff; font-weight: 600; font-size: 0.9em; }
+td { font-size: 0.92em; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  .container { padding: 20px 16px; }
+  h1 { font-size: 1.6em; }
+  .section { padding: 20px; border-radius: 12px; }
+  .task { padding: 16px; }
+  .task input[type="text"] { width: 70px; }
+}

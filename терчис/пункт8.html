@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Пункт 8. Вычисление подходящих дробей — Интерактивный учебник</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.table-wrap { overflow-x: auto; margin: 12px 0; }
+.table-wrap table { width: 100%; min-width: 400px; }
+.table-wrap td, .table-wrap th { padding: 8px 12px; font-size: 0.92em; }
+.table-wrap input { width: 54px; padding: 4px 6px; border: 1.5px solid #d1d1d6; border-radius: 6px; text-align: center; font-size: 0.92em; font-family: inherit; outline: none; }
+.table-wrap input:focus { border-color: #1d1d1f; box-shadow: 0 0 0 3px rgba(29,29,31,0.06); }
+.table-wrap input.correct { border-color: #16a34a; background: #f0fdf4; }
+.table-wrap input.wrong { border-color: #dc2626; background: #fef2f2; }
+</style>
+</head>
+<body>
+<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§2. Цепные дроби</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 8</span></div></div>
+<div class="container">
+
+<h1>Пункт 8. Вычисление подходящих дробей</h1>
+<p class="subtitle">§2. Цепные дроби — Теория чисел</p>
+
+<div class="section">
+<h2>📖 Теория</h2>
+
+<p>Подходящие дроби δ<sub>s</sub> = P<sub>s</sub> / Q<sub>s</sub> вычисляются по рекуррентным формулам:</p>
+
+<div class="formula">
+P<sub>s</sub> = q<sub>s</sub>·P<sub>s−1</sub> + P<sub>s−2</sub>, &nbsp;&nbsp; P<sub>0</sub> = 1, P<sub>1</sub> = q<sub>1</sub><br>
+Q<sub>s</sub> = q<sub>s</sub>·Q<sub>s−1</sub> + Q<sub>s−2</sub>, &nbsp;&nbsp; Q<sub>0</sub> = 0, Q<sub>1</sub> = 1
+</div>
+
+<p>Вычисления удобно организовывать в таблицу:</p>
+
+<div class="ex">
+<strong>Пример.</strong> Для 105/38 = [2; 1, 3, 4, 2]:<br><br>
+<table>
+<tr><th>s</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+<tr><td>q<sub>s</sub></td><td>—</td><td>2</td><td>1</td><td>3</td><td>4</td><td>2</td></tr>
+<tr><td>P<sub>s</sub></td><td>1</td><td>2</td><td>3</td><td>11</td><td>47</td><td>105</td></tr>
+<tr><td>Q<sub>s</sub></td><td>0</td><td>1</td><td>1</td><td>4</td><td>17</td><td>38</td></tr>
+</table>
+<br>
+δ₂ = 3/1 = 3, δ₃ = 11/4 = 2,75, δ₄ = 47/17 ≈ 2,7647, δ₅ = 105/38 ≈ 2,76315.
+</div>
+
+<p>Подходящие дроби с чётными номерами больше числа, с нечётными — меньше, и последовательность быстро сходится к числу.</p>
+</div>
+
+<div class="section">
+<h2>✏️ Задания</h2>
+<p style="margin-bottom:12px; color:#555;">Задачи из методички.</p>
+
+<div id="tasks"></div>
+<div class="progress" id="progress">Решено: <span id="score">0</span> / <span id="total">0</span></div>
+<button class="reset-btn" onclick="resetAll()">🔄 Сбросить всё</button>
+</div>
+
+</div>
+
+<script>
+const tasksData = [
+  { id: 'p1', text: 'Вычислите P₃ для √2 (q = [1;2,2,2,…])', answer: '7' },
+  { id: 'p2', text: 'Вычислите Q₃ для √2', answer: '5' },
+  { id: 'p3', text: 'Вычислите P₄ для √2', answer: '17' },
+  { id: 'p4', text: 'Вычислите Q₄ для √2', answer: '12' },
+  { id: 'p5', text: 'Вычислите P₅ для √2', answer: '41' },
+  { id: 'p6', text: 'Вычислите Q₅ для √2', answer: '29' },
+  { id: 'p7', text: 'Чему равна подходящая дробь δ₃ = P₃/Q₃? (в виде дроби a/b)', answer: '7/5' },
+  { id: 'p8', text: 'Чему равна δ₅ = P₅/Q₅? (в виде дроби a/b)', answer: '41/29' },
+];
+
+function renderTasks() {
+  const container = document.getElementById('tasks');
+  container.innerHTML = '';
+  tasksData.forEach((t, idx) => {
+    const div = document.createElement('div');
+    div.className = 'task';
+    div.innerHTML = `
+      <p>${idx + 1}. ${t.text}</p>
+      <div class="fields">
+        <input type="text" id="ans-${idx}" placeholder="ответ" style="width:120px;">
+        <button onclick="check(${idx})">Проверить</button>
+      </div>
+      <div class="result" id="result-${idx}"></div>
+    `;
+    container.appendChild(div);
+  });
+  document.getElementById('total').textContent = tasksData.length;
+  updateProgress();
+}
+
+function check(idx) {
+  const t = tasksData[idx];
+  const inp = document.getElementById('ans-' + idx);
+  const res = document.getElementById('result-' + idx);
+  const v = inp.value.trim();
+
+  if (!v) {
+    res.innerHTML = '<span class="no">Введите ответ.</span>';
+    return;
+  }
+
+  const ok = v === t.answer;
+  inp.className = ok ? 'correct' : 'wrong';
+  res.innerHTML = ok
+    ? '<span class="ok">Верно!</span>'
+    : '<span class="no">Неверно. Попробуйте ещё раз.</span>';
+  updateProgress();
+}
+
+function updateProgress() {
+  let count = 0;
+  tasksData.forEach((_, idx) => {
+    const inp = document.getElementById('ans-' + idx);
+    if (inp && inp.className === 'correct') count++;
+  });
+  document.getElementById('score').textContent = count;
+}
+
+function resetAll() {
+  tasksData.forEach((_, idx) => {
+    const inp = document.getElementById('ans-' + idx);
+    const res = document.getElementById('result-' + idx);
+    if (inp) { inp.value = ''; inp.className = ''; }
+    if (res) res.innerHTML = '';
+  });
+  updateProgress();
+}
+
+renderTasks();
+</script>
+</body>
+</html>

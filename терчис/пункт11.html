@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Пункт 11. Ещё кое-что о цепных дробях — Интерактивный учебник</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§2. Цепные дроби</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 11</span></div></div>
+<div class="container">
+
+<h1>Пункт 11. Ещё кое-что о цепных дробях</h1>
+<p class="subtitle">§2. Цепные дроби — Теория чисел</p>
+
+<div class="section">
+<h2>📖 Теория</h2>
+
+<div class="thm"><strong>Теорема о наилучшем приближении.</strong> Если &delta;<sub>k</sub> = P<sub>k</sub> / Q<sub>k</sub> — подходящая дробь числа &alpha;, то для любой дроби a/b со знаменателем 0 &lt; b &le; Q<sub>k</sub> выполняется |&alpha; &minus; &delta;<sub>k</sub>| &le; |&alpha; &minus; a/b|. Иными словами, подходящая дробь — наилучшее приближение среди дробей с ограниченным знаменателем.</div>
+
+<div class="formula">Оценка погрешности: <strong>|&alpha; &minus; &delta;<sub>k</sub>| &lt; 1 / (Q<sub>k</sub> &middot; Q<sub>k+1</sub>)</strong>, где Q<sub>k+1</sub> — знаменатель следующей подходящей дроби.</div>
+
+<div class="def"><strong>Определение.</strong> Цепная дробь называется <strong>периодической</strong>, если последовательность неполных частных, начиная с некоторого места, периодическая. Обозначение: [q<sub>0</sub>; q<sub>1</sub>, &hellip;, q<sub>m</sub>, q<sub>m+1</sub>, …, q<sub>m+T</sub> (период)].</div>
+
+<div class="def"><strong>Определение.</strong> <strong>Квадратичная иррациональность</strong> — иррациональное число, являющееся корнем квадратного уравнения с целыми коэффициентами.</div>
+
+<div class="thm"><strong>Теорема Лагранжа.</strong> Квадратичные иррациональности и только они представимы в виде бесконечной периодической цепной дроби.</div>
+
+<div class="thm"><strong>Теорема Эрмита.</strong> Всякий делитель числа a<sup>2</sup> + 1 представим в виде суммы двух квадратов.</div>
+</div>
+
+<div class="section">
+<h2>✏️ Задания</h2>
+<p style="margin-bottom:12px; color:#555;">Задачки из методички.</p>
+
+<div id="tasks"></div>
+<div class="progress" id="progress">Решено: <span id="score">0</span> / <span id="total">0</span></div>
+<button class="reset-btn" onclick="resetAll()">🔄 Сбросить всё</button>
+</div>
+
+</div>
+
+<script>
+const tasksData = [
+  {
+    text: 'Найдите период цепной дроби для √2 = [1; 2, 2, 2, 2,…]',
+    answers: ['1'],
+    hint: 'Период состоит из одной цифры 2, длина периода = 1.'
+  },
+  {
+    text: 'Найдите период цепной дроби для √5 = [2; 4, 4, 4, 4,…]',
+    answers: ['1'],
+    hint: 'Период состоит из одной цифры 4, длина периода = 1.'
+  },
+  {
+    text: '√3 = [1; 1, 2, 1, 2, 1, 2,…]. Какова длина периода?',
+    answers: ['2'],
+    hint: 'Периодическая часть: 1, 2 — две цифры.'
+  },
+  {
+    text: 'Число e = [2; 1,2,1,1,4,1,1,6,1,1,8,1,…]. Является ли e квадратичной иррациональностью?',
+    answers: ['нет'],
+    type: 'select'
+  },
+  {
+    text: 'Представьте число 5 = 2² + 1 в виде суммы двух квадратов',
+    answers: ['1+4', '4+1', '2²+1²', '1²+2²', '2^2+1^2', '1^2+2^2']
+  },
+  // Задачки из методички:
+  {
+    text: '1. Разложите 971/773 в цепную дробь. Найдите наилучшее приближение со знаменателем ≤ 82. Введите числитель и знаменатель.',
+    num: 103, den: 82,
+    type: 'frac'
+  },
+  {
+    text: '2. Является ли число √(2+√5) квадратичной иррациональностью? (Оно корень уравнения x⁴ − 4x² − 1 = 0)',
+    answers: ['да'],
+    type: 'select'
+  },
+  {
+    text: '4. Представьте число 761 в виде суммы двух квадратов (подсказка: 761 = (39²+1)/2).',
+    answers: ['20²+19²', '19²+20²', '400+361', '361+400', '20^2+19^2', '19^2+20^2']
+  }
+];
+
+function normalize(s) {
+  return s.trim().toLowerCase();
+}
+
+function renderTasks() {
+  const container = document.getElementById('tasks');
+  container.innerHTML = '';
+  tasksData.forEach((t, idx) => {
+    const div = document.createElement('div');
+    div.className = 'task';
+    let fieldHtml;
+    if (t.type === 'select') {
+      fieldHtml = `<select id="ans-${idx}"><option value="">— выберите —</option><option value="да">да</option><option value="нет">нет</option></select>`;
+    } else if (t.type === 'frac') {
+      fieldHtml = `
+        <span style="font-size:0.9em;color:#555;">числитель:</span>
+        <input type="text" id="num-${idx}" placeholder="p" style="width:70px;">
+        <span style="font-size:0.9em;color:#555;">знаменатель:</span>
+        <input type="text" id="den-${idx}" placeholder="q" style="width:70px;">
+      `;
+    } else {
+      fieldHtml = `<input type="text" id="ans-${idx}" placeholder="ответ" style="width:120px;">`;
+    }
+    div.innerHTML = `
+      <p>${idx + 1}. ${t.text}</p>
+      <div class="fields">
+        ${fieldHtml}
+        <button onclick="check(${idx})">Проверить</button>
+      </div>
+      <div class="result" id="result-${idx}"></div>
+    `;
+    container.appendChild(div);
+  });
+  document.getElementById('total').textContent = tasksData.length;
+  updateProgress();
+}
+
+function check(idx) {
+  const t = tasksData[idx];
+  const res = document.getElementById('result-' + idx);
+
+  if (t.type === 'select') {
+    const sel = document.getElementById('ans-' + idx);
+    const v = sel.value;
+    if (!v) {
+      res.innerHTML = '<span class="no">Выберите ответ.</span>';
+      return;
+    }
+    const ok = t.answers.some(function(a) { return normalize(v) === normalize(a); });
+    sel.className = ok ? 'correct' : 'wrong';
+    res.innerHTML = ok
+      ? '<span class="ok">Верно!</span>'
+      : '<span class="no">Неверно. Попробуйте ещё раз.</span>';
+    updateProgress();
+    return;
+  }
+
+  if (t.type === 'frac') {
+    const numEl = document.getElementById('num-' + idx);
+    const denEl = document.getElementById('den-' + idx);
+    const nv = numEl.value.trim();
+    const dv = denEl.value.trim();
+    if (!nv || !dv) {
+      res.innerHTML = '<span class="no">Заполните оба поля.</span>';
+      return;
+    }
+    const n = parseInt(nv, 10);
+    const d = parseInt(dv, 10);
+    if (isNaN(n) || isNaN(d)) {
+      res.innerHTML = '<span class="no">Введите целые числа.</span>';
+      return;
+    }
+    const ok = (n === t.num && d === t.den);
+    numEl.className = ok ? 'correct' : 'wrong';
+    denEl.className = ok ? 'correct' : 'wrong';
+    res.innerHTML = ok
+      ? '<span class="ok">Верно!</span>'
+      : '<span class="no">Неверно. Попробуйте ещё раз.</span>';
+    updateProgress();
+    return;
+  }
+
+  const inp = document.getElementById('ans-' + idx);
+  const v = inp.value.trim();
+  if (!v) {
+    res.innerHTML = '<span class="no">Введите ответ.</span>';
+    return;
+  }
+  const ok = t.answers.some(function(a) { return normalize(v) === normalize(a); });
+  inp.className = ok ? 'correct' : 'wrong';
+  res.innerHTML = ok
+    ? '<span class="ok">Верно!</span>'
+    : '<span class="no">Неверно. Попробуйте ещё раз.</span>';
+  updateProgress();
+}
+
+function updateProgress() {
+  let count = 0;
+  tasksData.forEach(function(_, idx) {
+    const t = tasksData[idx];
+    if (t.type === 'frac') {
+      const numEl = document.getElementById('num-' + idx);
+      if (numEl && numEl.className === 'correct') count++;
+    } else if (t.type === 'select') {
+      const sel = document.getElementById('ans-' + idx);
+      if (sel && sel.className === 'correct') count++;
+    } else {
+      const inp = document.getElementById('ans-' + idx);
+      if (inp && inp.className === 'correct') count++;
+    }
+  });
+  document.getElementById('score').textContent = count;
+}
+
+function resetAll() {
+  tasksData.forEach(function(_, idx) {
+    const t = tasksData[idx];
+    const res = document.getElementById('result-' + idx);
+    if (t.type === 'frac') {
+      const numEl = document.getElementById('num-' + idx);
+      const denEl = document.getElementById('den-' + idx);
+      if (numEl) { numEl.value = ''; numEl.className = ''; }
+      if (denEl) { denEl.value = ''; denEl.className = ''; }
+    } else if (t.type === 'select') {
+      const sel = document.getElementById('ans-' + idx);
+      if (sel) { sel.selectedIndex = 0; sel.className = ''; }
+    } else {
+      const inp = document.getElementById('ans-' + idx);
+      if (inp) { inp.value = ''; inp.className = ''; }
+    }
+    if (res) res.innerHTML = '';
+  });
+  updateProgress();
+}
+
+renderTasks();
+</script>
+</body>
+</html>

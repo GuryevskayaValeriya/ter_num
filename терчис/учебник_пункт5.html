@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Пункт 5. Линейные диофантовы уравнения — Интерактивный учебник</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§1. Основные понятия</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 5</span></div></div>
+<div class="container">
+<h1>Пункт 5. Линейные диофантовы уравнения с двумя неизвестными</h1>
+<p class="subtitle">§1. Основные понятия и теоремы — Теория чисел</p>
+
+<div class="section">
+<h2>📖 Теория</h2>
+
+<div class="def">
+<strong>Определение.</strong> <em>Диофантово уравнение</em> — уравнение (обычно с целыми коэффициентами), которое требуется решить в целых числах.
+</div>
+
+<p>Рассмотрим линейное диофантово уравнение с двумя неизвестными:</p>
+<div class="formula"><strong>ax + by = c</strong>, &nbsp; a, b, c ∈ ℤ, &nbsp; a и b ≠ 0</div>
+
+<div class="thm">
+<strong>Условие разрешимости.</strong> Уравнение ax + by = c имеет решение в целых числах <strong>⇔ (a, b) ∣ c</strong>.<br>
+Если (a, b) = d и d ∣ c, то после деления на d получаем уравнение с (a₁, b₁) = 1.
+</div>
+
+<p><strong>Случай 1. Однородное уравнение:</strong> ax + by = 0, (a, b) = 1.</p>
+<div class="ex">
+Общее решение: <strong>x = −b·t, &nbsp; y = a·t</strong>, &nbsp; t ∈ ℤ.
+</div>
+
+<p><strong>Случай 2. Неоднородное уравнение:</strong> ax + by = c, (a, b) = 1.</p>
+<div class="ex">
+Пусть (x₀, y₀) — частное решение. Тогда <strong>общее решение</strong>:<br>
+<div style="text-align:center;font-size:1.1em;margin:8px 0;">
+x = x₀ − b·t<br>
+y = y₀ + a·t
+</div>
+где t ∈ ℤ — произвольный параметр.
+</div>
+
+<div class="thm">
+<strong>Как найти частное решение.</strong> Так как (a, b) = 1, то ∃ u, v ∈ ℤ: au + bv = 1 (алгоритм Евклида).<br>
+Умножаем на c: a(uc) + b(vc) = c → x₀ = uc, y₀ = vc.
+</div>
+
+<div class="ex">
+<strong>Пример.</strong> Решим 7x + 12y = 43.<br>
+Алгоритм Евклида: 12 = 7·1 + 5, 7 = 5·1 + 2, 5 = 2·2 + 1 → (7,12) = 1.<br>
+1 = 5 − 2·2 = (12−7) − (7−(12−7))·2 = 12·3 + 7·(−5) → u = −5, v = 3.<br>
+x₀ = −5·43 = −215, y₀ = 3·43 = 129.<br>
+Общее решение: x = −215 − 12t, y = 129 + 7t.<br>
+При t = −18 получаем x = 1, y = 3.
+</div>
+</div>
+
+<div class="section">
+<h2>✏️ Задания</h2>
+<p style="margin-bottom:12px; color:#555;">Задачки из методички (пункт 5).</p>
+
+<div id="tasks"></div>
+<div class="progress" id="progress">Решено: <span id="score">0</span> / <span id="total">0</span></div>
+<button class="reset-btn" onclick="resetAll()">🔄 Сбросить всё</button>
+</div>
+
+</div>
+
+<script>
+const tasksData = [
+  { text: '1а. Решите диофантово уравнение 2x + 7y = 20. Найдите одно целое решение (x₀, y₀).' },
+  { text: '1б. Решите диофантово уравнение 6x - 27y = 21. Найдите одно целое решение (x₀, y₀).' },
+  { text: '2. Решите уравнение 2x + 3y = 5z для каждого z ∈ ℤ. Найдите одно решение для z = 1 (x₀, y₀).' },
+  { text: '3. Имеет ли уравнение 3sin 7x + cos 20x = 4 решения? (max LHS достигается при sin7x=1 и cos20x=1)', type: 'select', answer: 'да' },
+  { text: '4. Сколькими различными способами можно расплатиться за жевательную резинку за 97 копеек только пятаками (5 коп.) и копейками (1 коп.)?', type: 'number', answer: '20' },
+];
+
+function renderTasks() {
+  const container = document.getElementById('tasks');
+  container.innerHTML = '';
+  tasksData.forEach((t, idx) => {
+    const div = document.createElement('div');
+    div.className = 'task';
+    let html = `<p>${idx + 1}. ${t.text}</p><div class="fields">`;
+    if (t.type === 'select') {
+      html += `
+        <select id="sel-${idx}">
+          <option value="">--</option>
+          <option value="да">да</option>
+          <option value="нет">нет</option>
+        </select>
+        <button onclick="check(${idx})">Проверить</button>
+      `;
+    } else if (t.type === 'number') {
+      html += `
+        <input type="text" id="ans-${idx}" placeholder="Ответ">
+        <button onclick="check(${idx})">Проверить</button>
+      `;
+    } else {
+      html += `
+        <span>x₀ =</span>
+        <input type="text" id="x-${idx}" placeholder="x">
+        <span>y₀ =</span>
+        <input type="text" id="y-${idx}" placeholder="y">
+        <button onclick="check(${idx})">Проверить</button>
+      `;
+    }
+    html += `</div><div class="result" id="result-${idx}"></div>`;
+    div.innerHTML = html;
+    container.appendChild(div);
+  });
+  document.getElementById('total').textContent = tasksData.length;
+  updateProgress();
+}
+
+function check(idx) {
+  const t = tasksData[idx];
+  const res = document.getElementById('result-' + idx);
+
+  if (t.type === 'select') {
+    const sel = document.getElementById('sel-' + idx);
+    const val = sel.value;
+    if (val === t.answer) {
+      sel.className = 'correct';
+      res.innerHTML = '<span class="ok">Верно!</span>';
+    } else {
+      sel.className = 'wrong';
+      res.innerHTML = '<span class="no">Неверно. Попробуйте ещё раз.</span>';
+    }
+    updateProgress();
+    return;
+  }
+
+  if (t.type === 'number') {
+    const inp = document.getElementById('ans-' + idx);
+    const val = inp.value.trim();
+    if (val === t.answer) {
+      inp.className = 'correct';
+      res.innerHTML = '<span class="ok">Верно!</span>';
+    } else {
+      inp.className = 'wrong';
+      res.innerHTML = '<span class="no">Неверно. Попробуйте ещё раз.</span>';
+    }
+    updateProgress();
+    return;
+  }
+
+  const xInp = document.getElementById('x-' + idx);
+  const yInp = document.getElementById('y-' + idx);
+  const xv = xInp.value.trim();
+  const yv = yInp.value.trim();
+  if (!xv || !yv) {
+    res.innerHTML = '<span class="no">Заполните оба поля.</span>';
+    return;
+  }
+  const xVal = parseInt(xv, 10);
+  const yVal = parseInt(yv, 10);
+  if (isNaN(xVal) || isNaN(yVal)) {
+    res.innerHTML = '<span class="no">Введите целые числа.</span>';
+    return;
+  }
+
+  const parts = t.text.match(/(-?\d+)\s*x\s*([+-])\s*(\d*)\s*y\s*=\s*(-?\d+)/);
+  if (!parts) {
+    res.innerHTML = '<span class="no">Ошибка в данных задачи.</span>';
+    return;
+  }
+  const a = parseInt(parts[1], 10);
+  const sign = parts[2] === '-' ? -1 : 1;
+  const bRaw = parts[3];
+  const b = sign * (bRaw === '' ? 1 : parseInt(bRaw, 10));
+  const c = parseInt(parts[4], 10);
+
+  const lhs = a * xVal + b * yVal;
+  if (lhs === c) {
+    xInp.className = 'correct';
+    yInp.className = 'correct';
+    res.innerHTML = '<span class="ok">Верно!</span>';
+  } else {
+    xInp.className = 'wrong';
+    yInp.className = 'wrong';
+    res.innerHTML = '<span class="no">Неверно. Попробуйте ещё раз.</span>';
+  }
+  updateProgress();
+}
+
+function updateProgress() {
+  let count = 0;
+  tasksData.forEach((t, idx) => {
+    if (t.type === 'select') {
+      const sel = document.getElementById('sel-' + idx);
+      if (sel && sel.className === 'correct') count++;
+    } else if (t.type === 'number') {
+      const inp = document.getElementById('ans-' + idx);
+      if (inp && inp.className === 'correct') count++;
+    } else {
+      const xInp = document.getElementById('x-' + idx);
+      if (xInp && xInp.className === 'correct') count++;
+    }
+  });
+  document.getElementById('score').textContent = count;
+}
+
+function resetAll() {
+  tasksData.forEach((t, idx) => {
+    const res = document.getElementById('result-' + idx);
+    if (t.type === 'select') {
+      const sel = document.getElementById('sel-' + idx);
+      if (sel) { sel.value = ''; sel.className = ''; }
+    } else if (t.type === 'number') {
+      const inp = document.getElementById('ans-' + idx);
+      if (inp) { inp.value = ''; inp.className = ''; }
+    } else {
+      const xInp = document.getElementById('x-' + idx);
+      const yInp = document.getElementById('y-' + idx);
+      if (xInp) { xInp.value = ''; xInp.className = ''; }
+      if (yInp) { yInp.value = ''; yInp.className = ''; }
+    }
+    if (res) res.innerHTML = '';
+  });
+  updateProgress();
+}
+
+renderTasks();
+</script>
+</body>
+</html>

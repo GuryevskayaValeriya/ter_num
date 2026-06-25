@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Пункт 1. Деление с остатком — Интерактивный учебник</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§1. Основные понятия</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 1</span></div></div>
+<div class="container">
+<h1>Пункт 1. Деление с остатком</h1>
+<p class="subtitle">§1. Основные понятия и теоремы — Теория чисел</p>
+
+<!-- ТЕОРИЯ -->
+<div class="section">
+<h2>📖 Теория</h2>
+
+<div class="def">
+<strong>Определение.</strong> Пусть <em>a, b</em> ∈ ℤ. Число <em>a</em> <strong>делится</strong> на число <em>b</em>, если найдётся такое число <em>q</em> ∈ ℤ, что <em>a = q·b</em>.<br>
+Синонимы: <em>a</em> кратно <em>b</em>; <em>b</em> — делитель <em>a</em>.<br>
+Запись: <em>a</em> ⋮ <em>b</em> или <em>b</em> | <em>a</em>.
+</div>
+
+<p>Отношение делимости на множестве натуральных чисел ℕ рефлексивно, антисимметрично и транзитивно — то есть является отношением частичного порядка.</p>
+
+<div class="theorem">
+<strong>Теорема (о делении с остатком).</strong> Для данного целого отличного от нуля числа <em>b</em> всякое целое число <em>a</em> единственным образом представимо в виде<br>
+<div style="font-size:1.2em; text-align:center; margin:8px 0;"><strong>a = b·q + r</strong>, &nbsp; где &nbsp; <strong>0 ≤ r < |b|</strong>.</div>
+</div>
+
+<div class="def">
+<strong>Определение.</strong> Число <em>q</em> называется <strong>неполным частным</strong>, а число <em>r</em> — <strong>остатком</strong> от деления <em>a</em> на <em>b</em>.
+</div>
+
+<div class="note">
+<strong>Важно!</strong> Остаток <strong>всегда неотрицательный</strong> (0 ≤ r < |b|). Неполное частное может быть любым целым числом.
+</div>
+
+<div class="example-box">
+<strong>Пример 1.</strong> Разделим 23 на 5:<br>
+23 = 5·4 + 3 → неполное частное <code>4</code>, остаток <code>3</code>.<br><br>
+<strong>Пример 2.</strong> Разделим −23 на 5:<br>
+Надо подобрать <em>q</em> так, чтобы остаток был 0 ≤ r < 5.<br>
+−23 = 5·(−5) + 2 → неполное частное <code>−5</code>, остаток <code>2</code>.<br>
+(Проверка: 5·(−5) + 2 = −25 + 2 = −23.)<br>
+<strong>Не путайте:</strong> −23 = 5·(−4) − 3 — это <strong>неверно</strong>, так как остаток −3 &lt; 0!
+</div>
+
+<div class="example-box">
+<strong>Пример 3.</strong> Разделим 17 на −6:<br>
+17 = (−6)·(−2) + 5 → неполное частное <code>−2</code>, остаток <code>5</code>.<br>
+Проверка: (−6)·(−2) + 5 = 12 + 5 = 17. ✓
+</div>
+</div>
+
+<!-- ЗАДАНИЯ -->
+<div class="section">
+<h2>✏️ Задания</h2>
+<p style="margin-bottom:12px; color:#555;">Задачи из методички.</p>
+
+<div id="tasks"></div>
+<div class="progress" id="progress">Решено: <span id="score">0</span> / <span id="total">0</span></div>
+<button class="reset-btn" onclick="resetAll()">🔄 Сбросить всё</button>
+</div>
+
+</div>
+
+<script>
+const tasksData = [
+  { text: '161 ÷ 17', a: 161, b: 17, q: 9, r: 8 },
+  { text: '−161 ÷ 17', a: -161, b: 17, q: -10, r: 9 },
+  { text: '161 ÷ (−17)', a: 161, b: -17, q: -9, r: 8 },
+  { text: '−161 ÷ (−17)', a: -161, b: -17, q: 10, r: 9 },
+  { text: '17 ÷ 161', a: 17, b: 161, q: 0, r: 17 },
+  { text: '−17 ÷ 161', a: -17, b: 161, q: -1, r: 144 },
+  { text: '17 ÷ (−161)', a: 17, b: -161, q: 0, r: 17 },
+  { text: '−17 ÷ (−161)', a: -17, b: -161, q: 1, r: 144 },
+  { text: 'Верно ли, что множество N\\{1} = {2,3,4,...} с отношением делимости является частично упорядоченным?', type: 'select', options: ['да', 'нет'], correct: 'да' },
+  { text: 'Являются ли простые числа минимальными элементами множества N\\{1} с отношением делимости?', type: 'select', options: ['да', 'нет'], correct: 'да' },
+  { text: 'Ковбой купил: виски за 3$, Marlboro за 1$11¢, 6 пачек патронов и дюжину спичек. Итого 28$25¢. За что он пристрелил бармена? Верно ли, что сумма 28$25¢ не могла быть верной?', type: 'select', options: ['да', 'нет'], correct: 'да' },
+];
+
+function renderTasks() {
+  const container = document.getElementById('tasks');
+  container.innerHTML = '';
+  tasksData.forEach((t, idx) => {
+    const div = document.createElement('div');
+    div.className = 'task';
+    div.id = 'task-' + idx;
+    if (t.type === 'select') {
+      div.innerHTML = `
+        <p>${idx + 1}. ${t.text}</p>
+        <div class="fields">
+          <select id="sel-${idx}">
+            <option value="">—</option>
+            ${t.options.map(o => `<option value="${o}">${o}</option>`).join('')}
+          </select>
+          <button onclick="check(${idx})">Проверить</button>
+        </div>
+        <div class="result" id="result-${idx}"></div>
+      `;
+    } else {
+      div.innerHTML = `
+        <p>${idx + 1}. ${t.text}</p>
+        <div class="fields">
+          <span>q =</span>
+          <input type="text" id="q-${idx}" placeholder="q">
+          <span>r =</span>
+          <input type="text" id="r-${idx}" placeholder="r">
+          <button onclick="check(${idx})">Проверить</button>
+        </div>
+        <div class="result" id="result-${idx}"></div>
+      `;
+    }
+    container.appendChild(div);
+  });
+  document.getElementById('total').textContent = tasksData.length;
+  updateProgress1();
+}
+
+function check(idx) {
+  const t = tasksData[idx];
+  const res = document.getElementById('result-' + idx);
+
+  if (t.type === 'select') {
+    const sel = document.getElementById('sel-' + idx);
+    const val = sel.value;
+    if (!val) {
+      res.innerHTML = '<span class="no">Выберите ответ.</span>';
+      return;
+    }
+    sel.className = val === t.correct ? 'correct' : 'wrong';
+    if (val === t.correct) {
+      res.innerHTML = '<span class="ok">Верно!</span>';
+    } else {
+      res.innerHTML = '<span class="no">Неверно. Попробуйте ещё раз.</span>';
+    }
+  } else {
+    const qIn = document.getElementById('q-' + idx);
+    const rIn = document.getElementById('r-' + idx);
+
+    const qVal = parseInt(qIn.value, 10);
+    const rVal = parseInt(rIn.value, 10);
+
+    if (isNaN(qVal) || isNaN(rVal)) {
+      res.innerHTML = '<span class="no">Введите числа в оба поля.</span>';
+      return;
+    }
+
+    const qOk = qVal === t.q;
+    const rOk = rVal === t.r;
+
+    qIn.className = qOk ? 'correct' : 'wrong';
+    rIn.className = rOk ? 'correct' : 'wrong';
+
+    if (qOk && rOk) {
+      res.innerHTML = '<span class="ok">Верно!</span>';
+    } else {
+      res.innerHTML = '<span class="no">Неверно. Попробуйте ещё раз.</span>';
+    }
+  }
+  updateProgress1();
+}
+
+function updateProgress1() {
+  let count = 0;
+  tasksData.forEach((t, idx) => {
+    if (t.type === 'select') {
+      const sel = document.getElementById('sel-' + idx);
+      if (sel && sel.className === 'correct') count++;
+    } else {
+      const qIn = document.getElementById('q-' + idx);
+      if (qIn && qIn.className === 'correct') count++;
+    }
+  });
+  document.getElementById('score').textContent = count;
+}
+
+function resetAll() {
+  tasksData.forEach((t, idx) => {
+    const res = document.getElementById('result-' + idx);
+    if (t.type === 'select') {
+      const sel = document.getElementById('sel-' + idx);
+      if (sel) { sel.value = ''; sel.className = ''; }
+    } else {
+      const qIn = document.getElementById('q-' + idx);
+      const rIn = document.getElementById('r-' + idx);
+      if (qIn) { qIn.value = ''; qIn.className = ''; }
+      if (rIn) { rIn.value = ''; rIn.className = ''; }
+    }
+    if (res) res.innerHTML = '';
+  });
+  updateProgress1();
+}
+
+renderTasks();
+</script>
+</body>
+</html>
