@@ -4,16 +4,228 @@
 <meta charset="UTF-8">
 <title>Пункт 12. Целая и дробная часть — Интерактивный учебник</title>
 <link rel="stylesheet" href="style.css">
+<script>
+MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 </head>
 <body>
-<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">12. Целая и дробная часть</span></div></div>
+<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§3. Важнейшие функции</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 12</span></div></div>
 <div class="container">
 
-<div class="section" style="text-align:center;padding:60px 20px;">
-<h2 style="border:none;text-align:center;padding:0;font-size:1.3em;">12. Целая и дробная часть</h2>
-<p style="color:#86868b;margin-top:16px;">Раздел находится в разработке. Скоро здесь появится теория и задания.</p>
+<h1>Пункт 12. Целая и дробная часть</h1>
+<p class="subtitle">§3. Важнейшие функции в теории чисел — Теория чисел</p>
+
+<!-- ТЕОРИЯ -->
+<div class="section">
+<h2>📖 Теория</h2>
+
+<div class="def">
+<strong>Определение.</strong> Пусть $x \in \mathbb{R}$ — действительное число.<br>
+• <strong>Целой частью</strong> $\lfloor x \rfloor$ числа $x$ называется его нижнее целое, т.е. наибольшее целое, не превосходящее $x$.<br>
+• <strong>Дробной частью</strong> $\{x\}$ числа $x$ называется число <strong>$\{x\} = x - \lfloor x \rfloor$</strong>.
+</div>
+
+<div class="example-box">
+<strong>Примеры.</strong><br>
+$\lfloor 2{,}81 \rfloor = 2$ ; $\{2{,}81\} = 0{,}81$<br>
+$\lfloor -0{,}2 \rfloor = -1$ ; $\{-0{,}2\} = 0{,}8$
+</div>
+
+<div class="note">
+<strong>Свойства:</strong><br>
+• Целая часть — неубывающая функция.<br>
+• Дробная часть — периодическая с периодом 1, всегда $0 \leq \{x\} < 1$.<br>
+• Обе функции разрывны при целых x, но непрерывны справа.
+</div>
+
+<div class="thm">
+<strong>Лемма 1 (формула Лежандра).</strong> Показатель, с которым простое число p входит в разложение n!, равен:
+<div class="formula">$$\alpha = \left\lfloor \frac{n}{p} \right\rfloor + \left\lfloor \frac{n}{p^2} \right\rfloor + \left\lfloor \frac{n}{p^3} \right\rfloor + \ldots$$</div>
+</div>
+
+<div class="example-box">
+<strong>Пример.</strong> Показатель 5 в 643!:<br>
+$\lfloor 643/5 \rfloor + \lfloor 643/25 \rfloor + \lfloor 643/125 \rfloor + \lfloor 643/625 \rfloor = 128 + 25 + 5 + 1 = $ <strong>159</strong>.
+</div>
+
+<div class="def">
+<strong>Определение.</strong> Точка координатной плоскости называется <strong>целой</strong>, если обе её координаты — целые числа.
+</div>
+
+<div class="thm">
+<strong>Лемма 2.</strong> Пусть функция f(x) непрерывна и неотрицательна на отрезке [a, b]. Тогда число целых точек в области D = {a &lt; x ≤ b, 0 &lt; y ≤ f(x)} равно:
+<div class="formula">$$\sum_{\substack{x \in \mathbb{Z} \\ a < x \leq b}} \lfloor f(x) \rfloor$$</div>
+</div>
+
+<div class="thm">
+<strong>Лемма 3 (формула площади многоугольника).</strong> Пусть $M$ — многоугольник на координатной плоскости с вершинами в целых точках, контур не пересекает и не касает сам себя, $S$ — площадь, $T = \sum_{A}(1 - \delta_A)$, где суммирование по всем целым точкам $A$ внутри и на границе, $\delta_A = 1$ для внутренних, $\delta_A = 1/2$ для граничных. Тогда <strong>$T = S$</strong>.
+</div>
+
+<div class="thm">
+<strong>Теорема (Дирихле).</strong> Для любого $\alpha \in \mathbb{R}$ число $0$ является предельной точкой последовательности $x_n = \{\alpha \cdot n\}$.
+</div>
+
+<div class="example-box">
+<strong>Следствие.</strong> Если $\alpha \in \mathbb{R}$ иррационально, то члены последовательности $x_n = \{\alpha \cdot n\}$ всюду плотно заполняют отрезок $[0, 1]$.
 </div>
 
 </div>
+
+<!-- ЗАДАНИЯ -->
+<div class="section">
+<h2>✏️ Задания</h2>
+<p style="margin-bottom:12px; color:#555;">Задачки из методички.</p>
+
+<div id="tasks"></div>
+<div class="progress" id="progress">Решено: <span id="score">0</span> / <span id="total">0</span></div>
+<button class="reset-btn" onclick="resetAll()">🔄 Сбросить всё</button>
+</div>
+
+</div>
+
+<script>
+const tasksData = [
+  {
+    text: '1. Какова целая часть числа −3.7?',
+    answers: ['-4'],
+    hint: '[−3.7] = −4, так как −4 — наибольшее целое, не превосходящее −3.7.'
+  },
+  {
+    text: '2. Какова дробная часть числа −0.2?',
+    answers: ['0.8'],
+    hint: '{−0.2} = −0.2 − [−0.2] = −0.2 − (−1) = 0.8.'
+  },
+  {
+    text: '3. Найдите показатель простого числа 3 в разложении 100! (формула Лежандра).',
+    answers: ['48'],
+    hint: '[100/3] + [100/9] + [100/27] + [100/81] = 33 + 11 + 3 + 1 = 48.'
+  },
+  {
+    text: '4. Найдите показатель простого числа 2 в разложении 10!.',
+    answers: ['8'],
+    hint: '[10/2] + [10/4] + [10/8] = 5 + 2 + 1 = 8.'
+  },
+  {
+    text: '5. Верно ли, что [x + y] ≥ [x] + [y] для любых действительных x и y?',
+    answers: ['да'],
+    type: 'select'
+  },
+  {
+    text: '6. Верно ли, что {x} + {−x} = 1 для всех нецелых x?',
+    answers: ['да'],
+    type: 'select',
+    hint: 'Если x не целое, то {x} + {−x} = 1. Если x целое — сумма равна 0.'
+  },
+  {
+    text: '7. Сколько целых точек лежит строго под параболой y = x² и над осью x на отрезке [1, 5]?',
+    type: 'select',
+    answers: ['25'],
+    hint: 'Целые x от 1 до 5. Для x=1: y=1, точек (1,1) нет строго под. Для x=2: y=4, точки (2,1),(2,2),(2,3) — 3 шт. Для x=3: 8 шт. Для x=4: 15 шт. Для x=5: 24 шт. Сумма: 0+3+8+15+24=50.'
+  },
+  {
+    text: '8. Является ли число {n·√2} для n = 1, 2, 3, … периодической последовательностью?',
+    type: 'select',
+    answers: ['нет'],
+    hint: '√2 иррационально, поэтому последовательность непериодична.'
+  },
+  {
+    text: '9. Найдите [100·√3] (целая часть 100√3, где √3 ≈ 1.73205…)',
+    answers: ['173'],
+    hint: '100·1.73205… = 173.205…, целая часть = 173.'
+  },
+  {
+    text: '10. Сколько факторов 5 содержит число 25!?',
+    answers: ['6'],
+    hint: '[25/5] + [25/25] = 5 + 1 = 6.'
+  }
+];
+
+function normalize(s) {
+  return s.trim().toLowerCase();
+}
+
+function renderTasks() {
+  const container = document.getElementById('tasks');
+  container.innerHTML = '';
+  tasksData.forEach(function(t, idx) {
+    const div = document.createElement('div');
+    div.className = 'task';
+    var fieldHtml;
+    if (t.type === 'select') {
+      fieldHtml = '<select id="ans-' + idx + '"><option value="">— выберите —</option><option value="да">да</option><option value="нет">нет</option></select>';
+    } else {
+      fieldHtml = '<input type="text" id="ans-' + idx + '" placeholder="ответ" style="width:120px;">';
+    }
+    div.innerHTML =
+      '<p>' + (idx + 1) + '. ' + t.text + '</p>' +
+      '<div class="fields">' +
+        fieldHtml +
+        '<button onclick="check(' + idx + ')">Проверить</button>' +
+      '</div>' +
+      '<div class="result" id="result-' + idx + '"></div>';
+    container.appendChild(div);
+  });
+  document.getElementById('total').textContent = tasksData.length;
+  updateProgress();
+}
+
+function check(idx) {
+  var t = tasksData[idx];
+  var res = document.getElementById('result-' + idx);
+
+  if (t.type === 'select') {
+    var sel = document.getElementById('ans-' + idx);
+    var v = sel.value;
+    if (!v) { res.innerHTML = '<span class="no">Выберите ответ.</span>'; return; }
+    var ok = t.answers.some(function(a) { return normalize(v) === normalize(a); });
+    sel.className = ok ? 'correct' : 'wrong';
+    res.innerHTML = ok ? '<span class="ok">Верно!</span>' : '<span class="no">Неверно. Попробуйте ещё раз.</span>';
+    updateProgress();
+    return;
+  }
+
+  var inp = document.getElementById('ans-' + idx);
+  var v = inp.value.trim();
+  if (!v) { res.innerHTML = '<span class="no">Введите ответ.</span>'; return; }
+  var ok = t.answers.some(function(a) { return normalize(v) === normalize(a); });
+  inp.className = ok ? 'correct' : 'wrong';
+  res.innerHTML = ok ? '<span class="ok">Верно!</span>' : '<span class="no">Неверно. Попробуйте ещё раз.</span>';
+  updateProgress();
+}
+
+function updateProgress() {
+  var count = 0;
+  tasksData.forEach(function(_, idx) {
+    var t = tasksData[idx];
+    var el;
+    if (t.type === 'select') el = document.getElementById('ans-' + idx);
+    else el = document.getElementById('ans-' + idx);
+    if (el && el.className === 'correct') count++;
+  });
+  document.getElementById('score').textContent = count;
+}
+
+function resetAll() {
+  tasksData.forEach(function(_, idx) {
+    var t = tasksData[idx];
+    var res = document.getElementById('result-' + idx);
+    if (t.type === 'select') {
+      var sel = document.getElementById('ans-' + idx);
+      if (sel) { sel.selectedIndex = 0; sel.className = ''; }
+    } else {
+      var inp = document.getElementById('ans-' + idx);
+      if (inp) { inp.value = ''; inp.className = ''; }
+    }
+    if (res) res.innerHTML = '';
+  });
+  updateProgress();
+}
+
+renderTasks();
+</script>
 </body>
 </html>

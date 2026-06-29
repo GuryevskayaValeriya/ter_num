@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <title>Пункт 7. Разложение чисел в цепные дроби — Интерактивный учебник</title>
 <link rel="stylesheet" href="style.css">
+<script>
+MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 </head>
 <body>
 <div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§2. Цепные дроби</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 7</span></div></div>
@@ -17,8 +24,8 @@
 
 <div class="def">
 <strong>Определение.</strong> <strong>Цепной (непрерывной) дробью</strong> называется выражение вида<br>
-<div class="formula">α = q₁ + 1 / (q₂ + 1 / (q₃ + 1 / (q₄ + …)))</div>
-Числа <em>q₁</em> ∈ ℤ, <em>q₂, q₃, …, q<sub>n</sub></em> ∈ ℕ называются <strong>неполными частными</strong>.
+<div class="formula">$\alpha = q_1 + \cfrac{1}{q_2 + \cfrac{1}{q_3 + \cfrac{1}{q_4 + \ldots}}}$</div>
+Числа $q_1 \in \mathbb{Z}$, $q_2, q_3, \ldots, q_n \in \mathbb{N}$ называются <strong>неполными частными</strong>.
 </div>
 
 <p>Цепная дробь может быть <strong>конечной</strong> (представляет рациональное число) или <strong>бесконечной</strong> (представляет иррациональное число).</p>
@@ -30,20 +37,20 @@
 <p><strong>Разложение рационального числа</strong> a/b в цепную дробь выполняется с помощью алгоритма Евклида:</p>
 
 <div class="ex">
-<strong>Пример.</strong> Разложим 105/38 в цепную дробь:<br>
-105 = 38·2 + 29 → q₁ = 2<br>
-38 = 29·1 + 9  → q₂ = 1<br>
-29 = 9·3 + 2   → q₃ = 3<br>
-9 = 2·4 + 1    → q₄ = 4<br>
-2 = 1·2       → q₅ = 2<br><br>
-<strong>Ответ:</strong> 105/38 = 2 + 1/(1 + 1/(3 + 1/(4 + 1/2)))
+<strong>Пример.</strong> Разложим $\frac{105}{38}$ в цепную дробь:<br>
+$105 = 38 \cdot 2 + 29 \Rightarrow q_1 = 2$<br>
+$38 = 29 \cdot 1 + 9 \Rightarrow q_2 = 1$<br>
+$29 = 9 \cdot 3 + 2 \Rightarrow q_3 = 3$<br>
+$9 = 2 \cdot 4 + 1 \Rightarrow q_4 = 4$<br>
+$2 = 1 \cdot 2 \Rightarrow q_5 = 2$<br><br>
+<strong>Ответ:</strong> $\frac{105}{38} = 2 + \cfrac{1}{1 + \cfrac{1}{3 + \cfrac{1}{4 + \cfrac{1}{2}}}}$
 </div>
 
 <div class="ex">
-<strong>Пример.</strong> Разложим √2 в цепную дробь:<br>
-√2 = 1 + (√2 − 1), q₁ = 1<br>
-1/(√2 − 1) = √2 + 1 = 2 + (√2 − 1), q₂ = 2<br>
-Процесс зацикливается: <strong>√2 = [1; 2, 2, 2, 2, …]</strong>
+<strong>Пример.</strong> Разложим $\sqrt{2}$ в цепную дробь:<br>
+$\sqrt{2} = 1 + (\sqrt{2} - 1)$, $q_1 = 1$<br>
+$\frac{1}{\sqrt{2} - 1} = \sqrt{2} + 1 = 2 + (\sqrt{2} - 1)$, $q_2 = 2$<br>
+Процесс зацикливается: <strong>$\sqrt{2} = [1;\, 2, 2, 2, 2, \ldots]$</strong>
 </div>
 </div>
 

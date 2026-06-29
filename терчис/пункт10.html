@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <title>Пункт 10. Континуанты. Анализ алгоритма Евклида — Интерактивный учебник</title>
 <link rel="stylesheet" href="style.css">
+<script>
+MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 </head>
 <body>
 <div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§2. Цепные дроби</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 10</span></div></div>
@@ -15,16 +22,16 @@
 <div class="section">
 <h2>📖 Теория</h2>
 
-<div class="def"><strong>Определение.</strong> Континуантой n-ого порядка (q<sub>1</sub>q<sub>2</sub>&hellip;q<sub>n</sub>) называется определитель трёхдиагональной матрицы с q<sub>1</sub>&hellip;q<sub>n</sub> на диагонали, единицами на наддиагонали и &minus;1 на поддиагонали.</div>
+<div class="def"><strong>Определение.</strong> Континуантой $n$-ого порядка $(q_1 q_2 \ldots q_n)$ называется определитель трёхдиагональной матрицы с $q_1 \ldots q_n$ на диагонали, единицами на наддиагонали и $-1$ на поддиагонали.</div>
 
 <div class="formula">Рекуррентное соотношение:<br>
-(q<sub>1</sub>q<sub>2</sub>&hellip;q<sub>n</sub>) = q<sub>n</sub> &middot; (q<sub>1</sub>q<sub>2</sub>&hellip;q<sub>n&minus;1</sub>) + (q<sub>1</sub>q<sub>2</sub>&hellip;q<sub>n&minus;2</sub>)</div>
+$$(q_1 q_2 \ldots q_n) = q_n \cdot (q_1 q_2 \ldots q_{n-1}) + (q_1 q_2 \ldots q_{n-2})$$</div>
 
-<div class="thm"><strong>Лемма 1.</strong> Континуанта равна сумме всевозможных произведений элементов q<sub>1</sub>&hellip;q<sub>n</sub>, где каждое произведение получается выбрасыванием одной или нескольких пар соседних сомножителей.</div>
+<div class="thm"><strong>Лемма 1.</strong> Континуанта равна сумме всевозможных произведений элементов $q_1 \ldots q_n$, где каждое произведение получается выбрасыванием одной или нескольких пар соседних сомножителей.</div>
 
-<div class="thm"><strong>Лемма 2 (Эйлер).</strong> Цепная дробь q<sub>1</sub> + 1/(q<sub>2</sub> + 1/(q<sub>3</sub> + &hellip; + 1/q<sub>n</sub>)) = (q<sub>1</sub>q<sub>2</sub>&hellip;q<sub>n</sub>) / (q<sub>2</sub>q<sub>3</sub>&hellip;q<sub>n</sub>)</div>
+<div class="thm"><strong>Лемма 2 (Эйлер).</strong> Цепная дробь $q_1 + \cfrac{1}{q_2 + \cfrac{1}{q_3 + \ldots + \cfrac{1}{q_n}}} = \dfrac{(q_1 q_2 \ldots q_n)}{(q_2 q_3 \ldots q_n)}$</div>
 
-<div class="thm"><strong>Теорема Ламэ (1845).</strong> Если алгоритму Евклида для чисел a &gt; b нужно ровно n шагов и a &mdash; наименьшее с таким свойством, то a = F<sub>n+2</sub>, b = F<sub>n+1</sub> (числа Фибоначчи).</div>
+<div class="thm"><strong>Теорема Ламэ (1845).</strong> Если алгоритму Евклида для чисел $a > b$ нужно ровно $n$ шагов и $a$ — наименьшее с таким свойством, то $a = F_{n+2}$, $b = F_{n+1}$ (числа Фибоначчи).</div>
 </div>
 
 <div class="section">

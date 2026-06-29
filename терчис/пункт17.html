@@ -4,16 +4,87 @@
 <meta charset="UTF-8">
 <title>Пункт 17. Полная и приведенная системы вычетов — Интерактивный учебник</title>
 <link rel="stylesheet" href="style.css">
+<script>
+MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 </head>
 <body>
-<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">17. Полная и приведенная системы вычетов</span></div></div>
+<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§4. Теория сравнений</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 17</span></div></div>
 <div class="container">
 
-<div class="section" style="text-align:center;padding:60px 20px;">
-<h2 style="border:none;text-align:center;padding:0;font-size:1.3em;">17. Полная и приведенная системы вычетов</h2>
-<p style="color:#86868b;margin-top:16px;">Раздел находится в разработке. Скоро здесь появится теория и задания.</p>
+<h1>Пункт 17. Полная и приведенная системы вычетов</h1>
+<p class="subtitle">§4. Теория сравнений — Теория чисел</p>
+
+<div class="section">
+<h2>📖 Теория</h2>
+
+<div class="def">
+<strong>Определение.</strong> Любое число из класса эквивалентности $\equiv_m$ называется <strong>вычетом</strong> по модулю $m$. Совокупность вычетов по одному из каждого класса — <strong>полная система вычетов</strong> (содержит $m$ чисел).
 </div>
 
+<div class="example-box">
+<strong>Пример (m = 5).</strong><br>
+Наименьшие неотрицательные вычеты: 0, 1, 2, 3, 4<br>
+Абсолютно наименьшие вычеты: −2, −1, 0, 1, 2
 </div>
+
+<div class="thm">
+<strong>Лемма 1.</strong> 1) Любые $m$ попарно несравнимых по $\bmod m$ чисел образуют полную систему вычетов.<br>
+2) Если $(a, m) = 1$, то $ax + b$ при пробегании полной системы вычетов $x$ тоже пробегает полную систему.
+</div>
+
+<div class="def">
+<strong>Определение.</strong> <strong>Приведенная система вычетов</strong> по модулю $m$ — это вычеты из полной системы, взаимно простые с $m$. Содержит $\varphi(m)$ элементов.
+</div>
+
+<div class="example-box">
+<strong>Пример (m = 42).</strong> Приведенная система: $1, 5, 11, 13, 17, 19, 23, 25, 29, 31, 37, 41$ (12 чисел, $\varphi(42) = 12$).
+</div>
+
+<div class="thm">
+<strong>Лемма 2.</strong> Если $(a, m) = 1$ и $x$ пробегает приведенную систему вычетов, то $ax$ тоже пробегает приведенную систему.
+</div>
+
+<div class="thm">
+<strong>Теорема 1 (суммы корней единицы).</strong> Пусть $x$ пробегает полную систему вычетов по модулю $m$. Тогда:
+$$\sum_{x} e^{2\pi i a x/m} = m, \text{ если } m \mid a, \text{ и } 0 \text{ в противном случае.}$$
+</div>
+
+<div class="thm">
+<strong>Теорема 2 (сумма первообразных корней).</strong> $\sum_{\xi} e^{2\pi i \xi/m} = \mu(m)$, где суммирование по приведенной системе вычетов, $\mu$ — функция Мебиуса.
+</div>
+</div>
+
+<div class="section">
+<h2>✏️ Задания</h2>
+<p style="margin-bottom:12px; color:#555;">Задачки из методички.</p>
+<div id="tasks"></div>
+<div class="progress" id="progress">Решено: <span id="score">0</span> / <span id="total">0</span></div>
+<button class="reset-btn" onclick="resetAll()">🔄 Сбросить всё</button>
+</div>
+</div>
+
+<script>
+const tasksData = [
+  { text: '1. Сколько элементов в полной системе вычетов по модулю 13?', answers: ['13'] },
+  { text: '2. Сколько элементов в приведенной системе вычетов по модулю 13?', answers: ['12'], hint: 'φ(13) = 12, так как 13 — простое.' },
+  { text: '3. Запишите все наименьшие неотрицательные вычеты по модулю 6.', answers: ['0,1,2,3,4,5'], hint: 'Числа 0, 1, 2, 3, 4, 5.' },
+  { text: '4. Запишите приведенную систему вычетов по модулю 6.', answers: ['1,5'], hint: 'Только 1 и 5 взаимно просты с 6.' },
+  { text: '5. Чему равна сумма всех элементов приведенной системы вычетов по модулю 7?', answers: ['21'], hint: '1+2+3+4+5+6 = 21.' },
+  { text: '6. Верно ли, что φ(12) = 4?', type: 'select', answers: ['да'], hint: 'φ(12) = 12·(1−1/2)·(1−1/3) = 4. Числа: 1,5,7,11.' },
+  { text: '7. Каково число элементов приведенной системы по модулю 100?', answers: ['40'], hint: 'φ(100) = φ(2²·5²) = 100·(1−1/2)·(1−1/5) = 40.' },
+  { text: '8. Является ли число 7 вычетом по модулю 5?', type: 'select', answers: ['да'], hint: '7 ≡ 2 (mod 5), 2 — вычет.' }
+];
+function normalize(s){return s.trim().toLowerCase()}
+function renderTasks(){var c=document.getElementById('tasks');c.innerHTML='';tasksData.forEach(function(t,i){var d=document.createElement('div');d.className='task';var f;if(t.type==='select'){f='<select id="ans-'+i+'"><option value="">— выберите —</option><option value="да">да</option><option value="нет">нет</option></select>'}else{f='<input type="text" id="ans-'+i+'" placeholder="ответ" style="width:160px;">'}d.innerHTML='<p>'+(i+1)+'. '+t.text+'</p><div class="fields">'+f+'<button onclick="check('+i+')">Проверить</button></div><div class="result" id="result-'+i+'"></div>';c.appendChild(d)});document.getElementById('total').textContent=tasksData.length;updateProgress()}
+function check(i){var t=tasksData[i],r=document.getElementById('result-'+i);if(t.type==='select'){var s=document.getElementById('ans-'+i),v=s.value;if(!v){r.innerHTML='<span class="no">Выберите ответ.</span>';return}var ok=t.answers.some(function(a){return normalize(v)===normalize(a)});s.className=ok?'correct':'wrong';r.innerHTML=ok?'<span class="ok">Верно!</span>':'<span class="no">Неверно.</span>';updateProgress();return}var inp=document.getElementById('ans-'+i),v=inp.value.trim();if(!v){r.innerHTML='<span class="no">Введите ответ.</span>';return}var ok=t.answers.some(function(a){return normalize(v)===normalize(a)});inp.className=ok?'correct':'wrong';r.innerHTML=ok?'<span class="ok">Верно!</span>':'<span class="no">Неверно.</span>';updateProgress()}
+function updateProgress(){var c=0;tasksData.forEach(function(_,i){var e=document.getElementById('ans-'+i);if(e&&e.className==='correct')c++});document.getElementById('score').textContent=c}
+function resetAll(){tasksData.forEach(function(_,i){var t=tasksData[i],r=document.getElementById('result-'+i);if(t.type==='select'){var s=document.getElementById('ans-'+i);if(s){s.selectedIndex=0;s.className=''}}else{var inp=document.getElementById('ans-'+i);if(inp){inp.value='';inp.className=''}}if(r)r.innerHTML=''});updateProgress()}
+renderTasks();
+</script>
 </body>
 </html>

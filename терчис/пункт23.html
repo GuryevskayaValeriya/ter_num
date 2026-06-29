@@ -2,18 +2,100 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Пункт 23. Дальнейшие свойства символа Лежандра — Интерактивный учебник</title>
+<title>Пункт 23. Дальнейшие свойства символа Лежандра. Закон взаимности Гаусса — Интерактивный учебник</title>
 <link rel="stylesheet" href="style.css">
+<script>
+MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 </head>
 <body>
-<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">23. Дальнейшие свойства символа Лежандра</span></div></div>
+<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§4. Теория сравнений</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 23</span></div></div>
 <div class="container">
 
-<div class="section" style="text-align:center;padding:60px 20px;">
-<h2 style="border:none;text-align:center;padding:0;font-size:1.3em;">23. Дальнейшие свойства символа Лежандра</h2>
-<p style="color:#86868b;margin-top:16px;">Раздел находится в разработке. Скоро здесь появится теория и задания.</p>
+<h1>Пункт 23. Дальнейшие свойства символа Лежандра. Закон взаимности Гаусса</h1>
+<p class="subtitle">§4. Теория сравнений — Теория чисел</p>
+
+<div class="section">
+<h2>📖 Теория</h2>
+
+<div class="thm">
+<strong>Дополнительные законы:</strong><br>
+1) $\left(\frac{-1}{p}\right) = (-1)^{(p-1)/2}$ — то есть $-1$ является кв. вычетом при $p \equiv 1 \pmod{4}$.<br>
+2) $\left(\frac{2}{p}\right) = (-1)^{(p^{2}-1)/8}$ — $2$ является кв. вычетом при $p \equiv \pm 1 \pmod{8}$.
 </div>
 
+<div class="thm">
+<strong>Лемма 2.</strong> Символ $(a/p)$ выражается через $(-1)^{s}$, где $s$ — число точек с дробной координатой в прямоугольнике $0 < x < p/2$, $0 < y < a/(2p)$.
 </div>
+
+<div class="thm">
+<strong>Лемма 3.</strong> $\left(\frac{2}{p}\right) = (-1)^{(p^{2}-1)/8}$
+</div>
+
+<div class="thm">
+<strong>Теорема (Закон взаимности Гаусса).</strong> Если $p$ и $q$ — нечётные простые числа, то:<br>
+<div class="formula">$$\left(\frac{p}{q}\right) = (-1)^{\frac{p-1}{2} \cdot \frac{q-1}{2}} \cdot \left(\frac{q}{p}\right)$$</div>
+Это означает: $(p/q) = (q/p)$, если хотя бы одно из чисел $p, q \equiv 1 \pmod{4}$, и $(p/q) = -(q/p)$, если оба $\equiv 3 \pmod{4}$.
+</div>
+
+<div class="def">
+<strong>Символ Якоби.</strong> Расширение символа Лежандра на составные модули. Если $n = p_{1}^{a_{1}}\ldots p_{k}^{a_{k}}$, то:
+<div class="formula">$$\left(\frac{a}{n}\right) = \left(\frac{a}{p_{1}}\right)^{a_{1}} \cdots \left(\frac{a}{p_{k}}\right)^{a_{k}}$$</div>
+</div>
+
+<div class="example-box">
+<strong>Пример 1.</strong> Найти $(37/71)$. 37 и 71 — простые.<br>
+$37 \equiv 1 \pmod{4}$, значит $(37/71) = (71/37) = (34/37) = (2/37) \cdot (17/37)$.<br>
+$(2/37) = 1$ ($37 \equiv 5 \bmod 8 \Rightarrow -1$).<br>
+$(17/37) = (37/17) = (3/17) = (17/3) = (2/3) = -1$.<br>
+Итого: $(37/71) = -1 \cdot (-1) = 1$.
+</div>
+
+<div class="example-box">
+<strong>Пример 2.</strong> Найти $(73/131)$.<br>
+$73 \equiv 1 \pmod{4} \Rightarrow (73/131) = (131/73) = (58/73)$<br>
+$= (2/73) \cdot (29/73) = 1 \cdot (29/73) = (73/29) = (15/29)$<br>
+$= (3/29) \cdot (5/29) = (29/3) \cdot (29/5) = (2/3) \cdot (4/5) = (-1) \cdot 1 = -1$.
+</div>
+
+<div class="example-box">
+<strong>Пример 3.</strong> Найти $(15/97)$.<br>
+$(15/97) = (3/97) \cdot (5/97) = (97/3) \cdot (97/5) = (1/3) \cdot (2/5) = 1 \cdot (-1) = -1$.
+</div>
+</div>
+
+<div class="section">
+<h2>✏️ Задания</h2>
+<p style="margin-bottom:12px; color:#555;">Задачки из методички.</p>
+<div id="tasks"></div>
+<div class="progress" id="progress">Решено: <span id="score">0</span> / <span id="total">0</span></div>
+<button class="reset-btn" onclick="resetAll()">🔄 Сбросить всё</button>
+</div>
+</div>
+
+<script>
+const tasksData = [
+  { text: '1. Найдите (−1/13).', answers: ['1'], hint: '(−1)^((13−1)/2) = (−1)^6 = 1.' },
+  { text: '2. Найдите (−1/17).', answers: ['1'], hint: '(−1)^((17−1)/2) = (−1)^8 = 1.' },
+  { text: '3. Найдите (−1/11).', answers: ['-1'], hint: '(−1)^((11−1)/2) = (−1)^5 = −1.' },
+  { text: '4. Найдите (2/17).', answers: ['1'], hint: '(17²−1)/8=36, (-1)^36=1. Или: 17≡1(mod8).' },
+  { text: '5. Найдите (2/19).', answers: ['-1'], hint: '(19²−1)/8=45, (-1)^45=−1. Или: 19≡3(mod8).' },
+  { text: '6. Найдите (5/11).', answers: ['1'], hint: 'Квадраты mod 11: 1,4,9,5,3. 5 есть → (5/11)=1.' },
+  { text: '7. По закону взаимности: (3/13) = ?', answers: ['1'], hint: '13≡1(mod4) → (3/13)=(13/3)=(1/3)=1.' },
+  { text: '8. По закону взаимности: (5/7) = ?', answers: ['-1'], hint: '7≡3(mod4), 5≡1(mod4) → (5/7)=(7/5)=(2/5)=−1.' },
+  { text: '9. Найдите (3/101).', answers: ['-1'], hint: '101≡1(mod4) → (3/101)=(101/3)=(2/3)=−1. Квадраты mod 3: {0,1}, нет 2 → −1.' },
+  { text: '10. Найдите (21/31).', answers: ['-1'], hint: '(21/31)=(3/31)·(7/31). 31≡3(mod4): (3/31)=−(31/3)=−(1/3)=−1. (7/31)=−(31/7)=−(3/7)=−(−1)=1. Итого: −1·1=−1.' }
+];
+function normalize(s){return s.trim().toLowerCase()}
+function renderTasks(){var c=document.getElementById('tasks');c.innerHTML='';tasksData.forEach(function(t,i){var d=document.createElement('div');d.className='task';var f;if(t.type==='select'){f='<select id="ans-'+i+'"><option value="">— выберите —</option><option value="да">да</option><option value="нет">нет</option></select>'}else{f='<input type="text" id="ans-'+i+'" placeholder="ответ" style="width:80px;">'}d.innerHTML='<p>'+(i+1)+'. '+t.text+'</p><div class="fields">'+f+'<button onclick="check('+i+')">Проверить</button></div><div class="result" id="result-'+i+'"></div>';c.appendChild(d)});document.getElementById('total').textContent=tasksData.length;updateProgress()}
+function check(i){var t=tasksData[i],r=document.getElementById('result-'+i);if(t.type==='select'){var s=document.getElementById('ans-'+i),v=s.value;if(!v){r.innerHTML='<span class="no">Выберите ответ.</span>';return}var ok=t.answers.some(function(a){return normalize(v)===normalize(a)});s.className=ok?'correct':'wrong';r.innerHTML=ok?'<span class="ok">Верно!</span>':'<span class="no">Неверно.</span>';updateProgress();return}var inp=document.getElementById('ans-'+i),v=inp.value.trim();if(!v){r.innerHTML='<span class="no">Введите ответ.</span>';return}var ok=t.answers.some(function(a){return normalize(v)===normalize(a)});inp.className=ok?'correct':'wrong';r.innerHTML=ok?'<span class="ok">Верно!</span>':'<span class="no">Неверно.</span>';updateProgress()}
+function updateProgress(){var c=0;tasksData.forEach(function(_,i){var e=document.getElementById('ans-'+i);if(e&&e.className==='correct')c++});document.getElementById('score').textContent=c}
+function resetAll(){tasksData.forEach(function(_,i){var t=tasksData[i],r=document.getElementById('result-'+i);if(t.type==='select'){var s=document.getElementById('ans-'+i);if(s){s.selectedIndex=0;s.className=''}}else{var inp=document.getElementById('ans-'+i);if(inp){inp.value='';inp.className=''}}if(r)r.innerHTML=''});updateProgress()}
+renderTasks();
+</script>
 </body>
 </html>

@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <title>Пункт 4. Алгоритм Евклида — Интерактивный учебник</title>
 <link rel="stylesheet" href="style.css">
+<script>
+MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 </head>
 <body>
 
@@ -15,38 +22,38 @@
 <div class="section">
 <h2>📖 Теория</h2>
 
-<p>Алгоритм Евклида — способ нахождения НОД двух чисел, основанный на свойстве 3 пункта 2: если a = bq + c, то (a, b) = (b, c).</p>
+<p>Алгоритм Евклида — способ нахождения НОД двух чисел, основанный на свойстве 3 пункта 2: если $a = bq + c$, то $(a, b) = (b, c)$.</p>
 
 <div class="alg">
 <strong>Алгоритм:</strong><br>
-1. Ввести a, b (a ≥ b ≥ 0).<br>
-2. Если b = 0, то Ответ: a. Конец.<br>
-3. r := остаток от деления a на b; a := b; b := r.<br>
+1. Ввести $a$, $b$ ($a \ge b \ge 0$).<br>
+2. Если $b = 0$, то Ответ: $a$. Конец.<br>
+3. $r :=$ остаток от деления $a$ на $b$; $a := b$; $b := r$.<br>
 4. Перейти на шаг 2.
 </div>
 
 <p>В виде цепочки равенств:</p>
 <div class="ex">
-a = b·q<sub>1</sub> + r<sub>1</sub>, 0 ≤ r<sub>1</sub> < b<br>
-b = r<sub>1</sub>·q<sub>2</sub> + r<sub>2</sub>, 0 ≤ r<sub>2</sub> < r<sub>1</sub><br>
-r<sub>1</sub> = r<sub>2</sub>·q<sub>3</sub> + r<sub>3</sub>, 0 ≤ r<sub>3</sub> < r<sub>2</sub><br>
-…<br>
-r<sub>n−2</sub> = r<sub>n−1</sub>·q<sub>n</sub> + r<sub>n</sub>, 0 ≤ r<sub>n</sub> < r<sub>n−1</sub><br>
-r<sub>n−1</sub> = r<sub>n</sub>·q<sub>n+1</sub> → (a,b) = r<sub>n</sub>
+$$a = bq_1 + r_1, \quad 0 \le r_1 < b$$
+$$b = r_1 q_2 + r_2, \quad 0 \le r_2 < r_1$$
+$$r_1 = r_2 q_3 + r_3, \quad 0 \le r_3 < r_2$$
+$$\ldots$$
+$$r_{n-2} = r_{n-1} q_n + r_n, \quad 0 \le r_n < r_{n-1}$$
+$$r_{n-1} = r_n q_{n+1} \;\;\Rightarrow\;\; (a, b) = r_n$$
 </div>
 
 <div class="thm">
-<strong>Линейное представление НОД.</strong> Из цепочки равенств алгоритма, поднимаясь снизу вверх, можно выразить (a, b) = a·u + b·v для некоторых целых u, v.
+<strong>Линейное представление НОД.</strong> Из цепочки равенств алгоритма, поднимаясь снизу вверх, можно выразить $(a, b) = au + bv$ для некоторых целых $u$, $v$.
 </div>
 
 <div class="ex">
-<strong>Пример.</strong> Найдём (525, 231):<br>
-525 = 231·2 + 63<br>
-231 = 63·3 + 42<br>
-63 = 42·1 + 21<br>
-42 = 21·2 + 0 → (525, 231) = 21<br><br>
-Линейное представление:<br>
-21 = 63 − 42·1 = 63 − (231 − 63·3) = 525·4 − 231·9 → u = 4, v = −9.
+<strong>Пример.</strong> Найдём $(525, 231)$:<br>
+$$525 = 231 \cdot 2 + 63$$
+$$231 = 63 \cdot 3 + 42$$
+$$63 = 42 \cdot 1 + 21$$
+$$42 = 21 \cdot 2 + 0 \;\;\Rightarrow\;\; (525, 231) = 21$$
+<br>Линейное представление:<br>
+$$21 = 63 - 42 \cdot 1 = 63 - (231 - 63 \cdot 3) = 525 \cdot 4 - 231 \cdot 9 \;\;\Rightarrow\;\; u = 4,\; v = -9.$$
 </div>
 </div>
 

@@ -4,16 +4,77 @@
 <meta charset="UTF-8">
 <title>Пункт 20. Сравнения любой степени по простому модулю — Интерактивный учебник</title>
 <link rel="stylesheet" href="style.css">
+<script>
+MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 </head>
 <body>
-<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">20. Сравнения любой степени по простому модулю</span></div></div>
+<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§4. Теория сравнений</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 20</span></div></div>
 <div class="container">
 
-<div class="section" style="text-align:center;padding:60px 20px;">
-<h2 style="border:none;text-align:center;padding:0;font-size:1.3em;">20. Сравнения любой степени по простому модулю</h2>
-<p style="color:#86868b;margin-top:16px;">Раздел находится в разработке. Скоро здесь появится теория и задания.</p>
+<h1>Пункт 20. Сравнения любой степени по простому модулю</h1>
+<p class="subtitle">§4. Теория сравнений — Теория чисел</p>
+
+<div class="section">
+<h2>📖 Теория</h2>
+
+<div class="thm">
+<strong>Лемма 1.</strong> Если $x_{1} \equiv x_{2} \pmod{p}$ и $a_{1} \equiv a_{2} \pmod{p}$, то $x_{1}^{a_{1}} \equiv x_{2}^{a_{2}} \pmod{p}$. Это позволяет говорить о «степени элементов мультипликативной группы» по модулю $p$.
 </div>
 
+<div class="thm">
+<strong>Лемма 2.</strong> Если $x^{m} \equiv 1 \pmod{p}$, то $m$ кратно $(p-1)$. Иными словами, если $x$ не является корнем единицы меньшего порядка, то $m \mid (p-1)$. Это следует из того, что группа вычетов по $\bmod p$ циклическая.
 </div>
+
+<div class="thm">
+<strong>Лемма 3.</strong> Если $a^{m} \equiv 1 \pmod{p}$ и $b^{m} \equiv 1 \pmod{p}$, то $(ab)^{m} \equiv 1 \pmod{p}$. Простая проверка: $(ab)^{m} = a^{m}b^{m} \equiv 1 \cdot 1 = 1$.
+</div>
+
+<div class="thm">
+<strong>Лемма 4.</strong> Уравнение $x^{n} \equiv a \pmod{p}$ имеет решение тогда и только тогда, когда $a^{(p-1)/d} \equiv 1 \pmod{p}$, где $d = (n, p-1)$. Число различных решений равно $d$.
+</div>
+
+<div class="example-box">
+<strong>Пример 1.</strong> Определить, имеет ли решение $x^{3} \equiv 2 \pmod{13}$.<br>
+$d = (3, 12) = 3$. Проверяем: $2^{12/3} = 2^{4} = 16 \equiv 3 \pmod{13}$. $3 \ne 1$, значит решения нет.
+</div>
+
+<div class="example-box">
+<strong>Пример 2.</strong> Определить, имеет ли решение $x^{4} \equiv 15 \pmod{23}$.<br>
+$d = (4, 22) = 2$. Проверяем: $15^{11} \pmod{23}$. $15^{2} = 225 \equiv 18$, $15^{4} \equiv 18^{2} = 324 \equiv 2$, $15^{8} \equiv 4$, $15^{11} = 15^{8} \cdot 15^{2} \cdot 15 \equiv 4 \cdot 18 \cdot 15 = 1080 \equiv 1 \pmod{23}$. Решение существует, 2 корня.
+</div>
+</div>
+
+<div class="section">
+<h2>✏️ Задания</h2>
+<p style="margin-bottom:12px; color:#555;">Задачки из методички.</p>
+<div id="tasks"></div>
+<div class="progress" id="progress">Решено: <span id="score">0</span> / <span id="total">0</span></div>
+<button class="reset-btn" onclick="resetAll()">🔄 Сбросить всё</button>
+</div>
+</div>
+
+<script>
+const tasksData = [
+  { text: '1. Имеет ли решение x² ≡ 3 (mod 5)?', type: 'select', answers: ['нет'], hint: 'Квадраты по mod 5: 0,1,4. 3 нет.' },
+  { text: '2. Имеет ли решение x² ≡ 1 (mod 7)?', type: 'select', answers: ['да'], hint: '1² ≡ 1, 6² ≡ 1. Два корня.' },
+  { text: '3. Найдите все решения x³ ≡ 1 (mod 7).', answers: ['1,2,4'], hint: 'd=(3,6)=3. Проверяем: 1³=1, 2³=8≡1, 4³=64≡1.' },
+  { text: '4. Имеет ли решение x⁴ ≡ 2 (mod 11)?', type: 'select', answers: ['нет'], hint: 'd=(4,10)=2. 2⁵=32≡10≠1(mod11).' },
+  { text: '5. Найдите все решения x² ≡ 1 (mod 15).', answers: ['1,4,11,14'], hint: 'x²≡1(mod3) и x²≡1(mod5). Корни: x≡±1(mod3), x≡±1(mod5). CRT: 4 решения.' },
+  { text: '6. Имеет ли решение x⁶ ≡ 5 (mod 7)?', type: 'select', answers: ['да'], hint: 'd=(6,6)=6. 5⁶≡1(mod7) по Ферму, т.к. (5,7)=1.' },
+  { text: '7. Сколько решений имеет x⁵ ≡ 3 (mod 11)?', answers: ['1'], hint: 'd=(5,10)=5. 3²=9≡9, 3⁴≡9²=81≡4, 3⁵≡4·3=12≡1. Одно решение.' },
+  { text: '8. Найдите количество корней x² ≡ 1 (mod 35).', answers: ['4'], hint: '35=5·7. Каждый модуль даёт 2 корня, итого 2·2=4.' }
+];
+function normalize(s){return s.trim().toLowerCase()}
+function renderTasks(){var c=document.getElementById('tasks');c.innerHTML='';tasksData.forEach(function(t,i){var d=document.createElement('div');d.className='task';var f;if(t.type==='select'){f='<select id="ans-'+i+'"><option value="">— выберите —</option><option value="да">да</option><option value="нет">нет</option></select>'}else{f='<input type="text" id="ans-'+i+'" placeholder="ответ" style="width:140px;">'}d.innerHTML='<p>'+(i+1)+'. '+t.text+'</p><div class="fields">'+f+'<button onclick="check('+i+')">Проверить</button></div><div class="result" id="result-'+i+'"></div>';c.appendChild(d)});document.getElementById('total').textContent=tasksData.length;updateProgress()}
+function check(i){var t=tasksData[i],r=document.getElementById('result-'+i);if(t.type==='select'){var s=document.getElementById('ans-'+i),v=s.value;if(!v){r.innerHTML='<span class="no">Выберите ответ.</span>';return}var ok=t.answers.some(function(a){return normalize(v)===normalize(a)});s.className=ok?'correct':'wrong';r.innerHTML=ok?'<span class="ok">Верно!</span>':'<span class="no">Неверно.</span>';updateProgress();return}var inp=document.getElementById('ans-'+i),v=inp.value.trim();if(!v){r.innerHTML='<span class="no">Введите ответ.</span>';return}var ok=t.answers.some(function(a){return normalize(v)===normalize(a)});inp.className=ok?'correct':'wrong';r.innerHTML=ok?'<span class="ok">Верно!</span>':'<span class="no">Неверно.</span>';updateProgress()}
+function updateProgress(){var c=0;tasksData.forEach(function(_,i){var e=document.getElementById('ans-'+i);if(e&&e.className==='correct')c++});document.getElementById('score').textContent=c}
+function resetAll(){tasksData.forEach(function(_,i){var t=tasksData[i],r=document.getElementById('result-'+i);if(t.type==='select'){var s=document.getElementById('ans-'+i);if(s){s.selectedIndex=0;s.className=''}}else{var inp=document.getElementById('ans-'+i);if(inp){inp.value='';inp.className=''}}if(r)r.innerHTML=''});updateProgress()}
+renderTasks();
+</script>
 </body>
 </html>

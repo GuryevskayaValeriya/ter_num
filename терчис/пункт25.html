@@ -4,16 +4,99 @@
 <meta charset="UTF-8">
 <title>Пункт 25. Числа Лиувилля — Интерактивный учебник</title>
 <link rel="stylesheet" href="style.css">
+<script>
+MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 </head>
 <body>
-<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">25. Числа Лиувилля</span></div></div>
+<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§5. Трансцендентные числа</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 25</span></div></div>
 <div class="container">
 
-<div class="section" style="text-align:center;padding:60px 20px;">
-<h2 style="border:none;text-align:center;padding:0;font-size:1.3em;">25. Числа Лиувилля</h2>
-<p style="color:#86868b;margin-top:16px;">Раздел находится в разработке. Скоро здесь появится теория и задания.</p>
+<h1>Пункт 25. Числа Лиувилля</h1>
+<p class="subtitle">§5. Трансцендентные числа — Теория чисел</p>
+
+<div class="section">
+<h2>📖 Теория</h2>
+
+<div class="def">
+<strong>Определение 1.</strong> Число $z \in \mathbb{C}$ называется <strong>алгебраическим</strong>, если оно является корнем некоторого алгебраического уравнения $a_nz^n + \ldots + a_1z + a_0 = 0$ с целыми коэффициентами.
 </div>
 
+<div class="def">
+<strong>Определение 2.</strong> <strong>Степенью</strong> алгебраического числа называется наименьшая степень уравнения с целыми коэффициентами, которому это число удовлетворяет.
 </div>
+
+<div class="example-box">
+<strong>Пример.</strong> Число $\sqrt{2}$ — алгебраическое степени 2, корень $x^2 - 2 = 0$, но не является корнем уравнения степени 1: если $a\sqrt{2} + b = 0$, то $\sqrt{2} = -b/a$ — рациональное, противоречие.
+</div>
+
+<div class="thm">
+<strong>Теорема 1 (Кантор).</strong> Множество $A$ всех алгебраических чисел счётно.
+</div>
+
+<div class="thm">
+<strong>Следствие.</strong> Существует continuum неалгебраических (трансцендентных) чисел.
+</div>
+
+<div class="def">
+<strong>Определение 3.</strong> Число $\alpha \in \mathbb{R}$, не являющееся алгебраическим, называется <strong>трансцендентным</strong>.
+</div>
+
+<div class="thm">
+<strong>Лемма (Лиувилль).</strong> Для любого действительного алгебраического числа $z$ степени $n > 1$ найдется натуральное число $M$ такое, что $|z - p/q| > 1/(Mq^n)$ при всех целых $p$ и $q$, $q > 0$.
+</div>
+
+<div class="def">
+<strong>Определение 3.</strong> Действительное число $z$ называется <strong>числом Лиувилля</strong>, если $z$ иррационально и для каждого натурального $n$ существуют целые $p$ и $q$ такие, что $q > 1$ и $|z - p/q| < 1/q^n$.
+</div>
+
+<div class="example-box">
+<strong>Пример 1 (с помощью ряда).</strong> $z = \sum_{k=1}^{\infty} \frac{1}{10^{k!}} = 0{,}110001000000000000000001\ldots$ — единички стоят на позициях $k!$. Число иррационально (непериодическая дробь), и $|z - p/q| < 1/q^n$ при $q = 10^{n!}$. Это число Лиувилля, значит трансцендентно.
+</div>
+
+<div class="example-box">
+<strong>Пример 2 (с помощью цепной дроби).</strong> Если последовательность неполных частных цепной дроби возрастает очень быстро ($q_{s+1} \geq Q_s^{s-2}$), то число является числом Лиувилля.
+</div>
+
+<div class="thm">
+<strong>Теорема 2.</strong> Любое число Лиувилля трансцендентно.
+</div>
+
+<div class="thm">
+<strong>Теорема 3.</strong> Множество E всех чисел Лиувилля — нуль-множество второй категории, а дополнение E' — множество первой категории.
+</div>
+</div>
+
+<div class="section">
+<h2>✏️ Задания</h2>
+<p style="margin-bottom:12px; color:#555;">Задачки из методички.</p>
+<div id="tasks"></div>
+<div class="progress" id="progress">Решено: <span id="score">0</span> / <span id="total">0</span></div>
+<button class="reset-btn" onclick="resetAll()">🔄 Сбросить всё</button>
+</div>
+</div>
+
+<script>
+const tasksData = [
+  { text: '1. Является ли число √2 алгебраическим?', type: 'select', answers: ['да'], hint: 'Корень x² − 2 = 0, коэффициенты целые.' },
+  { text: '2. Какова степень числа √2?', answers: ['2'], hint: 'Минимальное уравнение: x² − 2 = 0, степень 2.' },
+  { text: '3. Является ли число π алгебраическим?', type: 'select', answers: ['нет'], hint: 'π трансцендентно (теорема Линдемана).' },
+  { text: '4. Верно ли, что множество алгебраических чисел счётно?', type: 'select', answers: ['да'], hint: 'Теорема 1 (Кантор).' },
+  { text: '5. Является ли число 0,110001... (единички на позициях k!) числом Лиувилля?', type: 'select', answers: ['да'], hint: 'Это классический пример числа Лиувилля из ряда.' },
+  { text: '6. Какова мера множества всех чисел Лиувилля?', answers: ['мера нуль'], hint: 'Теорема 3: E — нуль-множество.' },
+  { text: '7. Какова категория множества всех чисел Лиувилля?', answers: ['второй категории'], hint: 'Теорема 3: E — второй категории (дополнение E\' первой категории плотно).' },
+  { text: '8. Каждое число Лиувилля является...', type: 'select', answers: ['трансцендентным'], hint: 'Теорема 2: любое число Лиувилля трансцендентно.' }
+];
+function normalize(s){return s.trim().toLowerCase()}
+function renderTasks(){var c=document.getElementById('tasks');c.innerHTML='';tasksData.forEach(function(t,i){var d=document.createElement('div');d.className='task';var f;if(t.type==='select'){f='<select id="ans-'+i+'"><option value="">— выберите —</option><option value="да">да</option><option value="нет">нет</option></select>'}else{f='<input type="text" id="ans-'+i+'" placeholder="ответ" style="width:200px;">'}d.innerHTML='<p>'+(i+1)+'. '+t.text+'</p><div class="fields">'+f+'<button onclick="check('+i+')">Проверить</button></div><div class="result" id="result-'+i+'"></div>';c.appendChild(d)});document.getElementById('total').textContent=tasksData.length;updateProgress()}
+function check(i){var t=tasksData[i],r=document.getElementById('result-'+i);if(t.type==='select'){var s=document.getElementById('ans-'+i),v=s.value;if(!v){r.innerHTML='<span class="no">Выберите ответ.</span>';return}var ok=t.answers.some(function(a){return normalize(v)===normalize(a)});s.className=ok?'correct':'wrong';r.innerHTML=ok?'<span class="ok">Верно!</span>':'<span class="no">Неверно.</span>';updateProgress();return}var inp=document.getElementById('ans-'+i),v=inp.value.trim();if(!v){r.innerHTML='<span class="no">Введите ответ.</span>';return}var ok=t.answers.some(function(a){return normalize(v)===normalize(a)});inp.className=ok?'correct':'wrong';r.innerHTML=ok?'<span class="ok">Верно!</span>':'<span class="no">Неверно.</span>';updateProgress()}
+function updateProgress(){var c=0;tasksData.forEach(function(_,i){var e=document.getElementById('ans-'+i);if(e&&e.className==='correct')c++});document.getElementById('score').textContent=c}
+function resetAll(){tasksData.forEach(function(_,i){var t=tasksData[i],r=document.getElementById('result-'+i);if(t.type==='select'){var s=document.getElementById('ans-'+i);if(s){s.selectedIndex=0;s.className=''}}else{var inp=document.getElementById('ans-'+i);if(inp){inp.value='';inp.className=''}}if(r)r.innerHTML=''});updateProgress()}
+renderTasks();
+</script>
 </body>
 </html>

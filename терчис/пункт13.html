@@ -4,16 +4,209 @@
 <meta charset="UTF-8">
 <title>Пункт 13. Мультипликативные функции — Интерактивный учебник</title>
 <link rel="stylesheet" href="style.css">
+<script>
+MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 </head>
 <body>
-<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">13. Мультипликативные функции</span></div></div>
+<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§3. Важнейшие функции</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 13</span></div></div>
 <div class="container">
 
-<div class="section" style="text-align:center;padding:60px 20px;">
-<h2 style="border:none;text-align:center;padding:0;font-size:1.3em;">13. Мультипликативные функции</h2>
-<p style="color:#86868b;margin-top:16px;">Раздел находится в разработке. Скоро здесь появится теория и задания.</p>
+<h1>Пункт 13. Мультипликативные функции</h1>
+<p class="subtitle">§3. Важнейшие функции в теории чисел — Теория чисел</p>
+
+<!-- ТЕОРИЯ -->
+<div class="section">
+<h2>📖 Теория</h2>
+
+<div class="def">
+<strong>Определение.</strong> Функция $\theta : \mathbb{N} \to \mathbb{R}$ называется <strong>мультипликативной</strong>, если:<br>
+1) Существует $a \in \mathbb{N}$ такой, что $\theta(a) \neq 0$.<br>
+2) Для любых взаимно простых $a_1, a_2 \in \mathbb{N}$ выполняется:
+<div class="formula">$$\theta(a_1 \cdot a_2) = \theta(a_1) \cdot \theta(a_2)$$</div>
+</div>
+
+<div class="example-box">
+<strong>Пример 1.</strong> $\theta(a) = a^s$, где $s$ — любое число.<br>
+Проверка: $(a_1 a_2)^s = a_1^s \cdot a_2^s$ при $(a_1, a_2) = 1$. ✓
+</div>
+
+<div class="thm">
+<strong>Свойство 1.</strong> $\theta(1) = 1$ для любой мультипликативной функции.
+</div>
+
+<div class="thm">
+<strong>Свойство 2.</strong> Если $a = p_1^{\alpha_1} p_2^{\alpha_2} \cdots p_n^{\alpha_n}$ — каноническое разложение, то:
+<div class="formula">$$\theta(a) = \theta(p_1^{\alpha_1}) \cdot \theta(p_2^{\alpha_2}) \cdots \theta(p_n^{\alpha_n})$$</div>
+</div>
+
+<div class="thm">
+<strong>Свойство 3 (обратное).</strong> Если задать $\theta(1) = 1$ и произвольно определить $\theta(p^{\alpha})$ для всех простых $p$ и натуральных $\alpha$, то единственным образом доопределяется мультипликативная функция на всех натуральных числах.
+</div>
+
+<div class="thm">
+<strong>Свойство 4.</strong> Произведение нескольких мультипликативных функций является мультипликативной функцией.
+</div>
+
+<div class="def">
+<strong>Обозначение.</strong> Символом $\displaystyle\sum_{d \mid n}$ обозначается сумма по всем делителям $d$ числа $n$.
+</div>
+
+<div class="thm">
+<strong>Лемма 1.</strong> Пусть $a = p_1^{\alpha_1} \cdots p_n^{\alpha_n}$, $\theta$ — мультипликативная функция. Тогда:
+<div class="formula">$$\sum_{d \mid a} \theta(d) = \prod_{i=1}^{n} \Bigl(\theta(1) + \theta(p_i) + \theta(p_i^2) + \ldots + \theta(p_i^{\alpha_i})\Bigr)$$</div>
+</div>
+
+<div class="thm">
+<strong>Лемма 2.</strong> Если $\theta(a)$ — мультипликативная функция, то функция
+<div class="formula">$$\chi(a) = \sum_{d \mid a} \theta(d)$$</div>
+также мультипликативна.
+</div>
+
+<div class="example-box">
+<strong>Пример 2.</strong> Пусть $\theta(1) = 1$ и $\theta(p^{\alpha}) = 2$ для всех $p$, $\alpha$.<br>
+Тогда $\theta(p_1^{\alpha_1} \cdots p_n^{\alpha_n}) = 2^n$ — число различных простых делителей.
 </div>
 
 </div>
+
+<!-- ЗАДАНИЯ -->
+<div class="section">
+<h2>✏️ Задания</h2>
+<p style="margin-bottom:12px; color:#555;">Задачки из методички.</p>
+
+<div id="tasks"></div>
+<div class="progress" id="progress">Решено: <span id="score">0</span> / <span id="total">0</span></div>
+<button class="reset-btn" onclick="resetAll()">🔄 Сбросить всё</button>
+</div>
+
+</div>
+
+<script>
+const tasksData = [
+  {
+    text: '1. Является ли функция θ(a) = a² мультипликативной?',
+    type: 'select',
+    answers: ['да']
+  },
+  {
+    text: '2. Является ли функция θ(a) = a + 1 мультипликативной?',
+    type: 'select',
+    answers: ['нет'],
+    hint: 'Проверьте: (2+1)(3+1) = 12 ≠ 7 = 6+1, хотя (2,3)=1.'
+  },
+  {
+    text: '3. Вычислите θ(864), если θ(p^α) = α для всех простых p.',
+    answers: ['8'],
+    hint: '864 = 2⁵·3³, θ(864) = 5 + 3 = 8.'
+  },
+  {
+    text: '4. Вычислите θ(49500), если θ(p^α) = α для всех простых p.',
+    answers: ['8'],
+    hint: '49500 = 2²·3²·5³·11¹, θ = 2+2+3+1 = 8.'
+  },
+  {
+    text: '5. Верно ли, что произведение двух мультипликативных функций всегда мультипликативно?',
+    type: 'select',
+    answers: ['да']
+  },
+  {
+    text: '6. Верно ли, что θ(1) = 1 для любой мультипликативной функции?',
+    type: 'select',
+    answers: ['да']
+  },
+  {
+    text: '7. Если θ(a) — мультипликативна, является ли функция χ(a) = Σ_{d|a} θ(d) мультипликативной?',
+    type: 'select',
+    answers: ['да'],
+    hint: 'Это утверждение леммы 2 данного пункта.'
+  },
+  {
+    text: '8. Пусть θ(p^α) = 1 для всех простых p и всех α. Чему равно θ(360)?',
+    answers: ['1'],
+    hint: '360 = 2³·3²·5, θ(360) = θ(2³)·θ(3²)·θ(5) = 1·1·1 = 1.'
+  }
+];
+
+function normalize(s) {
+  return s.trim().toLowerCase();
+}
+
+function renderTasks() {
+  var container = document.getElementById('tasks');
+  container.innerHTML = '';
+  tasksData.forEach(function(t, idx) {
+    var div = document.createElement('div');
+    div.className = 'task';
+    var fieldHtml;
+    if (t.type === 'select') {
+      fieldHtml = '<select id="ans-' + idx + '"><option value="">— выберите —</option><option value="да">да</option><option value="нет">нет</option></select>';
+    } else {
+      fieldHtml = '<input type="text" id="ans-' + idx + '" placeholder="ответ" style="width:120px;">';
+    }
+    div.innerHTML =
+      '<p>' + (idx + 1) + '. ' + t.text + '</p>' +
+      '<div class="fields">' + fieldHtml +
+      '<button onclick="check(' + idx + ')">Проверить</button></div>' +
+      '<div class="result" id="result-' + idx + '"></div>';
+    container.appendChild(div);
+  });
+  document.getElementById('total').textContent = tasksData.length;
+  updateProgress();
+}
+
+function check(idx) {
+  var t = tasksData[idx];
+  var res = document.getElementById('result-' + idx);
+  if (t.type === 'select') {
+    var sel = document.getElementById('ans-' + idx);
+    var v = sel.value;
+    if (!v) { res.innerHTML = '<span class="no">Выберите ответ.</span>'; return; }
+    var ok = t.answers.some(function(a) { return normalize(v) === normalize(a); });
+    sel.className = ok ? 'correct' : 'wrong';
+    res.innerHTML = ok ? '<span class="ok">Верно!</span>' : '<span class="no">Неверно.</span>';
+    updateProgress();
+    return;
+  }
+  var inp = document.getElementById('ans-' + idx);
+  var v = inp.value.trim();
+  if (!v) { res.innerHTML = '<span class="no">Введите ответ.</span>'; return; }
+  var ok = t.answers.some(function(a) { return normalize(v) === normalize(a); });
+  inp.className = ok ? 'correct' : 'wrong';
+  res.innerHTML = ok ? '<span class="ok">Верно!</span>' : '<span class="no">Неверно.</span>';
+  updateProgress();
+}
+
+function updateProgress() {
+  var count = 0;
+  tasksData.forEach(function(_, idx) {
+    var el = document.getElementById('ans-' + idx);
+    if (el && el.className === 'correct') count++;
+  });
+  document.getElementById('score').textContent = count;
+}
+
+function resetAll() {
+  tasksData.forEach(function(_, idx) {
+    var t = tasksData[idx];
+    var res = document.getElementById('result-' + idx);
+    if (t.type === 'select') {
+      var sel = document.getElementById('ans-' + idx);
+      if (sel) { sel.selectedIndex = 0; sel.className = ''; }
+    } else {
+      var inp = document.getElementById('ans-' + idx);
+      if (inp) { inp.value = ''; inp.className = ''; }
+    }
+    if (res) res.innerHTML = '';
+  });
+  updateProgress();
+}
+
+renderTasks();
+</script>
 </body>
 </html>

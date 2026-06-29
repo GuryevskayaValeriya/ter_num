@@ -4,16 +4,82 @@
 <meta charset="UTF-8">
 <title>Пункт 28. Трансцендентность значений функции e^z — Интерактивный учебник</title>
 <link rel="stylesheet" href="style.css">
+<script>
+MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 </head>
 <body>
-<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">28. Трансцендентность значений функции e^z</span></div></div>
+<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§5. Трансцендентные числа</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 28</span></div></div>
 <div class="container">
 
-<div class="section" style="text-align:center;padding:60px 20px;">
-<h2 style="border:none;text-align:center;padding:0;font-size:1.3em;">28. Трансцендентность значений функции e^z</h2>
-<p style="color:#86868b;margin-top:16px;">Раздел находится в разработке. Скоро здесь появится теория и задания.</p>
+<h1>Пункт 28. Трансцендентность значений функции $e^z$</h1>
+<p class="subtitle">§5. Трансцендентные числа — Теория чисел</p>
+
+<div class="section">
+<h2>📖 Теория</h2>
+
+<div class="thm">
+<strong>Теорема (Линдеман).</strong> Если $\xi$ — алгебраическое число и $\xi \neq 0$, то число $e^\xi$ — трансцендентно.
 </div>
 
+<div class="example-box">
+<strong>Следствия:</strong><br>
+• $e = e^1$ трансцендентно ($1$ — алгебраическое, $\neq 0$)<br>
+• $e^\pi$ трансцендентно ($\pi$ — трансцендентное… но $e^{i\pi} = -1$ алгебраическое, т.к. $i\pi$ ≠ алгебраическое)<br>
+• $\ln 2$ трансцендентно: $2 = e^{\ln 2}$, если бы $\ln 2$ было алгебраическим, то $e^{\ln 2} = 2$ было бы трансцендентным, противоречие<br>
+• $\ln 3, \ln 5, \ln 7, \ldots$ — все натуральные логарифмы простых чисел трансцендентны
 </div>
+
+<div class="note">
+График $y = e^x$ проходит между всеми алгебраическими точками координатной плоскости, задевая лишь одну — $(0, 1)$.
+</div>
+
+<div class="thm">
+<strong>Теорема (Гельфонд–Шнайдер, решена VII проблема Гильберта).</strong> Если $\alpha$ и $\beta$ — алгебраические числа, $\alpha \neq 0, 1$, а $\beta$ — иррациональное, то $\alpha^\beta$ — трансцендентно.
+</div>
+
+<div class="example-box">
+<strong>Примеры:</strong><br>
+• $2^{\sqrt{2}}$ — трансцендентно ($2$, $\sqrt{2}$ — алгебраические, $\sqrt{2}$ — иррациональное)<br>
+• $e^\pi = (e^{i\pi})^{-i} = (-1)^{-i}$ — трансцендентно по Гельфонду<br>
+• $i^i = e^{-\pi/2} \approx 0{,}207\ldots$ — трансцендентно
+</div>
+
+<div class="thm">
+<strong>Идея доказательства (Гельфонд).</strong> С помощью разложения $e^{z\xi}$ в интерполяционный ряд Ньютона с целочисленной периодической последовательностью узлов строятся многочлены $P_n(x, y)$ с целыми коэффициентами такие, что $P_n(\xi, \eta)$ — быстро убывает. Оценка снизу значения многочлена от алгебраических чисел даёт противоречие.
+</div>
+</div>
+
+<div class="section">
+<h2>✏️ Задания</h2>
+<p style="margin-bottom:12px; color:#555;">Задачки из методички.</p>
+<div id="tasks"></div>
+<div class="progress" id="progress">Решено: <span id="score">0</span> / <span id="total">0</span></div>
+<button class="reset-btn" onclick="resetAll()">🔄 Сбросить всё</button>
+</div>
+</div>
+
+<script>
+const tasksData = [
+  { text: '1. По теореме Линдемана, e^ξ трансцендентно, если ξ — алгебраическое и...', answers: ['ξ ≠ 0'], hint: 'Условие: ξ алгебраическое, ξ ≠ 0.' },
+  { text: '2. Является ли число ln 2 трансцендентным?', type: 'select', answers: ['да'], hint: '2 = e^(ln 2). Если бы ln 2 было алгебраическим, то e^(ln 2) = 2 было бы трансцендентным — противоречие.' },
+  { text: '3. Является ли e^π трансцендентным?', type: 'select', answers: ['да'], hint: 'e^π = (−1)^(−i) по формуле Эйлера. По Гельфонду: (−1)^(−i) трансцендентно.' },
+  { text: '4. Кто решил VII проблему Гильберта?', answers: ['гельфонд', 'гельфонд-шнайдер'], hint: 'А.О. Гельфонд и Р. Шнайдер, 1934 год.' },
+  { text: '5. Число i^i равно...', answers: ['e^(-π/2)'], hint: 'i^i = e^(i·ln i) = e^(i·iπ/2) = e^(-π/2).' },
+  { text: '6. Является ли 2^√2 трансцендентным?', type: 'select', answers: ['да'], hint: 'По Гельфонду: 2 — алгебраическое ≠ 0,1; √2 — иррациональное алгебраическое. Значит 2^√2 трансцендентно.' },
+  { text: '7. Является ли e^(2πi) алгебраическим?', type: 'select', answers: ['да'], hint: 'e^(2πi) = 1 — рациональное, значит алгебраическое. Но 2πi ≠ алгебраическое!' },
+  { text: '8. Все натуральные логарифмы простых чисел являются...', type: 'select', answers: ['трансцендентными'], hint: 'ln p трансцендентно для любого простого p, т.к. p = e^(ln p), p — алгебраическое.' }
+];
+function normalize(s){return s.trim().toLowerCase()}
+function renderTasks(){var c=document.getElementById('tasks');c.innerHTML='';tasksData.forEach(function(t,i){var d=document.createElement('div');d.className='task';var f;if(t.type==='select'){f='<select id="ans-'+i+'"><option value="">— выберите —</option><option value="да">да</option><option value="нет">нет</option></select>'}else{f='<input type="text" id="ans-'+i+'" placeholder="ответ" style="width:180px;">'}d.innerHTML='<p>'+(i+1)+'. '+t.text+'</p><div class="fields">'+f+'<button onclick="check('+i+')">Проверить</button></div><div class="result" id="result-'+i+'"></div>';c.appendChild(d)});document.getElementById('total').textContent=tasksData.length;updateProgress()}
+function check(i){var t=tasksData[i],r=document.getElementById('result-'+i);if(t.type==='select'){var s=document.getElementById('ans-'+i),v=s.value;if(!v){r.innerHTML='<span class="no">Выберите ответ.</span>';return}var ok=t.answers.some(function(a){return normalize(v)===normalize(a)});s.className=ok?'correct':'wrong';r.innerHTML=ok?'<span class="ok">Верно!</span>':'<span class="no">Неверно.</span>';updateProgress();return}var inp=document.getElementById('ans-'+i),v=inp.value.trim();if(!v){r.innerHTML='<span class="no">Введите ответ.</span>';return}var ok=t.answers.some(function(a){return normalize(v)===normalize(a)});inp.className=ok?'correct':'wrong';r.innerHTML=ok?'<span class="ok">Верно!</span>':'<span class="no">Неверно.</span>';updateProgress()}
+function updateProgress(){var c=0;tasksData.forEach(function(_,i){var e=document.getElementById('ans-'+i);if(e&&e.className==='correct')c++});document.getElementById('score').textContent=c}
+function resetAll(){tasksData.forEach(function(_,i){var t=tasksData[i],r=document.getElementById('result-'+i);if(t.type==='select'){var s=document.getElementById('ans-'+i);if(s){s.selectedIndex=0;s.className=''}}else{var inp=document.getElementById('ans-'+i);if(inp){inp.value='';inp.className=''}}if(r)r.innerHTML=''});updateProgress()}
+renderTasks();
+</script>
 </body>
 </html>

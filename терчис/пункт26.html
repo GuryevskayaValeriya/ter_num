@@ -4,16 +4,81 @@
 <meta charset="UTF-8">
 <title>Пункт 26. Число e — Интерактивный учебник</title>
 <link rel="stylesheet" href="style.css">
+<script>
+MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 </head>
 <body>
-<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">26. Число e</span></div></div>
+<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§5. Трансцендентные числа</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 26</span></div></div>
 <div class="container">
 
-<div class="section" style="text-align:center;padding:60px 20px;">
-<h2 style="border:none;text-align:center;padding:0;font-size:1.3em;">26. Число e</h2>
-<p style="color:#86868b;margin-top:16px;">Раздел находится в разработке. Скоро здесь появится теория и задания.</p>
+<h1>Пункт 26. Число $e \approx 2{,}71828\ldots$</h1>
+<p class="subtitle">§5. Трансцендентные числа — Теория чисел</p>
+
+<div class="section">
+<h2>📖 Теория</h2>
+
+<div class="def">
+<strong>Определение.</strong> Число $e$ — основание натуральных логарифмов, определяется как:<br>
+<div class="formula">$$e = \lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = \sum_{k=0}^{\infty} \frac{1}{k!} = 2{,}71828\ldots$$</div>
 </div>
 
+<div class="thm">
+<strong>Теорема 1.</strong> Число $e$ иррационально.
 </div>
+
+<div class="example-box">
+<strong>Доказательство.</strong> Пусть $A_n = \sum_{k=0}^{n} \frac{n!}{k!}$, $a_n = \sum_{k=n+1}^{\infty} \frac{n!}{k!}$. Тогда $e \cdot n! = A_n + a_n$. $A_n$ — целое, $0 < a_n < 1$. Если бы $e = p/q$, то $q \cdot e \cdot n! = q \cdot (A_n + a_n)$ — целое число, что невозможно, т.к. $q \cdot a_n$ не целое.
+</div>
+
+<div class="thm">
+<strong>Лемма 1.</strong> Если $g(x)$ — многочлен с целыми коэффициентами, то для любого $k \in \mathbb{N}$ все коэффициенты его $k$-й производной $g^{(k)}(x)$ делятся на $k!$.
+</div>
+
+<div class="thm">
+<strong>Лемма 2 (Тождество Эрмита).</strong> Пусть $f(x)$ — произвольный многочлен степени $k$ с действительными коэффициентами, $F(x) = f(x) + f'(x) + f''(x) + \ldots + f^{(k)}(x)$ — сумма всех его производных. Тогда:<br>
+<div class="formula">$$\int_0^x e^{x-t} f(t)\, dt = e^x F(x) - F(0)$$</div>
+</div>
+
+<div class="thm">
+<strong>Теорема 2 (Эрмит, 1873).</strong> Число $e$ трансцендентно.
+</div>
+
+<div class="example-box">
+<strong>Идея доказательства.</strong> Предположим, $e$ — алгебраическое степени $m$: $a_m e^m + \ldots + a_0 = 0$. Подставим в тождество Эрмита $x = 0, 1, \ldots, m$ и сложим. При подходящем выборе $f(x) = \frac{x^n(x-1)^n \cdots (x-m)^n}{n!}$ левая часть — ненулевое целое число, а правая часть $< 1$ при больших $n$. Противоречие.
+</div>
+</div>
+
+<div class="section">
+<h2>✏️ Задания</h2>
+<p style="margin-bottom:12px; color:#555;">Задачки из методички.</p>
+<div id="tasks"></div>
+<div class="progress" id="progress">Решено: <span id="score">0</span> / <span id="total">0</span></div>
+<button class="reset-btn" onclick="resetAll()">🔄 Сбросить всё</button>
+</div>
+</div>
+
+<script>
+const tasksData = [
+  { text: '1. Число e является...', type: 'select', answers: ['иррациональным и трансцендентным'], hint: 'Теоремы 1 и 2: e иррационально и трансцендентно.' },
+  { text: '2. Кто доказал трансцендентность числа e?', answers: ['эрмит'], hint: 'Шарль Эрмит, 1873 год.' },
+  { text: '3. Тождество Эрмита связывает интеграл от e^(x−t)f(t) с...', answers: ['f(x) и её производными'], hint: 'F(x) = f + f\' + f\'\' + … + f^(k).' },
+  { text: '4. Верно ли, что e² трансцендентно?', type: 'select', answers: ['да'], hint: 'Если бы e² было алгебраическим, то e было бы корнем x² − e² = 0 с алгебраическими коэффициентами, что противоречит теореме Линдемана.' },
+  { text: '5. Число e приближается частичными суммами ряда Σ 1/k! быстро или медленно?', type: 'select', answers: ['быстро'], hint: 'Ряд сходится очень быстро благодаря факториалу в знаменателе.' },
+  { text: '6. Кому принадлежит идея доказательства трансцендентности e?', answers: ['эрмит'], hint: 'Ключевая идея принадлежит Шарлю Эрмиту.' },
+  { text: '7. Какова степень числа e (если бы оно было алгебраическим)?', answers: ['не определена'], hint: 'e трансцендентно, корнем никакого уравнения с целыми коэффициентами не является.' },
+  { text: '8. Является ли число e^(√2) трансцендентным?', type: 'select', answers: ['да'], hint: 'По теореме Линдемана: если ξ алгебраическое ≠ 0, то e^ξ трансцендентно. √2 — алгебраическое ≠ 0.' }
+];
+function normalize(s){return s.trim().toLowerCase()}
+function renderTasks(){var c=document.getElementById('tasks');c.innerHTML='';tasksData.forEach(function(t,i){var d=document.createElement('div');d.className='task';var f;if(t.type==='select'){f='<select id="ans-'+i+'"><option value="">— выберите —</option><option value="да">да</option><option value="нет">нет</option></select>'}else{f='<input type="text" id="ans-'+i+'" placeholder="ответ" style="width:180px;">'}d.innerHTML='<p>'+(i+1)+'. '+t.text+'</p><div class="fields">'+f+'<button onclick="check('+i+')">Проверить</button></div><div class="result" id="result-'+i+'"></div>';c.appendChild(d)});document.getElementById('total').textContent=tasksData.length;updateProgress()}
+function check(i){var t=tasksData[i],r=document.getElementById('result-'+i);if(t.type==='select'){var s=document.getElementById('ans-'+i),v=s.value;if(!v){r.innerHTML='<span class="no">Выберите ответ.</span>';return}var ok=t.answers.some(function(a){return normalize(v)===normalize(a)});s.className=ok?'correct':'wrong';r.innerHTML=ok?'<span class="ok">Верно!</span>':'<span class="no">Неверно.</span>';updateProgress();return}var inp=document.getElementById('ans-'+i),v=inp.value.trim();if(!v){r.innerHTML='<span class="no">Введите ответ.</span>';return}var ok=t.answers.some(function(a){return normalize(v)===normalize(a)});inp.className=ok?'correct':'wrong';r.innerHTML=ok?'<span class="ok">Верно!</span>':'<span class="no">Неверно.</span>';updateProgress()}
+function updateProgress(){var c=0;tasksData.forEach(function(_,i){var e=document.getElementById('ans-'+i);if(e&&e.className==='correct')c++});document.getElementById('score').textContent=c}
+function resetAll(){tasksData.forEach(function(_,i){var t=tasksData[i],r=document.getElementById('result-'+i);if(t.type==='select'){var s=document.getElementById('ans-'+i);if(s){s.selectedIndex=0;s.className=''}}else{var inp=document.getElementById('ans-'+i);if(inp){inp.value='';inp.className=''}}if(r)r.innerHTML=''});updateProgress()}
+renderTasks();
+</script>
 </body>
 </html>

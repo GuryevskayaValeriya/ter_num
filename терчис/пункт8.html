@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <title>Пункт 8. Вычисление подходящих дробей — Интерактивный учебник</title>
 <link rel="stylesheet" href="style.css">
+<script>
+MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 <style>
 .table-wrap { overflow-x: auto; margin: 12px 0; }
 .table-wrap table { width: 100%; min-width: 400px; }
@@ -24,25 +31,25 @@
 <div class="section">
 <h2>📖 Теория</h2>
 
-<p>Подходящие дроби δ<sub>s</sub> = P<sub>s</sub> / Q<sub>s</sub> вычисляются по рекуррентным формулам:</p>
+<p>Подходящие дроби $\delta_s = \dfrac{P_s}{Q_s}$ вычисляются по рекуррентным формулам:</p>
 
 <div class="formula">
-P<sub>s</sub> = q<sub>s</sub>·P<sub>s−1</sub> + P<sub>s−2</sub>, &nbsp;&nbsp; P<sub>0</sub> = 1, P<sub>1</sub> = q<sub>1</sub><br>
-Q<sub>s</sub> = q<sub>s</sub>·Q<sub>s−1</sub> + Q<sub>s−2</sub>, &nbsp;&nbsp; Q<sub>0</sub> = 0, Q<sub>1</sub> = 1
+$$P_s = q_s \cdot P_{s-1} + P_{s-2}, \quad P_0 = 1,\; P_1 = q_1$$
+$$Q_s = q_s \cdot Q_{s-1} + Q_{s-2}, \quad Q_0 = 0,\; Q_1 = 1$$
 </div>
 
 <p>Вычисления удобно организовывать в таблицу:</p>
 
 <div class="ex">
-<strong>Пример.</strong> Для 105/38 = [2; 1, 3, 4, 2]:<br><br>
+<strong>Пример.</strong> Для $\frac{105}{38} = [2;\, 1, 3, 4, 2]$:<br><br>
 <table>
-<tr><th>s</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
-<tr><td>q<sub>s</sub></td><td>—</td><td>2</td><td>1</td><td>3</td><td>4</td><td>2</td></tr>
-<tr><td>P<sub>s</sub></td><td>1</td><td>2</td><td>3</td><td>11</td><td>47</td><td>105</td></tr>
-<tr><td>Q<sub>s</sub></td><td>0</td><td>1</td><td>1</td><td>4</td><td>17</td><td>38</td></tr>
+<tr><th>$s$</th><th>$0$</th><th>$1$</th><th>$2$</th><th>$3$</th><th>$4$</th><th>$5$</th></tr>
+<tr><td>$q_s$</td><td>—</td><td>$2$</td><td>$1$</td><td>$3$</td><td>$4$</td><td>$2$</td></tr>
+<tr><td>$P_s$</td><td>$1$</td><td>$2$</td><td>$3$</td><td>$11$</td><td>$47$</td><td>$105$</td></tr>
+<tr><td>$Q_s$</td><td>$0$</td><td>$1$</td><td>$1$</td><td>$4$</td><td>$17$</td><td>$38$</td></tr>
 </table>
 <br>
-δ₂ = 3/1 = 3, δ₃ = 11/4 = 2,75, δ₄ = 47/17 ≈ 2,7647, δ₅ = 105/38 ≈ 2,76315.
+$\delta_2 = 3/1 = 3$, $\delta_3 = 11/4 = 2{,}75$, $\delta_4 = 47/17 \approx 2{,}7647$, $\delta_5 = 105/38 \approx 2{,}76315$.
 </div>
 
 <p>Подходящие дроби с чётными номерами больше числа, с нечётными — меньше, и последовательность быстро сходится к числу.</p>

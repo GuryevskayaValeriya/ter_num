@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <title>Пункт 11. Ещё кое-что о цепных дробях — Интерактивный учебник</title>
 <link rel="stylesheet" href="style.css">
+<script>
+MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 </head>
 <body>
 <div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§2. Цепные дроби</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 11</span></div></div>
@@ -15,17 +22,17 @@
 <div class="section">
 <h2>📖 Теория</h2>
 
-<div class="thm"><strong>Теорема о наилучшем приближении.</strong> Если &delta;<sub>k</sub> = P<sub>k</sub> / Q<sub>k</sub> — подходящая дробь числа &alpha;, то для любой дроби a/b со знаменателем 0 &lt; b &le; Q<sub>k</sub> выполняется |&alpha; &minus; &delta;<sub>k</sub>| &le; |&alpha; &minus; a/b|. Иными словами, подходящая дробь — наилучшее приближение среди дробей с ограниченным знаменателем.</div>
+<div class="thm"><strong>Теорема о наилучшем приближении.</strong> Если $\delta_k = \dfrac{P_k}{Q_k}$ — подходящая дробь числа $\alpha$, то для любой дроби $a/b$ со знаменателем $0 < b \leq Q_k$ выполняется $\left|\alpha - \delta_k\right| \leq \left|\alpha - \dfrac{a}{b}\right|$. Иными словами, подходящая дробь — наилучшее приближение среди дробей с ограниченным знаменателем.</div>
 
-<div class="formula">Оценка погрешности: <strong>|&alpha; &minus; &delta;<sub>k</sub>| &lt; 1 / (Q<sub>k</sub> &middot; Q<sub>k+1</sub>)</strong>, где Q<sub>k+1</sub> — знаменатель следующей подходящей дроби.</div>
+<div class="formula">Оценка погрешности: <strong>$\left|\alpha - \delta_k\right| < \dfrac{1}{Q_k \cdot Q_{k+1}}$</strong>, где $Q_{k+1}$ — знаменатель следующей подходящей дроби.</div>
 
-<div class="def"><strong>Определение.</strong> Цепная дробь называется <strong>периодической</strong>, если последовательность неполных частных, начиная с некоторого места, периодическая. Обозначение: [q<sub>0</sub>; q<sub>1</sub>, &hellip;, q<sub>m</sub>, q<sub>m+1</sub>, …, q<sub>m+T</sub> (период)].</div>
+<div class="def"><strong>Определение.</strong> Цепная дробь называется <strong>периодической</strong>, если последовательность неполных частных, начиная с некоторого места, периодическая. Обозначение: $[q_0;\, q_1, \ldots, q_m, q_{m+1}, \ldots, q_{m+T}]$ (период).</div>
 
 <div class="def"><strong>Определение.</strong> <strong>Квадратичная иррациональность</strong> — иррациональное число, являющееся корнем квадратного уравнения с целыми коэффициентами.</div>
 
 <div class="thm"><strong>Теорема Лагранжа.</strong> Квадратичные иррациональности и только они представимы в виде бесконечной периодической цепной дроби.</div>
 
-<div class="thm"><strong>Теорема Эрмита.</strong> Всякий делитель числа a<sup>2</sup> + 1 представим в виде суммы двух квадратов.</div>
+<div class="thm"><strong>Теорема Эрмита.</strong> Всякий делитель числа $a^2 + 1$ представим в виде суммы двух квадратов.</div>
 </div>
 
 <div class="section">

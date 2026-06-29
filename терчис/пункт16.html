@@ -4,16 +4,108 @@
 <meta charset="UTF-8">
 <title>Пункт 16. Определения и простейшие свойства — Интерактивный учебник</title>
 <link rel="stylesheet" href="style.css">
+<script>
+MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 </head>
 <body>
-<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">16. Определения и простейшие свойства</span></div></div>
+<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§4. Теория сравнений</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 16</span></div></div>
 <div class="container">
 
-<div class="section" style="text-align:center;padding:60px 20px;">
-<h2 style="border:none;text-align:center;padding:0;font-size:1.3em;">16. Определения и простейшие свойства</h2>
-<p style="color:#86868b;margin-top:16px;">Раздел находится в разработке. Скоро здесь появится теория и задания.</p>
+<h1>Пункт 16. Определения и простейшие свойства</h1>
+<p class="subtitle">§4. Теория сравнений — Теория чисел</p>
+
+<div class="section">
+<h2>📖 Теория</h2>
+
+<div class="def">
+<strong>Определение.</strong> Пусть $a, b \in \mathbb{Z}$, $m \in \mathbb{N}$. Число $a$ <strong>сравнимо</strong> с $b$ по модулю $m$, если $a$ и $b$ при делении на $m$ дают одинаковые остатки. Запись:<br>
+<div class="formula">$$\mathbf{a \equiv b \pmod{m}}$$</div>
 </div>
 
+<p>Эквивалентно: $a \equiv b \pmod{m} \iff m \mid (a - b) \iff \exists\, t \in \mathbb{Z} : a = b + mt$.</p>
+
+<div class="note">
+<strong>Свойства:</strong><br>
+1) $a \equiv a \pmod{m}$ — рефлексивность<br>
+2) $a \equiv b \implies b \equiv a$ — симметричность<br>
+3) $a \equiv b$, $b \equiv c \implies a \equiv c$ — транзитивность<br>
+Отношение $\equiv_m$ является отношением эквивалентности (конгруэнцией).
 </div>
+
+<div class="thm">
+<strong>Свойство 1.</strong> Сравнения по одинаковому модулю можно почленно складывать:<br>
+$a_1 \equiv b_1$, $a_2 \equiv b_2 \pmod{m} \implies a_1 + a_2 \equiv b_1 + b_2 \pmod{m}$
+</div>
+
+<div class="thm">
+<strong>Свойство 2.</strong> Слагаемое можно переносить в другую часть, изменяя знак: $a + b \equiv c \implies a \equiv c - b$
+</div>
+
+<div class="thm">
+<strong>Свойство 3.</strong> К любой части можно прибавить число, кратное модулю.
+</div>
+
+<div class="thm">
+<strong>Свойство 4.</strong> Сравнения по одинаковому модулю можно почленно перемножать.
+</div>
+
+<div class="thm">
+<strong>Свойство 5.</strong> Обе части сравнения можно возвести в одну и ту же степень.
+</div>
+
+<div class="thm">
+<strong>Свойство 7.</strong> Обе части можно разделить на общий делитель, взаимно простой с модулем.
+</div>
+
+<div class="thm">
+<strong>Свойство 9.</strong> Если $a \equiv b$ по нескольким модулям, то $a \equiv b$ по их НОК.
+</div>
+
+<div class="thm">
+<strong>Свойство 10.</strong> Если $a \equiv b \pmod{m}$, то $a \equiv b \pmod{d}$ для любого делителя $d$ числа $m$.
+</div>
+
+<div class="example-box">
+<strong>Пример.</strong> Доказать, что $3^{n+2} + 16 \cdot 2^n + 23$ делится на $7$ при любом $n$.<br>
+$3 \equiv -1$, $16 \equiv 2$, $23 \equiv 2 \pmod{7}$.<br>
+$3^{n+2} + 16 \cdot 2^n + 23 \equiv (-1)^{n+2} + 2 \cdot 2^n + 2 \equiv (-1)^n + 2^{n+1} + 2 \pmod{7}$.<br>
+При чётном $n$: $1 + 2^{n+1} + 2 = 3 + 2^{n+1}$. При $n=0$: $3+2=5 \neq 0$. Проверим: $3^2+16+23=48$, $48/7=6$ ✓
+</div>
+</div>
+
+<div class="section">
+<h2>✏️ Задания</h2>
+<p style="margin-bottom:12px; color:#555;">Задачки из методички.</p>
+<div id="tasks"></div>
+<div class="progress" id="progress">Решено: <span id="score">0</span> / <span id="total">0</span></div>
+<button class="reset-btn" onclick="resetAll()">🔄 Сбросить всё</button>
+</div>
+</div>
+
+<script>
+const tasksData = [
+  { text: '1. Верно ли, что 15 ≡ 3 (mod 6)?', type: 'select', answers: ['да'] },
+  { text: '2. Верно ли, что 17 ≡ 5 (mod 3)?', type: 'select', answers: ['да'] },
+  { text: '3. Найдите остаток от деления 2^100 на 7.', answers: ['2'], hint: '2³ = 8 ≡ 1 (mod 7), 100 = 33·3 + 1, 2^100 ≡ 2^1 = 2.' },
+  { text: '4. Докажите, что 34^105 + 105^34 делится на 181.', type: 'select', answers: ['да'], hint: 'Используйте свойства сравнений.' },
+  { text: '5. Найдите остаток от деления 9^674 + 28^615 на 39.', answers: ['7'], hint: '9 ≡ 9, 28 ≡ 28 (mod 39). Упростите степени.' },
+  { text: '6. Верно ли, что если a ≡ b (mod m), то a·c ≡ b·c (mod m)?', type: 'select', answers: ['да'] },
+  { text: '7. Верно ли, что a ≡ b (mod m) влечёт a/c ≡ b/c (mod m) при любом c?', type: 'select', answers: ['нет'], hint: 'Только если (c, m) = 1.' },
+  { text: '8. Остаток от деления 2025 на 7 равен...', answers: ['2'], hint: '2025 = 7·289 + 2.' },
+  { text: '9. Докажите, что 2^20 − 1 делится на 11·31·61.', type: 'select', answers: ['да'] },
+  { text: '10. Верно ли, что p² − 24 делится на 12 для любого простого p > 3?', type: 'select', answers: ['да'] }
+];
+function normalize(s){return s.trim().toLowerCase()}
+function renderTasks(){var c=document.getElementById('tasks');c.innerHTML='';tasksData.forEach(function(t,i){var d=document.createElement('div');d.className='task';var f;if(t.type==='select'){f='<select id="ans-'+i+'"><option value="">— выберите —</option><option value="да">да</option><option value="нет">нет</option></select>'}else{f='<input type="text" id="ans-'+i+'" placeholder="ответ" style="width:120px;">'}d.innerHTML='<p>'+(i+1)+'. '+t.text+'</p><div class="fields">'+f+'<button onclick="check('+i+')">Проверить</button></div><div class="result" id="result-'+i+'"></div>';c.appendChild(d)});document.getElementById('total').textContent=tasksData.length;updateProgress()}
+function check(i){var t=tasksData[i],r=document.getElementById('result-'+i);if(t.type==='select'){var s=document.getElementById('ans-'+i),v=s.value;if(!v){r.innerHTML='<span class="no">Выберите ответ.</span>';return}var ok=t.answers.some(function(a){return normalize(v)===normalize(a)});s.className=ok?'correct':'wrong';r.innerHTML=ok?'<span class="ok">Верно!</span>':'<span class="no">Неверно.</span>';updateProgress();return}var inp=document.getElementById('ans-'+i),v=inp.value.trim();if(!v){r.innerHTML='<span class="no">Введите ответ.</span>';return}var ok=t.answers.some(function(a){return normalize(v)===normalize(a)});inp.className=ok?'correct':'wrong';r.innerHTML=ok?'<span class="ok">Верно!</span>':'<span class="no">Неверно.</span>';updateProgress()}
+function updateProgress(){var c=0;tasksData.forEach(function(_,i){var e=document.getElementById('ans-'+i);if(e&&e.className==='correct')c++});document.getElementById('score').textContent=c}
+function resetAll(){tasksData.forEach(function(_,i){var t=tasksData[i],r=document.getElementById('result-'+i);if(t.type==='select'){var s=document.getElementById('ans-'+i);if(s){s.selectedIndex=0;s.className=''}}else{var inp=document.getElementById('ans-'+i);if(inp){inp.value='';inp.className=''}}if(r)r.innerHTML=''});updateProgress()}
+renderTasks();
+</script>
 </body>
 </html>

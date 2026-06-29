@@ -113,12 +113,16 @@ h1 a:hover { text-decoration: underline; }
   text-align: center;
   font-size: 1.15em;
   margin: 14px 0;
-  padding: 12px;
+  padding: 14px 16px;
   background: #fff;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
   font-weight: 500;
   color: #1d1d1f;
+  overflow-x: auto;
+}
+.formula mjx-container[jax="SVG"][display="true"] {
+  margin: 0 !important;
 }
 
 /* ===== TASKS ===== */

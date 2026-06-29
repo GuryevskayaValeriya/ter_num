@@ -2,18 +2,92 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Пункт 22. Сравнения второй степени — Интерактивный учебник</title>
+<title>Пункт 22. Сравнения второй степени. Символ Лежандра — Интерактивный учебник</title>
 <link rel="stylesheet" href="style.css">
+<script>
+MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 </head>
 <body>
-<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">22. Сравнения второй степени</span></div></div>
+<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§4. Теория сравнений</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 22</span></div></div>
 <div class="container">
 
-<div class="section" style="text-align:center;padding:60px 20px;">
-<h2 style="border:none;text-align:center;padding:0;font-size:1.3em;">22. Сравнения второй степени</h2>
-<p style="color:#86868b;margin-top:16px;">Раздел находится в разработке. Скоро здесь появится теория и задания.</p>
+<h1>Пункт 22. Сравнения второй степени. Символ Лежандра</h1>
+<p class="subtitle">§4. Теория сравнений — Теория чисел</p>
+
+<div class="section">
+<h2>📖 Теория</h2>
+
+<div class="thm">
+<strong>Теорема 1.</strong> Сравнение $x^{2} \equiv a \pmod{p}$ ($p$ — простое, $p \nmid a$) либо не имеет корней, либо имеет ровно два корня. Если $a$ — квадратичный вычет по $\bmod p$, то $x_{1} = a^{(p+1)/4} \pmod{p}$ — один из корней, второй: $p - x_{1}$.
 </div>
 
+<div class="thm">
+<strong>Определение (Символ Лежандра).</strong> Для нечётного простого $p$ и произвольного $a$:<br>
+<div class="formula">$(a/p) = 1$, если $a$ — квадратичный вычет $\bmod p$;<br>$(a/p) = -1$, если $a$ — квадратичный невычет $\bmod p$;<br>$(a/p) = 0$, если $p \mid a$.</div>
 </div>
+
+<div class="thm">
+<strong>Критерий Эйлера.</strong> $$a^{(p-1)/2} \equiv \left(\frac{a}{p}\right) \pmod{p}$$
+</div>
+
+<div class="thm">
+<strong>Лемма Гаусса.</strong> Пусть $S$ — число элементов $r \in \{1, 2, \ldots, (p-1)/2\}$ таких, that $(ar \bmod p) > (p-1)/2$. Тогда $(a/p) = (-1)^{S}$.
+</div>
+
+<div class="example-box">
+<strong>Пример (таблица квадратичных вычетов).</strong><br>
+$\bmod 7$: вычеты — $1, 2, 4$ (т.к. $1^{2}=1$, $2^{2}=4$, $3^{2}=2$), невычеты — $3, 5, 6$.<br>
+$(1/7) = 1$, $(2/7) = 1$, $(3/7) = -1$, $(4/7) = 1$, $(5/7) = -1$, $(6/7) = -1$.
+</div>
+
+<div class="thm">
+<strong>Свойства символа Лежандра:</strong><br>
+1) $a \equiv b \pmod{p} \Rightarrow (a/p) = (b/p)$<br>
+2) $(a_{1}a_{2}\ldots a_{n}/p) = (a_{1}/p)(a_{2}/p)\ldots(a_{n}/p)$<br>
+3) $(a^{2}/p) = 1$ при $p \nmid a$<br>
+4) $(ab^{2}/p) = (a/p)$
+</div>
+
+<div class="thm">
+<strong>Дополнительные законы:</strong><br>
+$\left(\frac{-1}{p}\right) = (-1)^{(p-1)/2}$<br>
+$\left(\frac{2}{p}\right) = (-1)^{(p^{2}-1)/8}$ — $2$ является кв. вычетом при $p \equiv 1, 7 \pmod{8}$.
+</div>
+</div>
+
+<div class="section">
+<h2>✏️ Задания</h2>
+<p style="margin-bottom:12px; color:#555;">Задачки из методички.</p>
+<div id="tasks"></div>
+<div class="progress" id="progress">Решено: <span id="score">0</span> / <span id="total">0</span></div>
+<button class="reset-btn" onclick="resetAll()">🔄 Сбросить всё</button>
+</div>
+</div>
+
+<script>
+const tasksData = [
+  { text: '1. Является ли 2 квадратичным вычетом по модулю 7?', type: 'select', answers: ['да'], hint: '3²=9≡2(mod7). Да.' },
+  { text: '2. Является ли 3 квадратичным вычетом по модулю 7?', type: 'select', answers: ['нет'], hint: 'Квадраты mod7: 0,1,2,4. 3 нет.' },
+  { text: '3. Найдите (5/7).', answers: ['-1'], hint: 'Квадраты mod7: 0,1,2,4. 5 нет → −1.' },
+  { text: '4. Найдите (−1/7).', answers: ['1'], hint: '(−1)^((7−1)/2) = (−1)³ = −1. Нет: (−1/7) = (−1)³ = −1. Ответ: −1.' },
+  { text: '5. Найдите (2/11).', answers: ['-1'], hint: '(2/p) = (-1)^((p²−1)/8). p=11: (121−1)/8=15, (-1)^15=−1.' },
+  { text: '6. Найдите (2/13).', answers: ['-1'], hint: '(13²−1)/8=168/8=21, (-1)^21=−1.' },
+  { text: '7. Является ли 5 квадратичным вычетом по модулю 11?', type: 'select', answers: ['да'], hint: '4²=16≡5(mod11). Да.' },
+  { text: '8. Найдите (3/5).', answers: ['-1'], hint: 'Квадраты mod5: 0,1,4. 3 нет → −1.' },
+  { text: '9. Найдите (6/7).', answers: ['-1'], hint: '(6/7)=(2/7)·(3/7)=1·(−1)=−1.' },
+  { text: '10. Найдите (10/11).', answers: ['1'], hint: '(10/11)=(2/11)·(5/11)=(−1)·(−1)=1.' }
+];
+function normalize(s){return s.trim().toLowerCase()}
+function renderTasks(){var c=document.getElementById('tasks');c.innerHTML='';tasksData.forEach(function(t,i){var d=document.createElement('div');d.className='task';var f;if(t.type==='select'){f='<select id="ans-'+i+'"><option value="">— выберите —</option><option value="да">да</option><option value="нет">нет</option></select>'}else{f='<input type="text" id="ans-'+i+'" placeholder="ответ" style="width:80px;">'}d.innerHTML='<p>'+(i+1)+'. '+t.text+'</p><div class="fields">'+f+'<button onclick="check('+i+')">Проверить</button></div><div class="result" id="result-'+i+'"></div>';c.appendChild(d)});document.getElementById('total').textContent=tasksData.length;updateProgress()}
+function check(i){var t=tasksData[i],r=document.getElementById('result-'+i);if(t.type==='select'){var s=document.getElementById('ans-'+i),v=s.value;if(!v){r.innerHTML='<span class="no">Выберите ответ.</span>';return}var ok=t.answers.some(function(a){return normalize(v)===normalize(a)});s.className=ok?'correct':'wrong';r.innerHTML=ok?'<span class="ok">Верно!</span>':'<span class="no">Неверно.</span>';updateProgress();return}var inp=document.getElementById('ans-'+i),v=inp.value.trim();if(!v){r.innerHTML='<span class="no">Введите ответ.</span>';return}var ok=t.answers.some(function(a){return normalize(v)===normalize(a)});inp.className=ok?'correct':'wrong';r.innerHTML=ok?'<span class="ok">Верно!</span>':'<span class="no">Неверно.</span>';updateProgress()}
+function updateProgress(){var c=0;tasksData.forEach(function(_,i){var e=document.getElementById('ans-'+i);if(e&&e.className==='correct')c++});document.getElementById('score').textContent=c}
+function resetAll(){tasksData.forEach(function(_,i){var t=tasksData[i],r=document.getElementById('result-'+i);if(t.type==='select'){var s=document.getElementById('ans-'+i);if(s){s.selectedIndex=0;s.className=''}}else{var inp=document.getElementById('ans-'+i);if(inp){inp.value='';inp.className=''}}if(r)r.innerHTML=''});updateProgress()}
+renderTasks();
+</script>
 </body>
 </html>

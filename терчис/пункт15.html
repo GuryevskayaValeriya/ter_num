@@ -4,16 +4,224 @@
 <meta charset="UTF-8">
 <title>Пункт 15. ζ-функция Римана — Интерактивный учебник</title>
 <link rel="stylesheet" href="style.css">
+<script>
+MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 </head>
 <body>
-<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">15. ζ-функция Римана</span></div></div>
+<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§3. Важнейшие функции</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 15</span></div></div>
 <div class="container">
 
-<div class="section" style="text-align:center;padding:60px 20px;">
-<h2 style="border:none;text-align:center;padding:0;font-size:1.3em;">15. ζ-функция Римана</h2>
-<p style="color:#86868b;margin-top:16px;">Раздел находится в разработке. Скоро здесь появится теория и задания.</p>
+<h1>Пункт 15. ζ-функция Римана</h1>
+<p class="subtitle">§3. Важнейшие функции в теории чисел — Теория чисел</p>
+
+<!-- ТЕОРИЯ -->
+<div class="section">
+<h2>📖 Теория</h2>
+
+<div class="def">
+<strong>Определение.</strong> Пусть $s \in \mathbb{C}$, $\operatorname{Re}(s) > 1$. <strong>$\zeta$-функцией Римана</strong> называется функция комплексного переменного:
+<div class="formula">$$\zeta(s) = \sum_{n=1}^{\infty} \frac{1}{n^s}$$</div>
+</div>
+
+<div class="thm">
+<strong>Наблюдение.</strong> В полуплоскости $\operatorname{Re}(s) > 1$ ряд $\sum 1/n^s$ сходится абсолютно.
+</div>
+
+<div class="example-box">
+<strong>Доказательство (идея).</strong> $|n^{-s}| = n^{-\sigma}$, где $\sigma = \operatorname{Re}(s) > 1$. Ряд $\sum n^{-\sigma}$ сходится по интегральному признаку, так как $\int_1^{\infty} x^{-\sigma} \, dx = 1/(\sigma-1) < \infty$.
+</div>
+
+<div class="thm">
+<strong>Следствие 1.</strong> Функция $\zeta(s)$ аналитична в полуплоскости $\operatorname{Re}(s) > 1$.
+</div>
+
+<div class="thm">
+<strong>Теорема 1 (признак сходимости бесконечного произведения).</strong> Если ряд $\sum u_n$ сходится абсолютно, то бесконечное произведение $\prod(1 + u_n)$ сходится.
+</div>
+
+<div class="thm">
+<strong>Теорема 2 (формула Эйлера).</strong>
+<div class="formula">$$\zeta(s) = \prod_{j} \left(1 - \frac{1}{p_j^s}\right)^{-1}$$</div>
+где произведение берётся по всем простым числам $p_j$.
+</div>
+
+<div class="example-box">
+<strong>Смысл формулы.</strong> Связь между $\zeta(s)$ и простыми числами: «произведение по всем простым» заменяет «сумму по всем натуральным». Ключевая роль — основная теорема арифметики (единственность разложения на простые).
+</div>
+
+<div class="thm">
+<strong>Следствие 2.</strong> При $\operatorname{Re}(s) > 1$, $\zeta(s)$ не имеет нулей (левая часть — ненулевой ряд, правая — ненулевое произведение).
+</div>
+
+<div class="thm">
+<strong>Лемма 1 (продолжение).</strong> При $\operatorname{Re}(s) > 0$, $N \geq 1$:
+<div class="formula">$$\zeta(s) = \sum_{n=1}^{N} \frac{1}{n^s} - \frac{N^{1-s}}{s-1} + s \cdot \int_N^{\infty} \{x\} \cdot x^{-s-1} \, dx$$</div>
+Это позволяет продолжить $\zeta(s)$ в полуплоскость $\operatorname{Re}(s) > 0$.
+</div>
+
+<div class="thm">
+<strong>Следствие 3.</strong> $\zeta(s)$ аналитична в $\operatorname{Re}(s) > 0$ за исключением $s = 1$, где имеет простой полюс с вычетом 1.
+</div>
+
+<div class="note">
+<strong>Гипотеза Римана.</strong> Все нетривиальные нули $\zeta(s)$ лежат на прямой $\operatorname{Re}(s) = 1/2$. Проверена для более чем 7 млн корней, но не доказана. Одна из главных нерешённых проблем математики.
+</div>
+
+<div class="example-box">
+<strong>Первые 10 нетривиальных корней $\zeta(s) = 0$:</strong><br>
+$\rho_{1,2} = 1/2 \pm 14{,}134725\ldots i$<br>
+$\rho_{3,4} = 1/2 \pm 21{,}022040\ldots i$<br>
+$\rho_{5,6} = 1/2 \pm 25{,}010856\ldots i$<br>
+$\rho_{7,8} = 1/2 \pm 30{,}424878\ldots i$<br>
+$\rho_{9,10} = 1/2 \pm 32{,}935057\ldots i$
+</div>
+
+<div class="thm">
+<strong>Утверждение.</strong> С помощью $\zeta(s)$ можно доказать, что простых чисел бесконечно много: если бы их было конечно, формула Эйлера при $s=1$ дала бы конечное произведение, но гармонический ряд расходится.
 </div>
 
 </div>
+
+<!-- ЗАДАНИЯ -->
+<div class="section">
+<h2>✏️ Задания</h2>
+<p style="margin-bottom:12px; color:#555;">Задачки из методички.</p>
+
+<div id="tasks"></div>
+<div class="progress" id="progress">Решено: <span id="score">0</span> / <span id="total">0</span></div>
+<button class="reset-btn" onclick="resetAll()">🔄 Сбросить всё</button>
+</div>
+
+</div>
+
+<script>
+const tasksData = [
+  {
+    text: '1. Сходится ли ряд Σ 1/n² (т.е. существенно ли ζ(2))?',
+    type: 'select',
+    answers: ['да'],
+    hint: 'σ = 2 &gt; 1, ряд сходится.'
+  },
+  {
+    text: '2. Чему равно ζ(2) = Σ 1/n²? (знаменитая задача Эйлера)',
+    answers: ['π²/6'],
+    hint: 'ζ(2) = π²/6 ≈ 1.6449…'
+  },
+  {
+    text: '3. В полуплоскости Re(s) > 1 ζ(s) имеет нули. Верно ли это?',
+    type: 'select',
+    answers: ['нет'],
+    hint: 'Следствие 2: при Re(s) > 1 нулей нет.'
+  },
+  {
+    text: '4. В какой точке ζ(s) имеет простой полюс?',
+    answers: ['1'],
+    hint: 's = 1 — простой полюс.'
+  },
+  {
+    text: '5. Где лежат нетривиальные нули ζ(s) согласно гипотезе Римана?',
+    answers: ['Re(s) = 1/2'],
+    hint: 'Прямая Re(s) = 1/2 — «критическая прямая».'
+  },
+  {
+    text: '6. Сколько различных простых множителей имеет число 30 = 2·3·5?',
+    answers: ['3'],
+    hint: '2, 3, 5 — три простых.'
+  },
+  {
+    text: '7. Является ли функция f(s) = ζ(2s) мультипликативной по параметру s?',
+    type: 'select',
+    answers: ['нет'],
+    hint: 'ζ(s) — не мультипликативная функция по s; мультипликативны арифметические функции a(n).'
+  },
+  {
+    text: '8. По формуле Эйлера, ζ(s) = ∏_p (1−1/p^s)^{−1}. При s=1 бесконечное произведение:',
+    type: 'select',
+    answers: ['расходится'],
+    hint: 'Гармонический ряд Σ1/n расходится → произведение тоже.'
+  }
+];
+
+function normalize(s) {
+  return s.trim().toLowerCase();
+}
+
+function renderTasks() {
+  var container = document.getElementById('tasks');
+  container.innerHTML = '';
+  tasksData.forEach(function(t, idx) {
+    var div = document.createElement('div');
+    div.className = 'task';
+    var fieldHtml;
+    if (t.type === 'select') {
+      fieldHtml = '<select id="ans-' + idx + '"><option value="">— выберите —</option><option value="да">да</option><option value="нет">нет</option><option value="расходится">расходится</option><option value="сходится">сходится</option></select>';
+    } else {
+      fieldHtml = '<input type="text" id="ans-' + idx + '" placeholder="ответ" style="width:140px;">';
+    }
+    div.innerHTML =
+      '<p>' + (idx + 1) + '. ' + t.text + '</p>' +
+      '<div class="fields">' + fieldHtml +
+      '<button onclick="check(' + idx + ')">Проверить</button></div>' +
+      '<div class="result" id="result-' + idx + '"></div>';
+    container.appendChild(div);
+  });
+  document.getElementById('total').textContent = tasksData.length;
+  updateProgress();
+}
+
+function check(idx) {
+  var t = tasksData[idx];
+  var res = document.getElementById('result-' + idx);
+  if (t.type === 'select') {
+    var sel = document.getElementById('ans-' + idx);
+    var v = sel.value;
+    if (!v) { res.innerHTML = '<span class="no">Выберите ответ.</span>'; return; }
+    var ok = t.answers.some(function(a) { return normalize(v) === normalize(a); });
+    sel.className = ok ? 'correct' : 'wrong';
+    res.innerHTML = ok ? '<span class="ok">Верно!</span>' : '<span class="no">Неверно.</span>';
+    updateProgress();
+    return;
+  }
+  var inp = document.getElementById('ans-' + idx);
+  var v = inp.value.trim();
+  if (!v) { res.innerHTML = '<span class="no">Введите ответ.</span>'; return; }
+  var ok = t.answers.some(function(a) { return normalize(v) === normalize(a); });
+  inp.className = ok ? 'correct' : 'wrong';
+  res.innerHTML = ok ? '<span class="ok">Верно!</span>' : '<span class="no">Неверно.</span>';
+  updateProgress();
+}
+
+function updateProgress() {
+  var count = 0;
+  tasksData.forEach(function(_, idx) {
+    var el = document.getElementById('ans-' + idx);
+    if (el && el.className === 'correct') count++;
+  });
+  document.getElementById('score').textContent = count;
+}
+
+function resetAll() {
+  tasksData.forEach(function(_, idx) {
+    var t = tasksData[idx];
+    var res = document.getElementById('result-' + idx);
+    if (t.type === 'select') {
+      var sel = document.getElementById('ans-' + idx);
+      if (sel) { sel.selectedIndex = 0; sel.className = ''; }
+    } else {
+      var inp = document.getElementById('ans-' + idx);
+      if (inp) { inp.value = ''; inp.className = ''; }
+    }
+    if (res) res.innerHTML = '';
+  });
+  updateProgress();
+}
+
+renderTasks();
+</script>
 </body>
 </html>

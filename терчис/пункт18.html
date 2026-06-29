@@ -4,16 +4,89 @@
 <meta charset="UTF-8">
 <title>Пункт 18. Теорема Эйлера и теорема Ферма — Интерактивный учебник</title>
 <link rel="stylesheet" href="style.css">
+<script>
+MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 </head>
 <body>
-<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">18. Теорема Эйлера и теорема Ферма</span></div></div>
+<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§4. Теория сравнений</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 18</span></div></div>
 <div class="container">
 
-<div class="section" style="text-align:center;padding:60px 20px;">
-<h2 style="border:none;text-align:center;padding:0;font-size:1.3em;">18. Теорема Эйлера и теорема Ферма</h2>
-<p style="color:#86868b;margin-top:16px;">Раздел находится в разработке. Скоро здесь появится теория и задания.</p>
+<h1>Пункт 18. Теорема Эйлера и теорема Ферма</h1>
+<p class="subtitle">§4. Теория сравнений — Теория чисел</p>
+
+<div class="section">
+<h2>📖 Теория</h2>
+
+<div class="thm">
+<strong>Теорема (Эйлера).</strong> Пусть $m > 1$, $(a, m) = 1$, $\varphi(m)$ — функция Эйлера. Тогда:<br>
+<div class="formula">$$a^{\varphi(m)} \equiv 1 \pmod{m}$$</div>
 </div>
 
+<div class="example-box">
+<strong>Доказательство (идея).</strong> Пусть x пробегает приведенную систему вычетов по mod m. Тогда ax тоже пробегает её (лемма 2, п. 17). Перемножаем все сравнения rx ≡ ax (mod m) и сокращаем на произведение r·r·…·r.
 </div>
+
+<div class="thm">
+<strong>Теорема (Ферма).</strong> Пусть $p$ — простое, $p \nmid a$. Тогда:<br>
+<div class="formula">$$a^{p-1} \equiv 1 \pmod{p}$$</div>
+</div>
+
+<div class="example-box">
+<strong>Доказательство.</strong> Положим $m = p$ в теореме Эйлера: $\varphi(p) = p - 1$.
+</div>
+
+<div class="thm">
+<strong>Следствие 1 (Ферма, общее).</strong> Без ограничений на $a$:<br>
+$$a^{p} \equiv a \pmod{p}$$
+</div>
+
+<div class="thm">
+<strong>Следствие 2.</strong> $(a + b)^{p} \equiv a^{p} + b^{p} \pmod{p}$
+</div>
+
+<div class="example-box">
+<strong>Пример 1.</strong> 9-я степень однозначного числа оканчивается на 7. Найти число.<br>
+$a^{9} \equiv 7 \pmod{10}$. По Эйлеру: $a^{\varphi(10)} = a^{4} \equiv 1$, $a^{8} \equiv 1$. Значит $a = a^{9}/a^{8} \equiv 7/1 = 7 \pmod{10}$. Ответ: 7.
+</div>
+
+<div class="example-box">
+<strong>Пример 2.</strong> Найти остаток от деления $7^{402}$ на 101.<br>
+101 — простое, $(7,101)=1$. По Ферму: $7^{100} \equiv 1 \pmod{101}$.<br>
+$7^{400} \equiv 1$, $7^{2} = 49$. Значит $7^{402} \equiv 49 \pmod{101}$. Ответ: 49.
+</div>
+</div>
+
+<div class="section">
+<h2>✏️ Задания</h2>
+<p style="margin-bottom:12px; color:#555;">Задачки из методички.</p>
+<div id="tasks"></div>
+<div class="progress" id="progress">Решено: <span id="score">0</span> / <span id="total">0</span></div>
+<button class="reset-btn" onclick="resetAll()">🔄 Сбросить всё</button>
+</div>
+</div>
+
+<script>
+const tasksData = [
+  { text: '1. По теореме Ферма, 2^(p−1) ≡ ? (mod p) для простого p > 2.', answers: ['1'] },
+  { text: '2. Найдите φ(12).', answers: ['4'], hint: 'φ(12) = 12·(1−1/2)·(1−1/3) = 4.' },
+  { text: '3. Найдите φ(100).', answers: ['40'], hint: 'φ(100) = 100·(1−1/2)·(1−1/5) = 40.' },
+  { text: '4. Найдите остаток от деления 3^100 на 7.', answers: ['1'], hint: 'φ(7)=6, 100=16·6+4, 3^100 ≡ 3^4 = 81 ≡ 4 (mod 7)... Нет: 3^6≡1, 3^100=3^(6·16+4)≡3^4=81≡4. Проверьте!' },
+  { text: '5. Верно ли, что 5^12 ≡ 1 (mod 13)?', type: 'select', answers: ['да'], hint: '13 — простое, φ(13)=12, по Ферму 5^12≡1.' },
+  { text: '6. Найдите остаток от деления 2^30 на 11.', answers: ['1'], hint: 'φ(11)=10, 2^10≡1, 2^30=(2^10)^3≡1.' },
+  { text: '7. Докажите, что 73^12 − 1 делится на 105 = 3·5·7.', type: 'select', answers: ['да'], hint: 'По Ферму: 73^2≡1(mod3), 73^4≡1(mod5), 73^6≡1(mod7).' },
+  { text: '8. Найдите 2 последних цифры числа 3^2025.', answers: ['43'], hint: 'φ(100)=40, 2025=50·40+25, 3^2025≡3^25(mod100). 3^20≡1, 3^25≡3^5=243≡43.' }
+];
+function normalize(s){return s.trim().toLowerCase()}
+function renderTasks(){var c=document.getElementById('tasks');c.innerHTML='';tasksData.forEach(function(t,i){var d=document.createElement('div');d.className='task';var f;if(t.type==='select'){f='<select id="ans-'+i+'"><option value="">— выберите —</option><option value="да">да</option><option value="нет">нет</option></select>'}else{f='<input type="text" id="ans-'+i+'" placeholder="ответ" style="width:120px;">'}d.innerHTML='<p>'+(i+1)+'. '+t.text+'</p><div class="fields">'+f+'<button onclick="check('+i+')">Проверить</button></div><div class="result" id="result-'+i+'"></div>';c.appendChild(d)});document.getElementById('total').textContent=tasksData.length;updateProgress()}
+function check(i){var t=tasksData[i],r=document.getElementById('result-'+i);if(t.type==='select'){var s=document.getElementById('ans-'+i),v=s.value;if(!v){r.innerHTML='<span class="no">Выберите ответ.</span>';return}var ok=t.answers.some(function(a){return normalize(v)===normalize(a)});s.className=ok?'correct':'wrong';r.innerHTML=ok?'<span class="ok">Верно!</span>':'<span class="no">Неверно.</span>';updateProgress();return}var inp=document.getElementById('ans-'+i),v=inp.value.trim();if(!v){r.innerHTML='<span class="no">Введите ответ.</span>';return}var ok=t.answers.some(function(a){return normalize(v)===normalize(a)});inp.className=ok?'correct':'wrong';r.innerHTML=ok?'<span class="ok">Верно!</span>':'<span class="no">Неверно.</span>';updateProgress()}
+function updateProgress(){var c=0;tasksData.forEach(function(_,i){var e=document.getElementById('ans-'+i);if(e&&e.className==='correct')c++});document.getElementById('score').textContent=c}
+function resetAll(){tasksData.forEach(function(_,i){var t=tasksData[i],r=document.getElementById('result-'+i);if(t.type==='select'){var s=document.getElementById('ans-'+i);if(s){s.selectedIndex=0;s.className=''}}else{var inp=document.getElementById('ans-'+i);if(inp){inp.value='';inp.className=''}}if(r)r.innerHTML=''});updateProgress()}
+renderTasks();
+</script>
 </body>
 </html>

@@ -4,16 +4,94 @@
 <meta charset="UTF-8">
 <title>Пункт 24. Мера и категория на прямой — Интерактивный учебник</title>
 <link rel="stylesheet" href="style.css">
+<script>
+MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 </head>
 <body>
-<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">24. Мера и категория на прямой</span></div></div>
+<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§5. Трансцендентные числа</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 24</span></div></div>
 <div class="container">
 
-<div class="section" style="text-align:center;padding:60px 20px;">
-<h2 style="border:none;text-align:center;padding:0;font-size:1.3em;">24. Мера и категория на прямой</h2>
-<p style="color:#86868b;margin-top:16px;">Раздел находится в разработке. Скоро здесь появится теория и задания.</p>
+<h1>Пункт 24. Мера и категория на прямой</h1>
+<p class="subtitle">§5. Трансцендентные числа — Теория чисел</p>
+
+<div class="section">
+<h2>📖 Теория</h2>
+
+<div class="def">
+<strong>Определение.</strong> Множество $A$ <strong>плотно</strong> в интервале $I$, если оно имеет непустое пересечение с каждым подинтервалом из $I$. Множество $A$ <strong>нигде не плотно</strong>, если оно не плотно ни в каком интервале на прямой.
 </div>
 
+<div class="thm">
+<strong>Теорема 1 (Кантор).</strong> Для любой последовательности $\{a_n\}$ действительных чисел и для любого интервала $I$ существует точка $p \in I$ такая, что $p \neq a_n$ для любого $n \in \mathbb{N}$.
 </div>
+
+<div class="thm">
+<strong>Теорема 2.</strong> 1) Любое подмножество нигде не плотного множества нигде не плотно.<br>
+2) Объединение двух (или любого конечного числа) нигде не плотных множеств нигде не плотно.<br>
+3) Замыкание нигде не плотного множества нигде не плотно.
+</div>
+
+<div class="def">
+<strong>Определение.</strong> Множество, которое можно представить в виде конечного или счётного объединения нигде не плотных множеств, называется <strong>множеством первой категории</strong> (по Бэру). Множество, которое нельзя представить в таком виде, называется <strong>множеством второй категории</strong>.
+</div>
+
+<div class="thm">
+<strong>Теорема 3.</strong> 1) Дополнение любого множества первой категории на прямой является плотным.<br>
+2) Никакой интервал в $\mathbb{R}$ не является множеством первой категории.
+</div>
+
+<div class="def">
+<strong>Определение.</strong> Множество $A \subset \mathbb{R}$ называется <strong>множеством меры нуль</strong>, если для любого $\varepsilon > 0$ существует последовательность интервалов $I_n$, таких что $A \subset \bigcup I_n$ и $\sum |I_n| < \varepsilon$.
+</div>
+
+<div class="thm">
+<strong>Теорема 4 (Лебег).</strong> Любое счётное объединение множеств меры нуль является множеством меры нуль.
+</div>
+
+<div class="thm">
+<strong>Теорема 5 (Гейне–Борель).</strong> Если последовательность интервалов $I_n$ покрывает интервал $I$, то $\sum |I_n| \geq |I|$.
+</div>
+
+<div class="thm">
+<strong>Теорема 6.</strong> Числовую прямую можно разбить на два дополняющих друг друга множества $A$ и $B$, так что $A$ есть множество первой категории, а $B$ имеет меру нуль.
+</div>
+
+<div class="note">
+Из этой теоремы следует, что множество рациональных чисел $\mathbb{Q}$ — множество первой категории, но имеет меру нуль? Нет: $\mathbb{Q}$ — счётное множество (первая категория, мера нуль). Пример несчётного множества меры нуль первой категории — канторово совершенное множество.
+</div>
+</div>
+
+<div class="section">
+<h2>✏️ Задания</h2>
+<p style="margin-bottom:12px; color:#555;">Задачки из методички.</p>
+<div id="tasks"></div>
+<div class="progress" id="progress">Решено: <span id="score">0</span> / <span id="total">0</span></div>
+<button class="reset-btn" onclick="resetAll()">🔄 Сбросить всё</button>
+</div>
+</div>
+
+<script>
+const tasksData = [
+  { text: '1. Является ли множество $\mathbb{Q}$ рациональных чисел множеством первой категории?', type: 'select', answers: ['да'], hint: '$\mathbb{Q}$ — счётное объединение одноточий, каждое из которых нигде не плотно.' },
+  { text: '2. Является ли множество $\mathbb{Q}$ множеством меры нуль?', type: 'select', answers: ['да'], hint: 'Счётное множество всегда имеет меру нуль.' },
+  { text: '3. Верно ли, что любое счётное множество — множество первой категории?', type: 'select', answers: ['да'], hint: 'Одноточки нигде не плотны, счётное объединение — первая категория.' },
+  { text: '4. Является ли отрезок [0; 1] множеством первой категории?', type: 'select', answers: ['нет'], hint: 'Теорема 3(2): никакой интервал не является множеством первой категории.' },
+  { text: '5. Канторово совершенное множество — это множество...', type: 'select', answers: ['меры нуль и первой категории'], hint: 'Суммарная длина выкинутых интервалов = 1, значит мера = 0. Оно нигде не плотно → первая категория.' },
+  { text: '6. Какова мера множества всех иррациональных чисел на [0; 1]?', answers: ['1'], hint: 'Иррациональные = [0;1] \ $\mathbb{Q}$. $\mathbb{Q}$ имеет меру 0, значит иррациональные — меру 1.' },
+  { text: '7. Какова категория множества всех иррациональных чисел на [0; 1]?', answers: ['второй категории'], hint: 'Дополнение $\mathbb{Q}$ (первая категория) плотно, значит иррациональные — второй категории.' },
+  { text: '8. Существует ли несчётное множество меры нуль, плотное на [0; 1]?', type: 'select', answers: ['да'], hint: 'Да, существует (например, дополнение до [0;1] множества первой категории меры нуль).' }
+];
+function normalize(s){return s.trim().toLowerCase()}
+function renderTasks(){var c=document.getElementById('tasks');c.innerHTML='';tasksData.forEach(function(t,i){var d=document.createElement('div');d.className='task';var f;if(t.type==='select'){f='<select id="ans-'+i+'"><option value="">— выберите —</option><option value="да">да</option><option value="нет">нет</option></select>'}else{f='<input type="text" id="ans-'+i+'" placeholder="ответ" style="width:200px;">'}d.innerHTML='<p>'+(i+1)+'. '+t.text+'</p><div class="fields">'+f+'<button onclick="check('+i+')">Проверить</button></div><div class="result" id="result-'+i+'"></div>';c.appendChild(d)});document.getElementById('total').textContent=tasksData.length;updateProgress()}
+function check(i){var t=tasksData[i],r=document.getElementById('result-'+i);if(t.type==='select'){var s=document.getElementById('ans-'+i),v=s.value;if(!v){r.innerHTML='<span class="no">Выберите ответ.</span>';return}var ok=t.answers.some(function(a){return normalize(v)===normalize(a)});s.className=ok?'correct':'wrong';r.innerHTML=ok?'<span class="ok">Верно!</span>':'<span class="no">Неверно.</span>';updateProgress();return}var inp=document.getElementById('ans-'+i),v=inp.value.trim();if(!v){r.innerHTML='<span class="no">Введите ответ.</span>';return}var ok=t.answers.some(function(a){return normalize(v)===normalize(a)});inp.className=ok?'correct':'wrong';r.innerHTML=ok?'<span class="ok">Верно!</span>':'<span class="no">Неверно.</span>';updateProgress()}
+function updateProgress(){var c=0;tasksData.forEach(function(_,i){var e=document.getElementById('ans-'+i);if(e&&e.className==='correct')c++});document.getElementById('score').textContent=c}
+function resetAll(){tasksData.forEach(function(_,i){var t=tasksData[i],r=document.getElementById('result-'+i);if(t.type==='select'){var s=document.getElementById('ans-'+i);if(s){s.selectedIndex=0;s.className=''}}else{var inp=document.getElementById('ans-'+i);if(inp){inp.value='';inp.className=''}}if(r)r.innerHTML=''});updateProgress()}
+renderTasks();
+</script>
 </body>
 </html>

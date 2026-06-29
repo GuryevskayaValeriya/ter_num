@@ -4,16 +4,235 @@
 <meta charset="UTF-8">
 <title>Пункт 14. Примеры мультипликативных функций — Интерактивный учебник</title>
 <link rel="stylesheet" href="style.css">
+<script>
+MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 </head>
 <body>
-<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">14. Примеры мультипликативных функций</span></div></div>
+<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§3. Важнейшие функции</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 14</span></div></div>
 <div class="container">
 
-<div class="section" style="text-align:center;padding:60px 20px;">
-<h2 style="border:none;text-align:center;padding:0;font-size:1.3em;">14. Примеры мультипликативных функций</h2>
-<p style="color:#86868b;margin-top:16px;">Раздел находится в разработке. Скоро здесь появится теория и задания.</p>
+<h1>Пункт 14. Примеры мультипликативных функций</h1>
+<p class="subtitle">§3. Важнейшие функции в теории чисел — Теория чисел</p>
+
+<!-- ТЕОРИЯ -->
+<div class="section">
+<h2>📖 Теория</h2>
+
+<div class="thm">
+<strong>Пример 1. Число делителей $\tau(a)$.</strong><br>
+Пусть $\theta(a) = a^0 \equiv 1$. Тогда по лемме 1 из п. 13:
+<div class="formula">$$\tau(a) = \sum_{d|a} 1 = (\alpha_1+1)(\alpha_2+1)\cdots(\alpha_n+1)$$</div>
+для $a = p_1^{\alpha_1} \cdots p_n^{\alpha_n}$. Функция $\tau(a)$ мультипликативна.
+</div>
+
+<div class="example-box">
+<strong>Пример.</strong> $\tau(720) = \tau(2^4 \cdot 3^2 \cdot 5) = (4+1)(2+1)(1+1) = $ <strong>30</strong>.
+</div>
+
+<div class="thm">
+<strong>Пример 2. Сумма делителей $S(a)$.</strong><br>
+Пусть $\theta(a) = a$. Тогда:
+<div class="formula">$$S(a) = \frac{p_1^{\alpha_1+1}-1}{p_1-1} \cdot \ldots \cdot \frac{p_n^{\alpha_n+1}-1}{p_n-1}$$</div>
+Функция $S(a)$ мультипликативна.
+</div>
+
+<div class="example-box">
+<strong>Пример.</strong> $S(720) = S(2^4 \cdot 3^2 \cdot 5) = \frac{2^5-1}{2-1} \cdot \frac{3^3-1}{3-1} \cdot \frac{5^2-1}{5-1} = 31 \cdot 13 \cdot 6 = $ <strong>2418</strong>.
+</div>
+
+<div class="thm">
+<strong>Пример 3. Функция Мебиуса $\mu(a)$.</strong><br>
+Определяется так: $\mu(p) = -1$ для простых $p$; $\mu(p^{\alpha}) = 0$ при $\alpha > 1$; для остальных — по мультипликативности.<br>
+Если $a = p_1 \cdot p_2 \cdots p_k$ (свободно от квадратов), то $\mu(a) = (-1)^k$. Если $a$ делится на квадрат — $\mu(a) = 0$.
+</div>
+
+<div class="thm">
+<strong>Лемма 1.</strong> Пусть $\theta(a)$ — мультипликативная, $a = p_1^{\alpha_1} \cdots p_n^{\alpha_n}$. Тогда:
+<div class="formula">$$\sum_{d|a} \mu(d) \cdot \theta(d) = (\theta(1)-\theta(p_1)) \cdot (\theta(1)-\theta(p_2)) \cdots (\theta(1)-\theta(p_n))$$</div>
+</div>
+
+<div class="thm">
+<strong>Следствие 1.</strong> При $a > 1$:
+<div class="formula">$$\sum_{d|a} \frac{\mu(d)}{d} = \left(1-\frac{1}{p_1}\right) \cdot \left(1-\frac{1}{p_2}\right) \cdots \left(1-\frac{1}{p_n}\right)$$</div>
+</div>
+
+<div class="thm">
+<strong>Пример 4. Функция Эйлера $\varphi(a)$.</strong><br>
+$\varphi(a)$ — количество чисел из $0, 1, 2, \ldots, a-1$, взаимно простых с $a$.
+</div>
+
+<div class="thm">
+<strong>Лемма 2 (формула Эйлера).</strong> Пусть $a = p_1^{\alpha_1} \cdots p_n^{\alpha_n}$. Тогда:
+<div class="formula">$$\varphi(a) = a \cdot \left(1-\frac{1}{p_1}\right) \cdot \left(1-\frac{1}{p_2}\right) \cdots \left(1-\frac{1}{p_n}\right)$$</div>
+В частности: $\varphi(p^{\alpha}) = p^{\alpha} - p^{\alpha-1}$, $\varphi(p) = p-1$.
+</div>
+
+<div class="example-box">
+<strong>Численные примеры.</strong><br>
+$\varphi(5) = 5-1 = 4$<br>
+$\varphi(30) = \varphi(2 \cdot 3 \cdot 5) = (2-1)(3-1)(5-1) = 8$<br>
+$\varphi(60) = 60 \cdot (1-1/2)(1-1/3)(1-1/5) = 16$
+</div>
+
+<div class="note">
+<strong>Правило включений и исключений.</strong> Формула Эйлера отражает этот принцип: из общего числа $a$ вычитаем числа, кратные каждому $p_i$, прибавляем кратные произведений пар, вычитаем тройных и т.д.
+</div>
+
+<div class="thm">
+<strong>Следствие 2.</strong> Функция $\varphi(a)$ мультипликативна.<br>
+<strong>Следствие 3.</strong> $\sum_{d|a} \varphi(d) = a$.
 </div>
 
 </div>
+
+<!-- ЗАДАНИЯ -->
+<div class="section">
+<h2>✏️ Задания</h2>
+<p style="margin-bottom:12px; color:#555;">Задачки из методички.</p>
+
+<div id="tasks"></div>
+<div class="progress" id="progress">Решено: <span id="score">0</span> / <span id="total">0</span></div>
+<button class="reset-btn" onclick="resetAll()">🔄 Сбросить всё</button>
+</div>
+
+</div>
+
+<script>
+const tasksData = [
+  {
+    text: '1. Найдите число делителей τ(5600). (5600 = 2⁴·5²·7)',
+    answers: ['30'],
+    hint: 'τ = (4+1)(2+1)(1+1) = 5·3·2 = 30.'
+  },
+  {
+    text: '2. Найдите сумму делителей S(6).',
+    answers: ['12'],
+    hint: 'Делители 6: 1,2,3,6. Сумма = 12. Или: S(2·3) = (2²−1)/(2−1)·(3²−1)/(3−1) = 3·4 = 12.'
+  },
+  {
+    text: '3. Найдите сумму делителей S(28).',
+    answers: ['56'],
+    hint: '28 = 2²·7, S = (2³−1)/(2−1)·(7²−1)/(7−1) = 7·8 = 56.'
+  },
+  {
+    text: '4. Число 6 является совершенным (сумма собственных делителей = самому числу). Верно ли, что 28 — также совершенное число?',
+    type: 'select',
+    answers: ['да'],
+    hint: 'Собственные делители 28: 1+2+4+7+14 = 28. Да!'
+  },
+  {
+    text: '5. Чему равна функция Мебиуса μ(30)?',
+    answers: ['-1'],
+    hint: '30 = 2·3·5, три различных простых, μ(30) = (−1)³ = −1.'
+  },
+  {
+    text: '6. Чему равна μ(12)?',
+    answers: ['0'],
+    hint: '12 = 2²·3, делится на квадрат, μ(12) = 0.'
+  },
+  {
+    text: '7. Найдите φ(12).',
+    answers: ['4'],
+    hint: 'φ(12) = φ(2²·3) = 12·(1−1/2)(1−1/3) = 12·1/2·2/3 = 4. Числа: 1,5,7,11.'
+  },
+  {
+    text: '8. Найдите φ(360).',
+    answers: ['96'],
+    hint: '360 = 2³·3²·5, φ = 360·(1−1/2)(1−1/3)(1−1/5) = 360·1/2·2/3·4/5 = 96.'
+  },
+  {
+    text: '9. Верно ли, что φ(n) всегда чётно при n &gt; 2?',
+    type: 'select',
+    answers: ['да'],
+    hint: 'Если k взаимно просто с n и k &lt; n, то n−k тоже взаимно просто и ≠ k. Значит числа попарны.'
+  },
+  {
+    text: '10. Сколько делителей у числа 720 = 2⁴·3²·5?',
+    answers: ['30'],
+    hint: 'τ(720) = (4+1)(2+1)(1+1) = 30.'
+  }
+];
+
+function normalize(s) {
+  return s.trim().toLowerCase();
+}
+
+function renderTasks() {
+  var container = document.getElementById('tasks');
+  container.innerHTML = '';
+  tasksData.forEach(function(t, idx) {
+    var div = document.createElement('div');
+    div.className = 'task';
+    var fieldHtml;
+    if (t.type === 'select') {
+      fieldHtml = '<select id="ans-' + idx + '"><option value="">— выберите —</option><option value="да">да</option><option value="нет">нет</option></select>';
+    } else {
+      fieldHtml = '<input type="text" id="ans-' + idx + '" placeholder="ответ" style="width:120px;">';
+    }
+    div.innerHTML =
+      '<p>' + (idx + 1) + '. ' + t.text + '</p>' +
+      '<div class="fields">' + fieldHtml +
+      '<button onclick="check(' + idx + ')">Проверить</button></div>' +
+      '<div class="result" id="result-' + idx + '"></div>';
+    container.appendChild(div);
+  });
+  document.getElementById('total').textContent = tasksData.length;
+  updateProgress();
+}
+
+function check(idx) {
+  var t = tasksData[idx];
+  var res = document.getElementById('result-' + idx);
+  if (t.type === 'select') {
+    var sel = document.getElementById('ans-' + idx);
+    var v = sel.value;
+    if (!v) { res.innerHTML = '<span class="no">Выберите ответ.</span>'; return; }
+    var ok = t.answers.some(function(a) { return normalize(v) === normalize(a); });
+    sel.className = ok ? 'correct' : 'wrong';
+    res.innerHTML = ok ? '<span class="ok">Верно!</span>' : '<span class="no">Неверно.</span>';
+    updateProgress();
+    return;
+  }
+  var inp = document.getElementById('ans-' + idx);
+  var v = inp.value.trim();
+  if (!v) { res.innerHTML = '<span class="no">Введите ответ.</span>'; return; }
+  var ok = t.answers.some(function(a) { return normalize(v) === normalize(a); });
+  inp.className = ok ? 'correct' : 'wrong';
+  res.innerHTML = ok ? '<span class="ok">Верно!</span>' : '<span class="no">Неверно.</span>';
+  updateProgress();
+}
+
+function updateProgress() {
+  var count = 0;
+  tasksData.forEach(function(_, idx) {
+    var el = document.getElementById('ans-' + idx);
+    if (el && el.className === 'correct') count++;
+  });
+  document.getElementById('score').textContent = count;
+}
+
+function resetAll() {
+  tasksData.forEach(function(_, idx) {
+    var t = tasksData[idx];
+    var res = document.getElementById('result-' + idx);
+    if (t.type === 'select') {
+      var sel = document.getElementById('ans-' + idx);
+      if (sel) { sel.selectedIndex = 0; sel.className = ''; }
+    } else {
+      var inp = document.getElementById('ans-' + idx);
+      if (inp) { inp.value = ''; inp.className = ''; }
+    }
+    if (res) res.innerHTML = '';
+  });
+  updateProgress();
+}
+
+renderTasks();
+</script>
 </body>
 </html>

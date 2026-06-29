@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <title>Пункт 1. Деление с остатком — Интерактивный учебник</title>
 <link rel="stylesheet" href="style.css">
+<script>
+MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 </head>
 <body>
 <div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§1. Основные понятия</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 1</span></div></div>
@@ -16,40 +23,40 @@
 <h2>📖 Теория</h2>
 
 <div class="def">
-<strong>Определение.</strong> Пусть <em>a, b</em> ∈ ℤ. Число <em>a</em> <strong>делится</strong> на число <em>b</em>, если найдётся такое число <em>q</em> ∈ ℤ, что <em>a = q·b</em>.<br>
-Синонимы: <em>a</em> кратно <em>b</em>; <em>b</em> — делитель <em>a</em>.<br>
-Запись: <em>a</em> ⋮ <em>b</em> или <em>b</em> | <em>a</em>.
+<strong>Определение.</strong> Пусть $a, b \in \mathbb{Z}$. Число $a$ <strong>делится</strong> на число $b$, если найдётся такое число $q \in \mathbb{Z}$, что $a = q \cdot b$.<br>
+Синонимы: $a$ кратно $b$; $b$ — делитель $a$.<br>
+Запись: $b \mid a$.
 </div>
 
-<p>Отношение делимости на множестве натуральных чисел ℕ рефлексивно, антисимметрично и транзитивно — то есть является отношением частичного порядка.</p>
+<p>Отношение делимости на множестве натуральных чисел $\mathbb{N}$ рефлексивно, антисимметрично и транзитивно — то есть является отношением частичного порядка.</p>
 
 <div class="theorem">
-<strong>Теорема (о делении с остатком).</strong> Для данного целого отличного от нуля числа <em>b</em> всякое целое число <em>a</em> единственным образом представимо в виде<br>
-<div style="font-size:1.2em; text-align:center; margin:8px 0;"><strong>a = b·q + r</strong>, &nbsp; где &nbsp; <strong>0 ≤ r < |b|</strong>.</div>
+<strong>Теорема (о делении с остатком).</strong> Для данного целого отличного от нуля числа $b$ всякое целое число $a$ единственным образом представимо в виде<br>
+$$a = bq + r, \quad \text{где } 0 \le r < |b|.$$
 </div>
 
 <div class="def">
-<strong>Определение.</strong> Число <em>q</em> называется <strong>неполным частным</strong>, а число <em>r</em> — <strong>остатком</strong> от деления <em>a</em> на <em>b</em>.
+<strong>Определение.</strong> Число $q$ называется <strong>неполным частным</strong>, а число $r$ — <strong>остатком</strong> от деления $a$ на $b$.
 </div>
 
 <div class="note">
-<strong>Важно!</strong> Остаток <strong>всегда неотрицательный</strong> (0 ≤ r < |b|). Неполное частное может быть любым целым числом.
+<strong>Важно!</strong> Остаток <strong>всегда неотрицательный</strong> ($0 \le r < |b|$). Неполное частное может быть любым целым числом.
 </div>
 
 <div class="example-box">
-<strong>Пример 1.</strong> Разделим 23 на 5:<br>
-23 = 5·4 + 3 → неполное частное <code>4</code>, остаток <code>3</code>.<br><br>
-<strong>Пример 2.</strong> Разделим −23 на 5:<br>
-Надо подобрать <em>q</em> так, чтобы остаток был 0 ≤ r < 5.<br>
-−23 = 5·(−5) + 2 → неполное частное <code>−5</code>, остаток <code>2</code>.<br>
-(Проверка: 5·(−5) + 2 = −25 + 2 = −23.)<br>
-<strong>Не путайте:</strong> −23 = 5·(−4) − 3 — это <strong>неверно</strong>, так как остаток −3 &lt; 0!
+<strong>Пример 1.</strong> Разделим $23$ на $5$:<br>
+$23 = 5 \cdot 4 + 3$ → неполное частное $4$, остаток $3$.<br><br>
+<strong>Пример 2.</strong> Разделим $-23$ на $5$:<br>
+Надо подобрать $q$ так, чтобы остаток был $0 \le r < 5$.<br>
+$-23 = 5 \cdot (-5) + 2$ → неполное частное $-5$, остаток $2$.<br>
+(Проверка: $5 \cdot (-5) + 2 = -25 + 2 = -23$.)<br>
+<strong>Не путайте:</strong> $-23 = 5 \cdot (-4) - 3$ — это <strong>неверно</strong>, так как остаток $-3 < 0$!
 </div>
 
 <div class="example-box">
-<strong>Пример 3.</strong> Разделим 17 на −6:<br>
-17 = (−6)·(−2) + 5 → неполное частное <code>−2</code>, остаток <code>5</code>.<br>
-Проверка: (−6)·(−2) + 5 = 12 + 5 = 17. ✓
+<strong>Пример 3.</strong> Разделим $17$ на $-6$:<br>
+$17 = (-6) \cdot (-2) + 5$ → неполное частное $-2$, остаток $5$.<br>
+Проверка: $(-6) \cdot (-2) + 5 = 12 + 5 = 17$. ✓
 </div>
 </div>
 

@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <title>Пункт 2. Наибольший общий делитель — Интерактивный учебник</title>
 <link rel="stylesheet" href="style.css">
+<script>
+MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 </head>
 <body>
 
@@ -16,55 +23,55 @@
 <h2>📖 Теория</h2>
 
 <div class="def">
-<strong>Определение.</strong> Число <em>d</em> ∈ ℤ, делящее одновременно числа <em>a, b, c, …, k</em> ∈ ℤ, называется <strong>общим делителем</strong> этих чисел. Наибольшее <em>d</em> с таким свойством называется <strong>наибольшим общим делителем</strong>.<br>
-Обозначение: <em>d</em> = (a, b, c, …, k).
+<strong>Определение.</strong> Число $d \in \mathbb{Z}$, делящее одновременно числа $a, b, c, \ldots, k \in \mathbb{Z}$, называется <strong>общим делителем</strong> этих чисел. Наибольшее $d$ с таким свойством называется <strong>наибольшим общим делителем</strong>.<br>
+Обозначение: $d = (a, b, c, \ldots, k)$.
 </div>
 
 <div class="theorem">
-<strong>Теорема (Свойство 1).</strong> Если (a, b) = d, то найдутся такие целые числа u и v, что d = a·u + b·v.
+<strong>Теорема (Свойство 1).</strong> Если $(a, b) = d$, то найдутся такие целые числа $u$ и $v$, что $d = au + bv$.
 </div>
 
 <p>Это представление НОД называется <strong>линейным представлением</strong> или соотношением Безу.</p>
 
 <div class="prop">
-<strong>Свойство 2.</strong> Для любых целых a и k: (a, ka) = a; (1, a) = 1.
+<strong>Свойство 2.</strong> Для любых целых $a$ и $k$: $(a, ka) = a$; $(1, a) = 1$.
 </div>
 
 <div class="prop">
-<strong>Свойство 3.</strong> Если a = bq + c, то совокупность общих делителей a и b совпадает с совокупностью общих делителей b и c. В частности, (a, b) = (b, c).
+<strong>Свойство 3.</strong> Если $a = bq + c$, то совокупность общих делителей $a$ и $b$ совпадает с совокупностью общих делителей $b$ и $c$. В частности, $(a, b) = (b, c)$.
 </div>
 
 <div class="prop">
-<strong>Свойство 4.</strong> (am, bm) = m·(a, b).
+<strong>Свойство 4.</strong> $(am, bm) = m \cdot (a, b)$.
 </div>
 
 <div class="prop">
-<strong>Свойство 5.</strong> Пусть s — делитель a и b. Тогда (a/s, b/s) = (a, b)/s.
+<strong>Свойство 5.</strong> Пусть $s$ — делитель $a$ и $b$. Тогда $(a/s,\, b/s) = (a, b)/s$.
 </div>
 
 <div class="prop">
-<strong>Свойство 6.</strong> (a/(a,b), b/(a,b)) = 1.
+<strong>Свойство 6.</strong> $\bigl(a/(a,b),\; b/(a,b)\bigr) = 1$.
 </div>
 
 <div class="prop">
-<strong>Свойство 7.</strong> Если (a, b) = 1, то (ac, b) = (c, b).
+<strong>Свойство 7.</strong> Если $(a, b) = 1$, то $(ac, b) = (c, b)$.
 </div>
 
 <div class="euclid">
 <strong>Алгоритм Евклида.</strong> Последовательно применяя свойство 3, можно эффективно находить НОД:<br>
-<em>a</em> = <em>b</em>·q<sub>1</sub> + r<sub>1</sub>, 0 ≤ r<sub>1</sub> < |b|<br>
-<em>b</em> = r<sub>1</sub>·q<sub>2</sub> + r<sub>2</sub>, 0 ≤ r<sub>2</sub> < r<sub>1</sub><br>
-r<sub>1</sub> = r<sub>2</sub>·q<sub>3</sub> + r<sub>3</sub>, 0 ≤ r<sub>3</sub> < r<sub>2</sub><br>
-…<br>
-r<sub>k−1</sub> = r<sub>k</sub>·q<sub>k+1</sub> + 0 → (a, b) = r<sub>k</sub>.
+$$a = b \cdot q_1 + r_1, \quad 0 \le r_1 < |b|$$
+$$b = r_1 \cdot q_2 + r_2, \quad 0 \le r_2 < r_1$$
+$$r_1 = r_2 \cdot q_3 + r_3, \quad 0 \le r_3 < r_2$$
+$$\ldots$$
+$$r_{k-1} = r_k \cdot q_{k+1} + 0 \;\;\Rightarrow\;\; (a, b) = r_k.$$
 </div>
 
 <div class="example-box">
-<strong>Пример.</strong> Найдём (84, 30) алгоритмом Евклида:<br>
-84 = 30·2 + 24<br>
-30 = 24·1 + 6<br>
-24 = 6·4 + 0 → (84, 30) = 6.<br><br>
-<strong>Проверка:</strong> 6 = 30 − 24·1 = 30 − (84 − 30·2) = 30·3 + 84·(−1) → u = −1, v = 3.
+<strong>Пример.</strong> Найдём $(84, 30)$ алгоритмом Евклида:<br>
+$$84 = 30 \cdot 2 + 24$$
+$$30 = 24 \cdot 1 + 6$$
+$$24 = 6 \cdot 4 + 0 \;\;\Rightarrow\;\; (84, 30) = 6.$$
+<br><strong>Проверка:</strong> $6 = 30 - 24 \cdot 1 = 30 - (84 - 30 \cdot 2) = 30 \cdot 3 + 84 \cdot (-1) \;\Rightarrow\; u = -1,\; v = 3$.
 </div>
 </div>
 

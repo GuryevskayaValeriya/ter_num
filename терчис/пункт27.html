@@ -4,16 +4,77 @@
 <meta charset="UTF-8">
 <title>Пункт 27. Число π — Интерактивный учебник</title>
 <link rel="stylesheet" href="style.css">
+<script>
+MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 </head>
 <body>
-<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">27. Число π</span></div></div>
+<div class="top-nav"><div class="top-nav-inner"><a href="index.html" class="brand">Теория чисел</a><span class="sep">/</span><a href="index.html">§5. Трансцендентные числа</a><span class="sep">/</span><span style="color:rgba(255,255,255,0.5);font-size:0.85em;">Пункт 27</span></div></div>
 <div class="container">
 
-<div class="section" style="text-align:center;padding:60px 20px;">
-<h2 style="border:none;text-align:center;padding:0;font-size:1.3em;">27. Число π</h2>
-<p style="color:#86868b;margin-top:16px;">Раздел находится в разработке. Скоро здесь появится теория и задания.</p>
+<h1>Пункт 27. Число $\pi \approx 3{,}14159\ldots$</h1>
+<p class="subtitle">§5. Трансцендентные числа — Теория чисел</p>
+
+<div class="section">
+<h2>📖 Теория</h2>
+
+<div class="def">
+<strong>Определение.</strong> Число $\pi$ — отношение длины окружности к её диаметру. Архимед вычислил, что $3 + \frac{10}{71} < \pi < 3 + \frac{1}{7}$, т.е. $3{,}1409 < \pi < 3{,}1429$.
 </div>
 
+<div class="thm">
+<strong>Теорема 1.</strong> Число $\pi$ иррационально.
 </div>
+
+<div class="example-box">
+<strong>Идея доказательства.</strong> Используется тождество Эрмита с функцией $\sin x$:<br>
+$\int_0^\pi f(x)\sin x\, dx = F(\pi) + F(0)$, где $F(x) = f(x) - f''(x) + f^{(4)}(x) - \ldots$<br>
+При $f(x) = \frac{b^n x^n (a - bx)^n}{n!}$ интеграл $< 1$ при больших $n$, а $F(\pi) + F(0)$ — целое число. Противоречие.
+</div>
+
+<div class="thm">
+<strong>Теорема 2 (Линдеман, 1882).</strong> Число $\pi$ трансцендентно.
+</div>
+
+<div class="example-box">
+<strong>Идея доказательства.</strong> Используется тождество Эрмита: $e^x F(x) - F(0) = \int_0^x e^{x-t} f(t)\, dt$. Если $\pi$ — алгебраическое, то $\gamma = i\pi$ — тоже алгебраическое. Пусть $\alpha_1, \ldots, \alpha_m$ — сопряжённые с $\gamma$. Тогда $1 + e^{\gamma_1} \cdots e^{\gamma_m} = 0$. При подходящем $f(x)$ левая часть — ненулевое целое, правая $< 1$. Противоречие.
+</div>
+
+<div class="note">
+Из доказательства трансцендентности $\pi$ следует неразрешимость древнегреческой задачи о квадратуре.circle: невозможно построить циркулем и линейкой отрезок длины $\pi$.
+</div>
+</div>
+
+<div class="section">
+<h2>✏️ Задания</h2>
+<p style="margin-bottom:12px; color:#555;">Задачки из методички.</p>
+<div id="tasks"></div>
+<div class="progress" id="progress">Решено: <span id="score">0</span> / <span id="total">0</span></div>
+<button class="reset-btn" onclick="resetAll()">🔄 Сбросить всё</button>
+</div>
+</div>
+
+<script>
+const tasksData = [
+  { text: '1. Число π является...', type: 'select', answers: ['иррациональным и трансцендентным'], hint: 'Теоремы 1 и 2.' },
+  { text: '2. Кто доказал трансцендентность числа π?', answers: ['линдеман'], hint: 'Фердинанд Линдеман, 1882 год.' },
+  { text: '3. Какова мера множества {π}? (множество из одного числа)', answers: ['мера нуль'], hint: 'Одна точка всегда имеет меру нуль.' },
+  { text: '4. Является ли число π² алгебраическим?', type: 'select', answers: ['нет'], hint: 'π² трансцендентно (иначе π было бы корнем x² − π² = 0 с алгебраическими коэффициентами).' },
+  { text: '5. Задача о квадратуре.circle после доказательства Линдемана...', type: 'select', answers: ['решена отрицательно'], hint: 'Невозможно построить отрезок длины π циркулем и линейкой.' },
+  { text: '6. Кто впервые вычислил π с высокой точностью (Архимед)?', answers: ['архимед'], hint: 'Архимед, приближение правильными 96-угольниками.' },
+  { text: '7. Является ли число 2π трансцендентным?', type: 'select', answers: ['да'], hint: '2π = e^(i·2π) + 1? Нет: 2π — произведение целого 2 и трансцендентного π, значит трансцендентно.' },
+  { text: '8. Какой метод используется для доказательства иррациональности π?', answers: ['интеграл от f(x)sin(x)'], hint: 'Тождество Эрмита с sin x: ∫ f(x)sin(x)dx = F(π) + F(0).' }
+];
+function normalize(s){return s.trim().toLowerCase()}
+function renderTasks(){var c=document.getElementById('tasks');c.innerHTML='';tasksData.forEach(function(t,i){var d=document.createElement('div');d.className='task';var f;if(t.type==='select'){f='<select id="ans-'+i+'"><option value="">— выберите —</option><option value="да">да</option><option value="нет">нет</option></select>'}else{f='<input type="text" id="ans-'+i+'" placeholder="ответ" style="width:200px;">'}d.innerHTML='<p>'+(i+1)+'. '+t.text+'</p><div class="fields">'+f+'<button onclick="check('+i+')">Проверить</button></div><div class="result" id="result-'+i+'"></div>';c.appendChild(d)});document.getElementById('total').textContent=tasksData.length;updateProgress()}
+function check(i){var t=tasksData[i],r=document.getElementById('result-'+i);if(t.type==='select'){var s=document.getElementById('ans-'+i),v=s.value;if(!v){r.innerHTML='<span class="no">Выберите ответ.</span>';return}var ok=t.answers.some(function(a){return normalize(v)===normalize(a)});s.className=ok?'correct':'wrong';r.innerHTML=ok?'<span class="ok">Верно!</span>':'<span class="no">Неверно.</span>';updateProgress();return}var inp=document.getElementById('ans-'+i),v=inp.value.trim();if(!v){r.innerHTML='<span class="no">Введите ответ.</span>';return}var ok=t.answers.some(function(a){return normalize(v)===normalize(a)});inp.className=ok?'correct':'wrong';r.innerHTML=ok?'<span class="ok">Верно!</span>':'<span class="no">Неверно.</span>';updateProgress()}
+function updateProgress(){var c=0;tasksData.forEach(function(_,i){var e=document.getElementById('ans-'+i);if(e&&e.className==='correct')c++});document.getElementById('score').textContent=c}
+function resetAll(){tasksData.forEach(function(_,i){var t=tasksData[i],r=document.getElementById('result-'+i);if(t.type==='select'){var s=document.getElementById('ans-'+i);if(s){s.selectedIndex=0;s.className=''}}else{var inp=document.getElementById('ans-'+i);if(inp){inp.value='';inp.className=''}}if(r)r.innerHTML=''});updateProgress()}
+renderTasks();
+</script>
 </body>
 </html>
